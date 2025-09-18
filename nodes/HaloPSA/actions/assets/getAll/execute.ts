@@ -82,7 +82,12 @@ export async function execute(
 	// String filters
 	if (filters.excludethese) qs.excludethese = filters.excludethese;
 	if (filters.globalSearchID) qs.globalSearchID = filters.globalSearchID;
-	if (filters.include_custom_fields) qs.include_custom_fields = filters.include_custom_fields;
+	// Handle include_custom_fields multiOptions - convert array to comma-separated string
+	if (filters.include_custom_fields && Array.isArray(filters.include_custom_fields) && filters.include_custom_fields.length > 0) {
+		qs.include_custom_fields = filters.include_custom_fields.join(',');
+	} else if (filters.include_custom_fields && typeof filters.include_custom_fields === 'string') {
+		qs.include_custom_fields = filters.include_custom_fields;
+	}
 	if (filters.integration_tenantids) qs.integration_tenantids = filters.integration_tenantids;
 	if (filters.integration_type) qs.integration_type = filters.integration_type;
 	if (filters.inventory_number) qs.inventory_number = filters.inventory_number;

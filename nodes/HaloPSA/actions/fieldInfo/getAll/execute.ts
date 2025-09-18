@@ -1,7 +1,6 @@
 import { IExecuteFunctions } from 'n8n-workflow';
 import { IDataObject } from 'n8n-workflow';
 import { apiRequest } from '../../../transport';
-import { ClientListResponse } from '../../interfaces/client';
 
 export async function execute(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
 	const returnAll = this.getNodeParameter('returnAll', index, false) as boolean;
@@ -13,7 +12,7 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 	}
 
 	const requestMethod = 'GET';
-	const endpoint = '/Client';
+	const endpoint = '/FieldInfo';
 	const body = {};
 	
 	// Build query parameters from filters
@@ -21,11 +20,6 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 	
 	if (filters) {
 		Object.assign(qs, filters);
-		
-		// Convert include_custom_fields array to comma-separated string
-		if (filters.include_custom_fields && Array.isArray(filters.include_custom_fields)) {
-			qs.include_custom_fields = filters.include_custom_fields.join(',');
-		}
 	}
 	
 	// Add pagination if not returning all
@@ -35,18 +29,9 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 
 	const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
 	
-	if (responseData && typeof responseData === 'object') {
-		const clientResponse = responseData as ClientListResponse;
-		
-		// Return the clients array if it exists, otherwise return the response as-is
-		if (clientResponse.clients && Array.isArray(clientResponse.clients)) {
-			return clientResponse.clients;
-		}
-	}
-	
 	// If it's already an array, return it directly
 	if (Array.isArray(responseData)) {
-		return responseData;
+		return responseData as IDataObject[];
 	}
 	
 	// Otherwise, wrap in array

@@ -15,6 +15,12 @@ export async function execute(
 	// Apply filters - mapping of available filters for sites
 	if (filters.client_id) qs.client_id = filters.client_id;
 	if (filters.inactive !== undefined) qs.inactive = filters.inactive;
+	// Handle include_custom_fields multiOptions - convert array to comma-separated string
+	if (filters.include_custom_fields && Array.isArray(filters.include_custom_fields) && filters.include_custom_fields.length > 0) {
+		qs.include_custom_fields = filters.include_custom_fields.join(',');
+	} else if (filters.include_custom_fields && typeof filters.include_custom_fields === 'string') {
+		qs.include_custom_fields = filters.include_custom_fields;
+	}
 	if (filters.includedetails !== undefined) qs.includedetails = filters.includedetails;
 	if (filters.order) qs.order = filters.order;
 	if (filters.order2) qs.order2 = filters.order2;

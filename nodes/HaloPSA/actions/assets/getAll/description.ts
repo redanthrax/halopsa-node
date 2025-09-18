@@ -222,9 +222,12 @@ export const getALLDescription: INodeProperties[] = [
 			{
 				displayName: 'Include Custom Fields',
 				name: 'include_custom_fields',
-				type: 'string',
-				default: '',
-				description: 'Comma-separated list of Custom Field IDs to include in the response',
+				type: 'multiOptions',
+				typeOptions: {
+					loadOptionsMethod: 'getCustomFields',
+				},
+				default: [],
+				description: 'Custom Field IDs to include in the response. Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Include Inactive',

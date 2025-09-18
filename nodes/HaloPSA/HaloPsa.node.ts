@@ -1,6 +1,7 @@
 import * as agents from './actions/agents';
 import * as assets from './actions/assets';
 import * as client from './actions/client';
+import * as fieldInfo from './actions/fieldInfo';
 import * as invoices from './actions/invoices';
 import * as sites from './actions/sites';
 import * as tickets from './actions/tickets';
@@ -68,6 +69,10 @@ export class HaloPsa implements INodeType {
 					value: 'client',
 				},
 				{
+					name: 'Field Info',
+					value: 'fieldInfo',
+				},
+				{
 					name: 'Invoice',
 					value: 'invoices',
 				},
@@ -109,6 +114,7 @@ export class HaloPsa implements INodeType {
 			...agents.description,
 			...assets.description,
 			...client.description,
+			...fieldInfo.description,
 			...invoices.description,
 			...sites.description,
 			...tickets.description,
@@ -169,6 +175,49 @@ export class HaloPsa implements INodeType {
 									name: status.name,
 									value: status.id.toString(),
 									description: status.shortname || '',
+								});
+							}
+						}
+					}
+					return options.sort((a, b) => a.name.localeCompare(b.name));
+				} catch (error) {
+					// Return empty array if there's an error loading options
+					return [];
+				}
+			},
+			getCustomFields: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+				const { apiRequest } = await import('./transport');
+				const resource = this.getCurrentNodeParameter('resource') as string;
+				
+				// Map resources to their typeid values in FieldInfo
+				const typeMapping: Record<string, number> = {
+					client: 2,
+					tickets: 1,
+					sites: 3,
+					assets: 5,
+				};
+				
+				const typeid = typeMapping[resource];
+				if (!typeid) {
+					return [];
+				}
+				
+				try {
+					const requestMethod = 'GET';
+					const endpoint = '/FieldInfo';
+					const body = {};
+					const qs = { typeid };
+
+					const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
+					
+					const options: INodePropertyOptions[] = [];
+					if (Array.isArray(responseData)) {
+						for (const field of responseData) {
+							if (field.id && field.label) {
+								options.push({
+									name: field.label,
+									value: field.id.toString(),
+									description: field.name || field.hint || '',
 								});
 							}
 						}

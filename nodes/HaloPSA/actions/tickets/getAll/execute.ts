@@ -152,7 +152,12 @@ export async function execute(
 	if (filters.includebreached) qs.includebreached = filters.includebreached;
 	if (filters.includechildren) qs.includechildren = filters.includechildren;
 	if (filters.includeclosed) qs.includeclosed = filters.includeclosed;
-	if (filters.include_custom_fields) qs.include_custom_fields = filters.include_custom_fields;
+	// Handle include_custom_fields multiOptions - convert array to comma-separated string
+	if (filters.include_custom_fields && Array.isArray(filters.include_custom_fields) && filters.include_custom_fields.length > 0) {
+		qs.include_custom_fields = filters.include_custom_fields.join(',');
+	} else if (filters.include_custom_fields && typeof filters.include_custom_fields === 'string') {
+		qs.include_custom_fields = filters.include_custom_fields;
+	}
 	if (filters.includefollowedonly) qs.includefollowedonly = filters.includefollowedonly;
 	if (filters.includehold) qs.includehold = filters.includehold;
 	if (filters.includeinactivetechs) qs.includeinactivetechs = filters.includeinactivetechs;
