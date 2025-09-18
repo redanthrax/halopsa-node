@@ -1,6 +1,6 @@
 # Assets Operations
 
-Complete asset management with CRUD operations, comprehensive filtering, and integration support across multiple platforms.
+Complete asset management with CRUD operations, comprehensive filtering, integration support across multiple platforms, and enhanced custom fields support.
 
 ## Get Many
 
@@ -50,7 +50,7 @@ Retrieve multiple assets from HaloPSA with extensive filtering and pagination op
 - **Search**: Filter response based on the search string
 
 ### Advanced Options
-- **Include Custom Fields**: Comma-separated list of Custom Field IDs to include
+- **Include Custom Fields**: Enhanced multi-select interface that dynamically loads asset custom fields (Type ID = 5) from FieldInfo
 - **Pagination**: Page Number, Page Size, Paginate options
 - **Ordering**: Order fields 1-5 with ascending/descending options
 - **Stock Bin Filters**: Filter by stock bin IDs and locations

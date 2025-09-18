@@ -43,7 +43,10 @@ Manage agent records with extensive filtering options for departments, teams, ro
 Complete asset management with CRUD operations, comprehensive filtering, and integration support across multiple platforms.
 
 ### [Clients](./docs/clients.md) 
-Manage client records including creation, updates, and retrieval.
+Manage client records including creation, updates, and retrieval with enhanced custom fields support.
+
+### [Field Info](./docs/field-info.md)
+Manage custom field definitions and metadata with CRUD operations and enhanced multi-select integration across resources.
 
 ### [Invoices](./docs/invoices.md)
 Comprehensive invoice management with CRUD operations, line item updates, and voiding capabilities.
@@ -71,6 +74,25 @@ Manage webhooks and automation runbooks with full CRUD operations and comprehens
 
 ### [Webhook Events](./docs/webhookEvents.md)
 Manage webhook events that define the types of activities that can trigger webhook notifications.
+
+## Enhanced Custom Fields Integration
+
+This package provides an enhanced custom fields experience across multiple HaloPSA resources:
+
+**Supported Resources:**
+- **Clients** - Dynamically loads client custom fields (Type ID = 2)
+- **Tickets** - Dynamically loads ticket custom fields (Type ID = 1) 
+- **Sites** - Dynamically loads site custom fields (Type ID = 3)
+- **Assets** - Dynamically loads asset custom fields (Type ID = 5)
+
+**Key Features:**
+- **Dynamic Field Loading**: Automatically retrieves available custom fields based on selected resource
+- **User-Friendly Interface**: Multi-select dropdown with field labels, descriptions, and hints
+- **Automatic Conversion**: Seamlessly converts selections to API-compatible comma-separated format
+- **Real-Time Updates**: Custom fields are loaded fresh from the FieldInfo endpoint for each use
+
+**Usage:**
+When using "Get Many" operations on supported resources, navigate to the **Include Custom Fields** parameter to select from dynamically loaded custom fields specific to that resource type.
 
 ## Resources
 

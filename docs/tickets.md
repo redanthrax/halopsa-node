@@ -13,6 +13,7 @@ Retrieve multiple tickets from HaloPSA with optional filtering.
   - Categories 1-4
   - Date range (From/To)
   - Include Details, Open Only
+  - **Include Custom Fields**: Enhanced multi-select interface that dynamically loads ticket custom fields (Type ID = 1) from FieldInfo
 
 
 ## Get by ID

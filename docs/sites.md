@@ -1,6 +1,6 @@
 # Sites Operations
 
-Complete site management with full CRUD operations, extensive configuration options, and comprehensive client integration.
+Complete site management with full CRUD operations, extensive configuration options, comprehensive client integration, and enhanced custom fields support.
 
 ## Get Many
 
@@ -18,7 +18,7 @@ Retrieve multiple sites from HaloPSA with comprehensive filtering and pagination
   - **Include Address**: Include site address in the response
   - **Include Details**: Whether to include extra objects in the response
   - **Include Notes**: Include site notes in the response
-  - **Include Custom Fields**: Comma-separated list of Custom Field IDs to include
+  - **Include Custom Fields**: Enhanced multi-select interface that dynamically loads site custom fields (Type ID = 3) from FieldInfo
   - **Search**: Filter response based on the search string
   - **Azure Sites**: Include only Azure sites
   - **GFI Sites**: Include only GFI sites
