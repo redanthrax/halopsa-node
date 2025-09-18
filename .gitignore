@@ -1,0 +1,25 @@
+# Node.js dependencies
+/node_modules
+
+# Build output
+/dist
+/build
+/lib
+
+# Logs and temporary files
+*.log
+.DS_Store
+.env
+.env.local
+.env.*.local
+
+# IDE and editor files
+.vscode
+.idea
+*.sublime-project
+*.sublime-workspace
+
+# n8n specific files (if applicable)
+# For example, if you have local test data or configuration that should not be committed
+# /test-data
+# /config.json

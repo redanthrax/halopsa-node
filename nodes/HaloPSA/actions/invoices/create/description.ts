@@ -1,0 +1,152 @@
+import { INodeProperties } from 'n8n-workflow';
+
+export const createDescription: INodeProperties[] = [
+	{
+		displayName: 'Client ID',
+		name: 'client_id',
+		type: 'number',
+		displayOptions: {
+			show: {
+				resource: ['invoices'],
+				operation: ['create'],
+			},
+		},
+		default: 0,
+		required: true,
+		description: 'The client ID for the invoice',
+	},
+	{
+		displayName: 'Additional Fields',
+		name: 'additionalFields',
+		type: 'collection',
+		placeholder: 'Add Field',
+		default: {},
+		displayOptions: {
+			show: {
+				resource: ['invoices'],
+				operation: ['create'],
+			},
+		},
+	options: [
+		{
+			displayName: 'Contract ID',
+			name: 'contract_id',
+			type: 'number',
+			default: 0,
+		},
+		{
+			displayName: 'Currency',
+			name: 'currency',
+			type: 'string',
+			default: '$',
+			description: 'The currency symbol',
+		},
+		{
+			displayName: 'Currency Code',
+			name: 'currency_code',
+			type: 'number',
+			default: 1,
+		},
+		{
+			displayName: 'Customer Order Number',
+			name: 'cust_order_number',
+			type: 'string',
+			default: '',
+		},
+		{
+			displayName: 'Due Date',
+			name: 'duedate',
+			type: 'dateTime',
+			default: '',
+			description: 'The due date for payment',
+		},
+		{
+			displayName: 'Hide Invoice',
+			name: 'hideinvoice',
+			type: 'boolean',
+			default: false,
+			description: 'Whether to hide the invoice',
+		},
+		{
+			displayName: 'Invoice Date',
+			name: 'invoice_date',
+			type: 'dateTime',
+			default: '',
+		},
+		{
+			displayName: 'Invoice Type',
+			name: 'invoicetype',
+			type: 'number',
+			default: 0,
+			description: 'The invoice type ID',
+		},
+		{
+			displayName: 'Notes 1',
+			name: 'notes_1',
+			type: 'string',
+			default: '',
+			description: 'Additional notes for the invoice',
+		},
+		{
+			displayName: 'Notes 2',
+			name: 'notes_2',
+			type: 'string',
+			default: '',
+			description: 'Additional notes for the invoice',
+		},
+		{
+			displayName: 'Notes 3',
+			name: 'notes_3',
+			type: 'string',
+			default: '',
+			description: 'Additional notes for the invoice',
+		},
+		{
+			displayName: 'Order Number',
+			name: 'order_number',
+			type: 'string',
+			default: '',
+			description: 'Purchase order number',
+		},
+		{
+			displayName: 'Payment Terms',
+			name: 'paymentterms',
+			type: 'number',
+			default: 0,
+			description: 'Payment terms in days',
+		},
+		{
+			displayName: 'Reference',
+			name: 'reference',
+			type: 'string',
+			default: '',
+		},
+		{
+			displayName: 'Schedule Date',
+			name: 'schedule_date',
+			type: 'dateTime',
+			default: '',
+			description: 'The scheduled date for the invoice',
+		},
+		{
+			displayName: 'Site Number',
+			name: 'sitenumber',
+			type: 'number',
+			default: 0,
+		},
+		{
+			displayName: 'Third Party Invoice Number',
+			name: 'thirdpartyinvoicenumber',
+			type: 'string',
+			default: '',
+		},
+		{
+			displayName: 'Ticket ID',
+			name: 'ticket_id',
+			type: 'number',
+			default: 0,
+			description: 'Associated ticket ID',
+		},
+	],
+	},
+];

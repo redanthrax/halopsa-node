@@ -1,0 +1,171 @@
+import { INodeProperties } from 'n8n-workflow';
+
+export const getALLDescription: INodeProperties[] = [
+	{
+		displayName: 'Return All',
+		name: 'returnAll',
+		type: 'boolean',
+		displayOptions: {
+			show: {
+				resource: ['sites'],
+				operation: ['getAll'],
+			},
+		},
+		default: false,
+		description: 'Whether to return all results or only up to a given limit',
+	},
+	{
+		displayName: 'Limit',
+		name: 'limit',
+		type: 'number',
+		displayOptions: {
+			show: {
+				resource: ['sites'],
+				operation: ['getAll'],
+				returnAll: [false],
+			},
+		},
+		typeOptions: {
+			minValue: 1,
+		},
+		default: 50,
+		description: 'Max number of results to return',
+	},
+	{
+		displayName: 'Filters',
+		name: 'filters',
+		type: 'collection',
+		placeholder: 'Add Filter',
+		default: {},
+		displayOptions: {
+			show: {
+				resource: ['sites'],
+				operation: ['getAll'],
+			},
+		},
+		options: [
+			{
+				displayName: 'Client ID',
+				name: 'client_id',
+				type: 'number',
+				default: 0,
+				description: 'Filter by the specified client',
+			},
+			{
+				displayName: 'Inactive',
+				name: 'inactive',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to include inactive sites',
+			},
+			{
+				displayName: 'Include Details',
+				name: 'includedetails',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to include extra objects in the response',
+			},
+			{
+				displayName: 'Order',
+				name: 'order',
+				type: 'string',
+				default: '',
+				description: 'The name of the field to order by first',
+			},
+			{
+				displayName: 'Order 2',
+				name: 'order2',
+				type: 'string',
+				default: '',
+				description: 'The name of the field to order by second',
+			},
+			{
+				displayName: 'Order 3',
+				name: 'order3',
+				type: 'string',
+				default: '',
+				description: 'The name of the field to order by third',
+			},
+			{
+				displayName: 'Order 4',
+				name: 'order4',
+				type: 'string',
+				default: '',
+				description: 'The name of the field to order by fourth',
+			},
+			{
+				displayName: 'Order 5',
+				name: 'order5',
+				type: 'string',
+				default: '',
+				description: 'The name of the field to order by fifth',
+			},
+			{
+				displayName: 'Order Desc',
+				name: 'orderdesc',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to order in descending order',
+			},
+			{
+				displayName: 'Order Desc 2',
+				name: 'orderdesc2',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to order second field in descending order',
+			},
+			{
+				displayName: 'Order Desc 3',
+				name: 'orderdesc3',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to order third field in descending order',
+			},
+			{
+				displayName: 'Order Desc 4',
+				name: 'orderdesc4',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to order fourth field in descending order',
+			},
+			{
+				displayName: 'Order Desc 5',
+				name: 'orderdesc5',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to order fifth field in descending order',
+			},
+			{
+				displayName: 'Page Number',
+				name: 'page_no',
+				type: 'number',
+				default: 0,
+				description: 'When using pagination, the page number to return',
+			},
+			{
+				displayName: 'Page Size',
+				name: 'page_size',
+				type: 'number',
+				default: 0,
+				typeOptions: {
+					maxValue: 100,
+				},
+				description: 'When using pagination, the size of the page (max: 100)',
+			},
+			{
+				displayName: 'Paginate',
+				name: 'pageinate',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to use pagination in the response',
+			},
+			{
+				displayName: 'Search',
+				name: 'search',
+				type: 'string',
+				default: '',
+				description: 'Filter response based on the search string',
+			},
+		],
+	},
+];
