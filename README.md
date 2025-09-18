@@ -75,25 +75,6 @@ Manage webhooks and automation runbooks with full CRUD operations and comprehens
 ### [Webhook Events](./docs/webhookEvents.md)
 Manage webhook events that define the types of activities that can trigger webhook notifications.
 
-## Enhanced Custom Fields Integration
-
-This package provides an enhanced custom fields experience across multiple HaloPSA resources:
-
-**Supported Resources:**
-- **Clients** - Dynamically loads client custom fields (Type ID = 2)
-- **Tickets** - Dynamically loads ticket custom fields (Type ID = 1) 
-- **Sites** - Dynamically loads site custom fields (Type ID = 3)
-- **Assets** - Dynamically loads asset custom fields (Type ID = 5)
-
-**Key Features:**
-- **Dynamic Field Loading**: Automatically retrieves available custom fields based on selected resource
-- **User-Friendly Interface**: Multi-select dropdown with field labels, descriptions, and hints
-- **Automatic Conversion**: Seamlessly converts selections to API-compatible comma-separated format
-- **Real-Time Updates**: Custom fields are loaded fresh from the FieldInfo endpoint for each use
-
-**Usage:**
-When using "Get Many" operations on supported resources, navigate to the **Include Custom Fields** parameter to select from dynamically loaded custom fields specific to that resource type.
-
 ## Resources
 
 - [HaloPSA API Documentation](https://haloitsm.com/api)
