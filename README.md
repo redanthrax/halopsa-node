@@ -66,6 +66,12 @@ Track work hours with timesheet management including creation, updates, and time
 ### [Timesheet Events](./docs/timesheet-event.md)
 Manage individual timesheet events and time entries within timesheets.
 
+### [Webhooks](./docs/webhooks.md)
+Manage webhooks and automation runbooks with full CRUD operations and comprehensive configuration options.
+
+### [Webhook Events](./docs/webhookEvents.md)
+Manage webhook events that define the types of activities that can trigger webhook notifications.
+
 ## Resources
 
 - [HaloPSA API Documentation](https://haloitsm.com/api)

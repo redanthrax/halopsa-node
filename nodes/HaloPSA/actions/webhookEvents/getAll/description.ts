@@ -1,0 +1,168 @@
+import { INodeProperties } from 'n8n-workflow';
+
+export const description: INodeProperties[] = [
+	{
+		displayName: 'Return All',
+		name: 'returnAll',
+		type: 'boolean',
+		displayOptions: {
+			show: {
+				operation: ['getAll'],
+				resource: ['webhookEvents'],
+			},
+		},
+		default: false,
+		description: 'Whether to return all results or only up to a given limit',
+	},
+	{
+		displayName: 'Limit',
+		name: 'limit',
+		type: 'number',
+		displayOptions: {
+			show: {
+				operation: ['getAll'],
+				resource: ['webhookEvents'],
+				returnAll: [false],
+			},
+		},
+		typeOptions: {
+			minValue: 1,
+		},
+		default: 50,
+		description: 'Max number of results to return',
+	},
+	{
+		displayName: 'Filters',
+		name: 'filters',
+		type: 'collection',
+		placeholder: 'Add Filter',
+		displayOptions: {
+			show: {
+				operation: ['getAll'],
+				resource: ['webhookEvents'],
+			},
+		},
+		default: {},
+		options: [
+			{
+				displayName: 'Automation ID',
+				name: 'automation_id',
+				type: 'number',
+				default: 0,
+				description: 'Filter by automation ID',
+			},
+			{
+				displayName: 'ID Only',
+				name: 'idonly',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to return only IDs',
+			},
+			{
+				displayName: 'Integration Method ID',
+				name: 'integrationmethod_id',
+				type: 'number',
+				default: 0,
+				description: 'Filter by integration method ID',
+			},
+			{
+				displayName: 'Order',
+				name: 'order',
+				type: 'string',
+				default: '',
+				description: 'The name of the field to order by first',
+			},
+			{
+				displayName: 'Order 2',
+				name: 'order2',
+				type: 'string',
+				default: '',
+				description: 'The name of the field to order by second',
+			},
+			{
+				displayName: 'Order 3',
+				name: 'order3',
+				type: 'string',
+				default: '',
+				description: 'The name of the field to order by third',
+			},
+			{
+				displayName: 'Order 4',
+				name: 'order4',
+				type: 'string',
+				default: '',
+				description: 'The name of the field to order by fourth',
+			},
+			{
+				displayName: 'Order 5',
+				name: 'order5',
+				type: 'string',
+				default: '',
+				description: 'The name of the field to order by fifth',
+			},
+			{
+				displayName: 'Order Descending',
+				name: 'orderdesc',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to order ascending or descending on first order',
+			},
+			{
+				displayName: 'Order Descending 2',
+				name: 'orderdesc2',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to order ascending or descending on second order',
+			},
+			{
+				displayName: 'Order Descending 3',
+				name: 'orderdesc3',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to order ascending or descending on third order',
+			},
+			{
+				displayName: 'Order Descending 4',
+				name: 'orderdesc4',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to order ascending or descending on fourth order',
+			},
+			{
+				displayName: 'Order Descending 5',
+				name: 'orderdesc5',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to order ascending or descending on fifth order',
+			},
+			{
+				displayName: 'Page Number',
+				name: 'page_no',
+				type: 'number',
+				default: 1,
+				description: 'When using pagination, the page number to return',
+			},
+			{
+				displayName: 'Page Size',
+				name: 'page_size',
+				type: 'number',
+				default: 50,
+				description: 'When using pagination, the size of the page',
+			},
+			{
+				displayName: 'Paginate',
+				name: 'pageinate',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to use pagination in the response',
+			},
+			{
+				displayName: 'Webhook ID',
+				name: 'webhook_id',
+				type: 'string',
+				default: '',
+				description: 'Filter by webhook ID (UUID)',
+			},
+		],
+	},
+];

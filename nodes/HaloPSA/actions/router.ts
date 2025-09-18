@@ -14,6 +14,8 @@ import * as ticketStatuses from './ticketStatuses';
 import * as ticketTypes from './ticketTypes';
 import * as timesheet from './timesheet';
 import * as timesheetEvent from './timesheetEvent';
+import * as webhooks from './webhooks';
+import * as webhookEvents from './webhookEvents';
 import { HaloPSA } from './Interfaces';
 
 export async function router(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
@@ -61,6 +63,12 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 				break;
 			case 'timesheetEvent':
 				responseData = await (timesheetEvent as any)[haloPSA.operation].execute.call(this, i);
+				break;
+			case 'webhooks':
+				responseData = await (webhooks as any)[haloPSA.operation].execute.call(this, i);
+				break;
+			case 'webhookEvents':
+				responseData = await (webhookEvents as any)[haloPSA.operation].execute.call(this, i);
 				break;
 			default:
 				break;

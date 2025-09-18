@@ -8,6 +8,8 @@ import * as ticketStatuses from './actions/ticketStatuses';
 import * as ticketTypes from './actions/ticketTypes';
 import * as timesheet from './actions/timesheet';
 import * as timesheetEvent from './actions/timesheetEvent';
+import * as webhooks from './actions/webhooks';
+import * as webhookEvents from './actions/webhookEvents';
 
 import {
 	IExecuteFunctions,
@@ -93,6 +95,14 @@ export class HaloPsa implements INodeType {
 					name: 'Timesheet Event',
 					value: 'timesheetEvent',
 				},
+				{
+					name: 'Webhook',
+					value: 'webhooks',
+				},
+				{
+					name: 'Webhook Event',
+					value: 'webhookEvents',
+				},
 				],
 				default: 'tickets',
 			},
@@ -106,6 +116,8 @@ export class HaloPsa implements INodeType {
 			...ticketTypes.description,
 			...timesheet.description,
 			...timesheetEvent.description,
+			...webhooks.description,
+			...webhookEvents.description,
 		],
 	};
 
