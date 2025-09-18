@@ -3,10 +3,11 @@ import * as getById from './getById';
 import * as create from './create';
 import * as update from './update';
 import * as deleteWebhook from './delete';
+import * as execute from './execute';
 
 import { INodeProperties } from 'n8n-workflow';
 
-export { getAll, getById, create, update, deleteWebhook as delete };
+export { getAll, getById, create, update, deleteWebhook as delete, execute };
 
 export const description: INodeProperties[] = [
 	{
@@ -31,6 +32,12 @@ export const description: INodeProperties[] = [
 				value: 'delete',
 				description: 'Delete a webhook',
 				action: 'Delete a webhook',
+			},
+			{
+				name: 'Execute Runbook',
+				value: 'execute',
+				description: 'Execute a webhook/runbook',
+				action: 'Execute a webhook runbook',
 			},
 			{
 				name: 'Get by ID',
@@ -58,4 +65,5 @@ export const description: INodeProperties[] = [
 	...create.description,
 	...update.description,
 	...deleteWebhook.description,
+	...execute.description,
 ];

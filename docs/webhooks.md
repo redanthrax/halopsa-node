@@ -87,6 +87,20 @@ Delete a webhook from HaloPSA.
 - **Webhook ID**: The UUID of the webhook to delete
 
 
+## Execute Runbook
+
+Execute/trigger a webhook or runbook manually.
+
+**Required Parameters:**
+- **Webhook ID**: The UUID of the webhook/runbook to execute
+
+**Optional Parameters:**
+- **Test Mode**: Whether to run the webhook in test mode (default: true)
+- **Custom Parameters**: Additional parameters to pass to the webhook execution as JSON
+
+**Note**: This operation allows you to manually trigger webhook executions, which is particularly useful for testing runbooks and automation workflows. When executed in test mode (`_test: true`), the webhook will run but may have different behavior than production executions.
+
+
 ## Error Handling
 
 Common errors you may encounter:
