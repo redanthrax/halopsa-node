@@ -14,17 +14,6 @@ Retrieve multiple tickets from HaloPSA with optional filtering.
   - Date range (From/To)
   - Include Details, Open Only
 
-**Example:**
-```json
-{
-  "filters": {
-    "client_id": 68,
-    "status_id": 1,
-    "priority_id": 4,
-    "open_only": true
-  }
-}
-```
 
 ## Get by ID
 
@@ -58,16 +47,6 @@ Create a new ticket in HaloPSA.
   - Time scheduling
   - Tags and labels
 
-**Example:**
-```json
-{
-  "summary": "Network connectivity issue",
-  "details": "User reports intermittent network disconnections",
-  "client_id": 68,
-  "site_id": 76,
-  "user_id": 2749
-}
-```
 
 ## Update
 

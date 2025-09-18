@@ -36,35 +36,35 @@ npm install n8n-nodes-halopsacomplete
 
 ## Supported Operations
 
-### [Tickets](./docs/tickets.md)
-Complete CRUD operations for HaloPSA tickets with comprehensive filtering options.
-
-### [Clients](./docs/clients.md) 
-Manage client records including creation, updates, and retrieval.
-
-### [Ticket Types](./docs/ticket-types.md)
-Configure and manage ticket type definitions.
-
-### [Ticket Statuses](./docs/ticket-statuses.md)
-Manage ticket status configurations and workflows.
-
-### [Invoices](./docs/invoices.md)
-Comprehensive invoice management with CRUD operations, line item updates, and voiding capabilities.
-
 ### [Agents](./docs/agents.md)
 Manage agent records with extensive filtering options for departments, teams, roles, and permissions.
 
 ### [Assets](./docs/assets.md)
 Complete asset management with CRUD operations, comprehensive filtering, and integration support across multiple platforms.
 
+### [Clients](./docs/clients.md) 
+Manage client records including creation, updates, and retrieval.
+
+### [Invoices](./docs/invoices.md)
+Comprehensive invoice management with CRUD operations, line item updates, and voiding capabilities.
+
+### [Sites](./docs/sites.md)
+Complete site management with full CRUD operations, extensive configuration options, and comprehensive client integration.
+
+### [Ticket Statuses](./docs/ticket-statuses.md)
+Manage ticket status configurations and workflows.
+
+### [Ticket Types](./docs/ticket-types.md)
+Configure and manage ticket type definitions.
+
+### [Tickets](./docs/tickets.md)
+Complete CRUD operations for HaloPSA tickets with comprehensive filtering options.
+
 ### [Timesheet](./docs/timesheet.md)
 Track work hours with timesheet management including creation, updates, and time tracking.
 
 ### [Timesheet Events](./docs/timesheet-event.md)
 Manage individual timesheet events and time entries within timesheets.
-
-### [Sites](./docs/sites.md)
-Complete site management with full CRUD operations, extensive configuration options, and comprehensive client integration.
 
 ## Resources
 

@@ -14,17 +14,6 @@ Retrieve multiple timesheet events from HaloPSA with filtering options.
   - **End Date**: Filter by end date
   - **UTC Offset**: UTC offset for date filtering
 
-**Example:**
-```json
-{
-  "filters": {
-    "agent_id": 15,
-    "start_date": "2025-01-01",
-    "end_date": "2025-01-31",
-    "utcoffset": -5
-  }
-}
-```
 
 ## Get by ID
 
