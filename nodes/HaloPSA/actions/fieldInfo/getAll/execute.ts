@@ -15,25 +15,21 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 	const endpoint = '/FieldInfo';
 	const body = {};
 	
-	// Build query parameters from filters
 	const qs: IDataObject = {};
 	
 	if (filters) {
 		Object.assign(qs, filters);
 	}
 	
-	// Add pagination if not returning all
 	if (!returnAll && limit) {
 		qs.count = limit;
 	}
 
 	const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
 	
-	// If it's already an array, return it directly
 	if (Array.isArray(responseData)) {
 		return responseData as IDataObject[];
 	}
 	
-	// Otherwise, wrap in array
 	return [responseData as IDataObject];
 }

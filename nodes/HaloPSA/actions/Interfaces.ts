@@ -1,5 +1,5 @@
-// Re-export all interfaces from separate files to maintain API compatibility
 export * from './interfaces/common';
+export * from './interfaces/actions';
 export * from './interfaces/client';
 export * from './interfaces/fieldInfo';
 export * from './interfaces/tickets';
@@ -8,11 +8,12 @@ export * from './interfaces/ticketStatuses';
 export * from './interfaces/invoices';
 export * from './interfaces/timesheet';
 export * from './interfaces/sites';
+export * from './interfaces/projects';
 export * from './interfaces/webhooks';
 
-// Keep the main type definitions that are used throughout the codebase
-export type HaloPSAResource = 'agents' | 'assets' | 'client' | 'fieldInfo' | 'invoices' | 'sites' | 'tickets' | 
-	'ticketStatuses' | 'ticketTypes' | 'timesheet' | 'timesheetEvent' | 'webhooks' | 'webhookEvents';
+export type HaloPSAResource = 'actions' | 'agents' | 'assets' | 'client' | 'fieldInfo' | 'invoices' | 'sites' | 'tickets' | 
+	'ticketStatuses' | 'ticketTypes' | 'timesheet' | 'timesheetEvent' | 'projects' | 'webhooks' | 'webhookEvents';
+export type HaloPSAActionsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSAClientOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSATicketsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSATicketTypesOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
@@ -23,14 +24,15 @@ export type HaloPSAAssetsOperation = 'getAll' | 'getById' | 'create' | 'update' 
 export type HaloPSATimesheetOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSATimesheetEventOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSASitesOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
+export type HaloPSAProjectsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSAWebhooksOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSAWebhookEventsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSAFieldInfoOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 
 export interface HaloPSA {
 	resource: HaloPSAResource;
-	operation: HaloPSAAgentsOperation | HaloPSAAssetsOperation | HaloPSAClientOperation | 
+	operation: HaloPSAActionsOperation | HaloPSAAgentsOperation | HaloPSAAssetsOperation | HaloPSAClientOperation | 
 		HaloPSAFieldInfoOperation | HaloPSAInvoicesOperation | HaloPSASitesOperation | HaloPSATicketsOperation |
 		HaloPSATicketStatusesOperation | HaloPSATicketTypesOperation | HaloPSATimesheetOperation |
-		HaloPSATimesheetEventOperation | HaloPSAWebhooksOperation | HaloPSAWebhookEventsOperation;
+		HaloPSATimesheetEventOperation | HaloPSAProjectsOperation | HaloPSAWebhooksOperation | HaloPSAWebhookEventsOperation;
 }

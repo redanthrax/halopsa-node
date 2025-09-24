@@ -12,6 +12,5 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 
 	await apiRequest.call(this, requestMethod, endpoint, body, qs);
 	
-	// Return success response
 	return [{ success: true, id, message: 'Field info deleted successfully' }];
 }

@@ -7,6 +7,7 @@ import {
 	IHttpRequestOptions,
 	ILoadOptionsFunctions,
 	NodeApiError,
+	LoggerProxy as Logger,
 } from 'n8n-workflow';
 
 interface TokenResponse {
@@ -18,7 +19,7 @@ interface TokenResponse {
 export async function getAccessToken(
 	this: IHookFunctions | IExecuteFunctions | ILoadOptionsFunctions,
 ): Promise<string> {
-	const creds = await this.getCredentials('haloPSAApi');
+	const creds = await this.getCredentials('haloPSACompleteApiOAuth2OAuth2Api');
 	
 	const formData = new URLSearchParams();
 	formData.append('grant_type', 'client_credentials');
@@ -54,7 +55,7 @@ export async function apiRequest(
 	body: IDataObject | GenericValue | GenericValue[] = {},
 	qs: IDataObject = {},
 ) {
-	const creds = await this.getCredentials('haloPSAApi');
+	const creds = await this.getCredentials('haloPSACompleteApiOAuth2OAuth2Api');
 	const accessToken = await getAccessToken.call(this);
 
 	const options: IHttpRequestOptions = {
@@ -69,8 +70,24 @@ export async function apiRequest(
 		json: true,
 	};
 
+	Logger.debug('HaloPSA API Request initiated', {
+		url: options.url,
+		method: options.method,
+		queryParams: options.qs,
+		body: options.body,
+		node: this.getNode().name,
+	});
+
 	try {
-		return await this.helpers.request(options);
+		const response = await this.helpers.request(options);
+		Logger.debug('HaloPSA API Response received', {
+			url: options.url,
+			responseType: typeof response,
+			responseKeys: response && typeof response === 'object' ? Object.keys(response) : 'N/A',
+			recordCount: response && typeof response === 'object' ? response.record_count : undefined,
+			node: this.getNode().name,
+		});
+		return response;
 	} catch (error) {
 		if (error.statusCode === 401) {
 			throw new NodeApiError(this.getNode(), error, {

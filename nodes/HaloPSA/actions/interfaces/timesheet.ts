@@ -1,13 +1,11 @@
 import { IDataObject } from 'n8n-workflow';
 
-// Timesheet Approval Status enum
 export enum TimeSheetApprovalStatus {
 	Pending = 0,
 	Approved = 1,
 	Rejected = 2
 }
 
-// Timesheet Approval interface
 export interface HaloTimesheetApproval extends IDataObject {
 	id: number;
 	tsid?: number;
@@ -20,13 +18,11 @@ export interface HaloTimesheetApproval extends IDataObject {
 	_warning?: string;
 }
 
-// Key-Value pair interface for agents
 export interface HaloKeyPair extends IDataObject {
 	key?: string;
 	value?: string;
 }
 
-// TimesheetEvent interface
 export interface HaloTimesheetEvent extends IDataObject {
 	id: number;
 	event_type?: number;
@@ -64,7 +60,6 @@ export interface HaloTimesheetEvent extends IDataObject {
 	charge_type_name?: string;
 }
 
-// Timesheet interface based on actual API response
 export interface HaloTimesheet extends IDataObject {
 	id: number;
 	agent_id?: number;
@@ -95,7 +90,6 @@ export interface HaloTimesheet extends IDataObject {
 	forecasting_hours?: number;
 }
 
-// Response structures - API returns array directly for Timesheet
 export interface HaloTimesheetListResponse extends IDataObject {
 	timesheets?: HaloTimesheet[];
 	record_count?: number;

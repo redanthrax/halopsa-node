@@ -59,11 +59,15 @@ export const getALLDescription: INodeProperties[] = [
 				description: 'Returns tickets based on Agent IDs in the array (comma-separated)',
 			},
 			{
-				displayName: 'Agent ID',
+				displayName: 'Agent Name or ID',
 				name: 'agent_id',
-				type: 'number',
-				default: 0,
-				description: 'Filter by the specified agent',
+				type: 'options',
+				default: '',
+				description: 'Filter by the specified agent. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				typeOptions: {
+					loadOptionsMethod: 'getAgents',
+				},
+				options: [],
 			},
 			{
 				displayName: 'Alert Type',

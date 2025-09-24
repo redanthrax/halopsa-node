@@ -1,6 +1,5 @@
 import { IDataObject } from 'n8n-workflow';
 
-// Common address interface used by tickets and other resources
 export interface HaloAddress extends IDataObject {
 	id?: number;
 	line1?: string;
@@ -10,7 +9,6 @@ export interface HaloAddress extends IDataObject {
 	postcode?: string;
 }
 
-// Common priority interface used by tickets
 export interface HaloPriority extends IDataObject {
 	id?: string;
 	slaid?: number;

@@ -12,7 +12,6 @@ export async function getAll(
 	
 	const qs = {} as IDataObject;
 	
-	// Apply filters - comprehensive mapping of all available filters
 	if (filters.access_control_level) qs.access_control_level = filters.access_control_level;
 	if (filters.anonanduser !== undefined) qs.anonanduser = filters.anonanduser;
 	if (filters.can_create_only !== undefined) qs.can_create_only = filters.can_create_only;
@@ -47,6 +46,5 @@ export async function getAll(
 
 	const responseData: HaloTicketTypeListResponse = await apiRequest.call(this, requestMethod, endpoint, body, qs);
 
-	// Return the array directly as the API returns an array, not a wrapped object
 	return this.helpers.returnJsonArray(responseData || []);
 }

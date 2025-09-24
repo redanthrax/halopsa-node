@@ -12,7 +12,6 @@ export async function execute(
 	
 	const qs = {} as IDataObject;
 	
-	// Apply additional fields from swagger documentation
 	if (additionalFields.agent_id) qs.agent_id = additionalFields.agent_id;
 	if (additionalFields.date) qs.date = additionalFields.date;
 

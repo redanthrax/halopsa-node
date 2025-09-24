@@ -1,7 +1,6 @@
 import { IDataObject } from 'n8n-workflow';
 import { ClientResponse, CustomField } from './client';
 
-// Site address interface
 export interface HaloSiteAddress extends IDataObject {
 	id?: number;
 	type?: number;
@@ -16,7 +15,6 @@ export interface HaloSiteAddress extends IDataObject {
 	site_id?: number;
 }
 
-// Site field interface
 export interface HaloSiteField extends IDataObject {
 	id?: number;
 	name?: string;
@@ -32,7 +30,6 @@ export interface HaloSiteField extends IDataObject {
 	access_level?: number;
 }
 
-// Site popup note interface
 export interface HaloSitePopupNote extends IDataObject {
 	id?: number;
 	note?: string;
@@ -41,7 +38,6 @@ export interface HaloSitePopupNote extends IDataObject {
 	site_id?: number;
 }
 
-// QuickBooks details interface (simplified for sites)
 export interface HaloQuickBooksDetails extends IDataObject {
 	id?: number;
 	name?: string;
@@ -102,7 +98,29 @@ export interface HaloQuickBooksDetails extends IDataObject {
 	instance_type?: number;
 }
 
-// Site interface based on API response
+export interface HaloSiteContact extends IDataObject {
+	id?: number;
+	site?: number;
+	uid?: number;
+	user_name?: string;
+	user_email?: string;
+	type?: number;
+	type_name?: string;
+}
+
+export interface HaloExtraTab extends IDataObject {
+	id?: number;
+	guid?: string;
+	name?: string;
+	tableid?: number;
+	columns?: number;
+	sequence?: number;
+	type?: number;
+	linked_dashboard_id?: number;
+	send_secure_url_parameter?: boolean;
+	module_id?: number;
+}
+
 export interface HaloSite extends IDataObject {
 	id: number;
 	name?: string;
@@ -127,27 +145,42 @@ export interface HaloSite extends IDataObject {
 	maincontact_name?: string;
 	maincontact_id?: number;
 	language_id?: number;
+	language_name?: string;
 	slocked?: boolean;
 	use?: string;
 	itglue_id?: string;
+	client_itglue_id?: string;
 	site_item_tax_code?: number;
 	site_service_tax_code?: number;
 	site_prepay_tax_code?: number;
 	site_contract_tax_code?: number;
 	site_purchase_tax_code?: number;
+	site_item_tax_code_name?: string;
+	site_service_tax_code_name?: string;
+	site_contract_tax_code_name?: string;
+	site_prepay_tax_code_name?: string;
+	site_purchase_tax_code_name?: string;
 	default_currency_code?: number;
+	default_currency_code_name?: string;
 	default_client_currency_code?: number;
+	country_code?: string;
+	region_code?: number;
+	country_code_name?: string;
+	region_code_name?: string;
+	taxable?: number;
 	
-	// Extended fields for getById response
 	client?: ClientResponse;
 	delivery_address?: HaloSiteAddress;
 	popup_notes?: HaloSitePopupNote[];
 	fields?: HaloSiteField[];
+	sitecontacts?: HaloSiteContact[];
 	customfields?: CustomField[];
 	custombuttons?: any[];
 	external_links?: any[];
+	extratabs?: HaloExtraTab[];
+	faqlists?: any[];
+	all_faqlists_allowed?: boolean;
 	
-	// Integration IDs
 	ninjarmmid?: number;
 	servicenowid?: string;
 	isnhserveremaildefault?: boolean;
@@ -166,20 +199,13 @@ export interface HaloSite extends IDataObject {
 	passportal_id?: number;
 	liongardid?: number;
 	
-	// Location and tax information
-	country_code?: string;
-	region_code?: number;
-	taxable?: number;
-	
-	// FAQ and permissions
-	all_faqlists_allowed?: boolean;
+	key?: number;
+	table?: number;
 }
 
-// Response structures
 export interface HaloSiteListResponse extends IDataObject {
 	sites?: HaloSite[];
 	record_count?: number;
 }
 
-// Single site response (API returns object directly)
 export interface HaloSiteResponse extends HaloSite {}

@@ -10,7 +10,6 @@ export async function execute(
 	const testMode = this.getNodeParameter('testMode', index, false) as boolean;
 	const additionalOptions = this.getNodeParameter('additionalOptions', index, {}) as IDataObject;
 	
-	// Build the payload array based on the HaloPSA webhook execution format
 	const payload: IDataObject[] = [{
 		id: webhookId,
 		_test: testMode,

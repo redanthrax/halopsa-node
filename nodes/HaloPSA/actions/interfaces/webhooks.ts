@@ -1,5 +1,4 @@
 export interface IWebhookFilters {
-	// Core webhook filtering options from swagger
 	isazureautomation?: boolean;
 	type?: number;
 }
@@ -15,7 +14,6 @@ export interface IWebhookGetByIdOptions {
 	includedetails?: boolean;
 }
 
-// WebhookEvent interfaces
 export interface IWebhookEventFilters {
 	automation_id?: number;
 	count?: number;
@@ -48,7 +46,6 @@ export interface IWebhookEventGetByIdOptions {
 	includedetails?: boolean;
 }
 
-// Detailed webhook event structure
 export interface IWebhookEvent {
 	guid?: string;
 	id?: number;
@@ -82,7 +79,6 @@ export interface IWebhookEvent {
 	safe_instances?: number;
 }
 
-// Flow detail structures
 export interface IWebhookAction {
 	id?: number;
 	flow_id?: number;
@@ -187,7 +183,6 @@ export interface IWebhookAccessControl {
 	entity_text_id?: string;
 }
 
-// Main webhook interface based on actual API responses
 export interface IWebhook {
 	id?: string; // UUID format
 	intent?: string;
@@ -276,7 +271,6 @@ export interface IWebhook {
 	_warning?: string;
 }
 
-// Create and Update interfaces
 export interface IWebhookCreateData extends Omit<IWebhook, 'id'> {
 	name: string; // Required field
 }

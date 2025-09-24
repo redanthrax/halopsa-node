@@ -1,4 +1,3 @@
-// Invoice-related interfaces based on HaloPSA API responses
 
 export interface HaloInvoicesListResponse {
 	page_size?: number;

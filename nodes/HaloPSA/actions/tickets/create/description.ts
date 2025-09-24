@@ -1,7 +1,6 @@
 import { INodeProperties } from 'n8n-workflow';
 
 export const createDescription: INodeProperties[] = [
-	// Core required fields
 	{
 		displayName: 'Summary',
 		name: 'summary',
@@ -17,7 +16,6 @@ export const createDescription: INodeProperties[] = [
 		description: 'The ticket summary/subject',
 	},
 	
-	// Core optional fields
 	{
 		displayName: 'Details',
 		name: 'details',
@@ -71,7 +69,6 @@ export const createDescription: INodeProperties[] = [
 		default: 0,
 	},
 	
-	// Additional fields collection
 	{
 		displayName: 'Additional Fields',
 		name: 'additionalFields',
@@ -98,11 +95,15 @@ export const createDescription: INodeProperties[] = [
 				default: '',
 			},
 			{
-				displayName: 'Agent ID',
+				displayName: 'Agent Name or ID',
 				name: 'agent_id',
-				type: 'number',
-				default: 0,
-				description: 'The assigned agent ID',
+				type: 'options',
+				default: '',
+				description: 'The assigned agent. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				typeOptions: {
+					loadOptionsMethod: 'getAgents',
+				},
+				options: [],
 			},
 			{
 				displayName: 'Billable',
@@ -372,10 +373,15 @@ export const createDescription: INodeProperties[] = [
 				description: 'Ticket tags (comma-separated)',
 			},
 			{
-				displayName: 'Ticket Type ID',
+				displayName: 'Ticket Type Name or ID',
 				name: 'tickettype_id',
-				type: 'number',
-				default: 1,
+				type: 'options',
+				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
+				default: '',
+				typeOptions: {
+					loadOptionsMethod: 'getTicketTypes',
+				},
+				options: [],
 			},
 			{
 				displayName: 'Urgency',

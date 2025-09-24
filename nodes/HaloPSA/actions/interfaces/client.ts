@@ -1,4 +1,3 @@
-// Client operation interfaces
 export interface ClientGetAllParams {
 	accountmanageronly?: boolean;
 	activeinactive?: string;
@@ -85,7 +84,6 @@ export interface ClientDeleteParams {
 	id: number;
 }
 
-// Client response interfaces based on actual API responses
 export interface CustomField {
 	id: number;
 	name: string;

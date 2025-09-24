@@ -11,7 +11,6 @@ export async function getAll(
 	
 	const qs = {} as IDataObject;
 	
-	// Apply filters
 	if (filters.domain) qs.domain = filters.domain;
 	if (filters.excludeclosed !== undefined) qs.excludeclosed = filters.excludeclosed;
 	if (filters.excludepending !== undefined) qs.excludepending = filters.excludepending;
@@ -35,6 +34,5 @@ export async function getAll(
 
 	const responseData: HaloTicketStatusesListResponse = await apiRequest.call(this, requestMethod, endpoint, body, qs);
 
-	// Return the array directly as the API returns an array
 	return this.helpers.returnJsonArray(responseData || []);
 }

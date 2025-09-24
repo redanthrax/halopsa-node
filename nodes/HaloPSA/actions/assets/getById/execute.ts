@@ -11,7 +11,6 @@ export async function execute(
 	
 	const qs = {} as IDataObject;
 	
-	// Apply options
 	if (options.assettype_id) qs.assettype_id = options.assettype_id;
 	if (options.includeactivity !== undefined) qs.includeactivity = options.includeactivity;
 	if (options.includeallowedstatus !== undefined) qs.includeallowedstatus = options.includeallowedstatus;

@@ -11,7 +11,6 @@ export async function execute(
 	
 	const qs = {} as IDataObject;
 	
-	// Apply additional options
 	if (additionalOptions.includedetails !== undefined) qs.includedetails = additionalOptions.includedetails;
 
 	try {

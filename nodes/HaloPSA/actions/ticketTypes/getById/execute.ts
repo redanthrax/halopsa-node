@@ -12,7 +12,6 @@ export async function getById(
 	
 	const qs = {} as IDataObject;
 	
-	// Apply additional options
 	if (additionalOptions.can_create_only !== undefined) qs.can_create_only = additionalOptions.can_create_only;
 	if (additionalOptions.can_edit_only !== undefined) qs.can_edit_only = additionalOptions.can_edit_only;
 	if (additionalOptions.debug !== undefined) qs.debug = additionalOptions.debug;

@@ -12,8 +12,6 @@ export async function execute(
 	
 	const qs = {} as IDataObject;
 	
-	// Apply filters - comprehensive mapping of all available filters
-	// Basic filters
 	if (filters.advanced_search) qs.advanced_search = filters.advanced_search;
 	if (filters.agent) qs.agent = filters.agent;
 	if (filters.agent_id) qs.agent_id = filters.agent_id;
@@ -25,35 +23,29 @@ export async function execute(
 	if (filters.billing_type) qs.billing_type = filters.billing_type;
 	if (filters.billingcontractid) qs.billingcontractid = filters.billingcontractid;
 	
-	// Date filters
 	if (filters.calendar_enddate) qs.calendar_enddate = filters.calendar_enddate;
 	if (filters.calendar_startdate) qs.calendar_startdate = filters.calendar_startdate;
 	if (filters.enddate) qs.enddate = filters.enddate;
 	if (filters.startdate) qs.startdate = filters.startdate;
 	
-	// Category filters
 	if (filters.category_1) qs.category_1 = filters.category_1;
 	if (filters.category_2) qs.category_2 = filters.category_2;
 	if (filters.category_3) qs.category_3 = filters.category_3;
 	if (filters.category_4) qs.category_4 = filters.category_4;
 	
-	// Client and site filters
 	if (filters.client_id) qs.client_id = filters.client_id;
 	if (filters.client_ids) qs.client_ids = filters.client_ids;
 	if (filters.client_ref) qs.client_ref = filters.client_ref;
 	if (filters.site_id) qs.site_id = filters.site_id;
 	
-	// Status and priority filters
 	if (filters.status_id) qs.status_id = filters.status_id;
 	if (filters.priority) qs.priority = filters.priority;
 	
-	// User and team filters
 	if (filters.user_id) qs.user_id = filters.user_id;
 	if (filters.username) qs.username = filters.username;
 	if (filters.team) qs.team = filters.team;
 	if (filters.team_name) qs.team_name = filters.team_name;
 	
-	// Boolean filters
 	if (filters.closed_only !== undefined) qs.closed_only = filters.closed_only;
 	if (filters.open_only !== undefined) qs.open_only = filters.open_only;
 	if (filters.deleted !== undefined) qs.deleted = filters.deleted;
@@ -140,7 +132,6 @@ export async function execute(
 	if (filters.unlinked_only !== undefined) qs.unlinked_only = filters.unlinked_only;
 	if (filters.withattachments !== undefined) qs.withattachments = filters.withattachments;
 	
-	// String filters
 	if (filters.domain) qs.domain = filters.domain;
 	if (filters.datesearch) qs.datesearch = filters.datesearch;
 	if (filters.excludethese) qs.excludethese = filters.excludethese;
@@ -152,7 +143,6 @@ export async function execute(
 	if (filters.includebreached) qs.includebreached = filters.includebreached;
 	if (filters.includechildren) qs.includechildren = filters.includechildren;
 	if (filters.includeclosed) qs.includeclosed = filters.includeclosed;
-	// Handle include_custom_fields multiOptions - convert array to comma-separated string
 	if (filters.include_custom_fields && Array.isArray(filters.include_custom_fields) && filters.include_custom_fields.length > 0) {
 		qs.include_custom_fields = filters.include_custom_fields.join(',');
 	} else if (filters.include_custom_fields && typeof filters.include_custom_fields === 'string') {
@@ -174,11 +164,9 @@ export async function execute(
 	if (filters.order5) qs.order5 = filters.order5;
 	if (filters.product) qs.product = filters.product;
 	if (filters.project_ids) qs.project_ids = filters.project_ids;
-	// Handle requesttype multiOptions - convert array to comma-separated string
 	if (filters.requesttype && Array.isArray(filters.requesttype) && filters.requesttype.length > 0) {
 		qs.requesttype = filters.requesttype.join(',');
 	}
-	// Handle status multiOptions - convert array to comma-separated string
 	if (filters.status && Array.isArray(filters.status) && filters.status.length > 0) {
 		qs.status = filters.status.join(',');
 	}
@@ -206,7 +194,6 @@ export async function execute(
 	if (filters.third_party_id_string) qs.third_party_id_string = filters.third_party_id_string;
 	if (filters.ticketids) qs.ticketids = filters.ticketids;
 	
-	// Number filters
 	if (filters.columns_id) qs.columns_id = filters.columns_id;
 	if (filters.contract_id) qs.contract_id = filters.contract_id;
 	if (filters.contract_period) qs.contract_period = filters.contract_period;
@@ -232,7 +219,6 @@ export async function execute(
 	if (filters.utcoffset) qs.utcoffset = filters.utcoffset;
 	if (filters.view_id) qs.view_id = filters.view_id;
 	
-	// Include fields
 	if (filters.includeaccountmanager !== undefined) qs.includeaccountmanager = filters.includeaccountmanager;
 	if (filters.includeagent !== undefined) qs.includeagent = filters.includeagent;
 
@@ -248,6 +234,5 @@ export async function execute(
 	let responseData: HaloTicketsListResponse;
 	responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
 
-	// Return the tickets array from the response
 	return this.helpers.returnJsonArray(responseData.tickets || []);
 }

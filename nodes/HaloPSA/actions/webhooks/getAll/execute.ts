@@ -11,11 +11,9 @@ export async function execute(
 	
 	const qs = {} as IDataObject;
 	
-	// Apply filters based on swagger documentation
 	if (filters.isazureautomation !== undefined) qs.isazureautomation = filters.isazureautomation;
 	if (filters.type) qs.type = filters.type;
 
-	// Handle pagination
 	if (!returnAll) {
 		const limit = this.getNodeParameter('limit', index) as number;
 		qs.count = limit;
@@ -23,7 +21,6 @@ export async function execute(
 
 	try {
 		const response = await apiRequest.call(this, 'GET', '/Webhook', {}, qs);
-		// Response is directly an array of webhooks
 		const webhooks = Array.isArray(response) ? response : [];
 
 		return webhooks.map((webhook: any) => ({

@@ -16,19 +16,16 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 	const endpoint = '/Client';
 	const body = {};
 	
-	// Build query parameters from filters
 	const qs: IDataObject = {};
 	
 	if (filters) {
 		Object.assign(qs, filters);
 		
-		// Convert include_custom_fields array to comma-separated string
 		if (filters.include_custom_fields && Array.isArray(filters.include_custom_fields)) {
 			qs.include_custom_fields = filters.include_custom_fields.join(',');
 		}
 	}
 	
-	// Add pagination if not returning all
 	if (!returnAll && limit) {
 		qs.count = limit;
 	}
@@ -38,17 +35,14 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 	if (responseData && typeof responseData === 'object') {
 		const clientResponse = responseData as ClientListResponse;
 		
-		// Return the clients array if it exists, otherwise return the response as-is
 		if (clientResponse.clients && Array.isArray(clientResponse.clients)) {
 			return clientResponse.clients;
 		}
 	}
 	
-	// If it's already an array, return it directly
 	if (Array.isArray(responseData)) {
 		return responseData;
 	}
 	
-	// Otherwise, wrap in array
 	return [responseData as IDataObject];
 }

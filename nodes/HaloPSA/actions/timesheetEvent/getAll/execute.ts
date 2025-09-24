@@ -12,7 +12,6 @@ export async function execute(
 	
 	const qs = {} as IDataObject;
 	
-	// Apply filters from swagger documentation
 	if (filters.agent_id) qs.agent_id = filters.agent_id;
 	if (filters.agents) qs.agents = filters.agents;
 	if (filters.end_date) qs.end_date = filters.end_date;
@@ -28,14 +27,11 @@ export async function execute(
 	const endpoint = '/TimesheetEvent';
 	const body = {} as IDataObject;
 
-	// API returns array directly for TimesheetEvent endpoint
 	let responseData: HaloTimesheetEvent[] = await apiRequest.call(this, requestMethod, endpoint, body, qs);
 
-	// Ensure we have an array
 	if (!Array.isArray(responseData)) {
 		responseData = [responseData];
 	}
 
-	// Return the timesheet events array
 	return this.helpers.returnJsonArray(responseData);
 }

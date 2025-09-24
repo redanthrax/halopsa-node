@@ -16,7 +16,6 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 
 	const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
 	
-	// Return success message or response data
 	const result = {
 		success: true,
 		message: `Client with ID ${clientId} deleted successfully`,

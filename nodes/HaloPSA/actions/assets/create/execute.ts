@@ -17,7 +17,6 @@ export async function execute(
 		site_id: siteId,
 	};
 	
-	// Add additional fields
 	if (additionalFields.business_owner_id) body.business_owner_id = additionalFields.business_owner_id;
 	if (additionalFields.contract_id !== undefined) body.contract_id = additionalFields.contract_id;
 	if (additionalFields.contract_ref) body.contract_ref = additionalFields.contract_ref;
@@ -45,7 +44,6 @@ export async function execute(
 	const endpoint = '/Asset';
 	const qs = {} as IDataObject;
 
-	// The API expects an array of assets
 	let responseData: any;
 	responseData = await apiRequest.call(this, requestMethod, endpoint, [body], qs);
 

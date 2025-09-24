@@ -1,15 +1,12 @@
 import { IDataObject } from 'n8n-workflow';
 
-// Response structure for /TicketType endpoint (list)
 export interface HaloTicketTypesListResponse extends IDataObject {
 	tickettypes: HaloTicketType[];
 	record_count?: number;
 }
 
-// Compatibility alias: The API can return an array directly in some cases
 export type HaloTicketTypeListResponse = HaloTicketType[];
 
-// Ticket Type structure from API response
 export interface HaloTicketType extends IDataObject {
 	id: number;
 	name: string;
@@ -263,12 +260,9 @@ export interface HaloTicketType extends IDataObject {
 	enablecustomautomation?: boolean;
 }
 
-// For creating new ticket types
 export interface HaloTicketTypeCreate extends IDataObject {
-	// Core required fields
 	name: string;
 	
-	// Optional core fields
 	description?: string;
 	colour?: string;
 	icon?: string;
@@ -280,7 +274,6 @@ export interface HaloTicketTypeCreate extends IDataObject {
 	inactive?: boolean;
 	sequence?: number;
 	
-	// Requirement flags
 	requireapproval?: boolean;
 	requirecategory?: boolean;
 	requiresummary?: boolean;
@@ -339,7 +332,6 @@ export interface HaloTicketTypeCreate extends IDataObject {
 	requirethirdparty?: boolean;
 	requireexternalref?: boolean;
 	
-	// Custom field requirements (1-20)
 	requirecustomfield1?: boolean;
 	requirecustomfield2?: boolean;
 	requirecustomfield3?: boolean;
@@ -361,7 +353,6 @@ export interface HaloTicketTypeCreate extends IDataObject {
 	requirecustomfield19?: boolean;
 	requirecustomfield20?: boolean;
 	
-	// Hide flags
 	hidecategory?: boolean;
 	hidesummary?: boolean;
 	hidedetails?: boolean;
@@ -419,7 +410,6 @@ export interface HaloTicketTypeCreate extends IDataObject {
 	hidethirdparty?: boolean;
 	hideexternalref?: boolean;
 	
-	// Custom field hide flags (1-20)
 	hidecustomfield1?: boolean;
 	hidecustomfield2?: boolean;
 	hidecustomfield3?: boolean;
@@ -441,7 +431,6 @@ export interface HaloTicketTypeCreate extends IDataObject {
 	hidecustomfield19?: boolean;
 	hidecustomfield20?: boolean;
 	
-	// Default values
 	defaultpriority_id?: number;
 	defaultstatus_id?: number;
 	defaultsla_id?: number;
@@ -473,28 +462,23 @@ export interface HaloTicketTypeCreate extends IDataObject {
 	defaultservice_id?: number;
 	defaultserviceinstance_id?: number;
 	
-	// Template and workflow IDs
 	emailtemplate_id?: number;
 	smstemplate_id?: number;
 	webform_id?: number;
 	workflow_id?: number;
 	approval_workflow_id?: number;
 	
-	// Security and grouping
 	usersecurity?: boolean;
 	ticketlinktype?: number;
 	tickettype_group_id?: number;
 	
-	// Asset creation
 	create_asset?: boolean;
 	asset_type_id?: number;
 	asset_status_id?: number;
 	
-	// View configuration
 	use_default_view_columns?: boolean;
 	view_columns?: string;
 	
-	// Feature enables
 	enabletimetracking?: boolean;
 	timetrackingmandatory?: boolean;
 	enablekb?: boolean;
@@ -536,14 +520,11 @@ export interface HaloTicketTypeCreate extends IDataObject {
 	enablecustomworkflow?: boolean;
 	enablecustomautomation?: boolean;
 	
-	// Supplier mapping
 	suppliertickettypemap?: string;
 	
-	// Custom fields
 	customfields?: IDataObject[];
 }
 
-// For updating ticket types (all fields optional except potentially id)
 export interface HaloTicketTypeUpdate extends Partial<HaloTicketTypeCreate> {
 	id?: number;
 }

@@ -17,7 +17,6 @@ export async function execute(
 	const requestMethod = 'POST';
 	const endpoint = '/Site';
 
-	// The API expects an array of sites
 	const responseData = await apiRequest.call(this, requestMethod, endpoint, [body]);
 
 	return this.helpers.returnJsonArray(responseData);

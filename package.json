@@ -15,17 +15,18 @@
     "type": "git",
     "url": "git+https://github.com/redanthrax/halopsa-node.git"
   },
+  "packageManager": "pnpm@9.0.0",
   "engines": {
     "node": ">=20.15"
   },
   "main": "index.js",
   "scripts": {
-    "build": "npx rimraf dist && tsc && gulp build:icons",
-    "dev": "tsc --watch",
-    "format": "prettier nodes credentials --write",
-    "lint": "eslint nodes credentials package.json",
-    "lintfix": "eslint nodes credentials package.json --fix",
-    "prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js nodes credentials package.json"
+    "build": "pnpm exec rimraf dist && pnpm exec tsc && pnpm exec gulp build:icons",
+    "dev": "pnpm exec tsc --watch",
+    "format": "pnpm exec prettier nodes credentials --write",
+    "lint": "pnpm exec eslint nodes credentials package.json",
+    "lintfix": "pnpm exec eslint nodes credentials package.json --fix",
+    "prepublishOnly": "pnpm run build && pnpm exec eslint -c .eslintrc.prepublish.js nodes credentials package.json"
   },
   "files": [
     "dist",
@@ -35,7 +36,7 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/HaloPSAApi.credentials.js"
+      "dist/credentials/HaloPSACompleteApiOAuth2OAuth2Api.credentials.js"
     ],
     "nodes": [
       "dist/nodes/HaloPSA/HaloPsa.node.js"

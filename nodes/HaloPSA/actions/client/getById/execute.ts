@@ -14,7 +14,6 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 	const endpoint = `/Client/${clientId}`;
 	const body = {};
 	
-	// Build query parameters from additional fields
 	const qs: IDataObject = {};
 	
 	if (additionalFields) {
@@ -23,11 +22,9 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 
 	const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
 	
-	// If it's already an array, return it directly
 	if (Array.isArray(responseData)) {
 		return responseData;
 	}
 	
-	// Otherwise, wrap in array
 	return [responseData as IDataObject];
 }

@@ -4,20 +4,22 @@ import {
 	INodeExecutionData,
 } from 'n8n-workflow';
 
+import { HaloPSA } from './Interfaces';
+import * as actions from './actions';
 import * as agents from './agents';
 import * as assets from './assets';
 import * as client from './client';
 import * as fieldInfo from './fieldInfo';
 import * as invoices from './invoices';
+import * as projects from './projects';
 import * as sites from './sites';
-import * as tickets from './tickets';
 import * as ticketStatuses from './ticketStatuses';
 import * as ticketTypes from './ticketTypes';
+import * as tickets from './tickets';
 import * as timesheet from './timesheet';
 import * as timesheetEvent from './timesheetEvent';
 import * as webhooks from './webhooks';
 import * as webhookEvents from './webhookEvents';
-import { HaloPSA } from './Interfaces';
 
 export async function router(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 	const items = this.getInputData();
@@ -35,20 +37,26 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 
 		try {
 		switch (haloPSA.resource) {
+			case 'actions':
+				responseData = await (actions as any)[haloPSA.operation].execute.call(this, i);
+				break;
 			case 'agents':
 				responseData = await (agents as any)[haloPSA.operation].execute.call(this, i);
 				break;
 			case 'assets':
 				responseData = await (assets as any)[haloPSA.operation].execute.call(this, i);
 				break;
-		case 'client':
-			responseData = await (client as any)[haloPSA.operation].execute.call(this, i);
-			break;
-		case 'fieldInfo':
-			responseData = await (fieldInfo as any)[haloPSA.operation].execute.call(this, i);
-			break;
-		case 'invoices':
+			case 'client':
+				responseData = await (client as any)[haloPSA.operation].execute.call(this, i);
+				break;
+			case 'fieldInfo':
+				responseData = await (fieldInfo as any)[haloPSA.operation].execute.call(this, i);
+				break;
+			case 'invoices':
 				responseData = await (invoices as any)[haloPSA.operation].execute.call(this, i);
+				break;
+			case 'projects':
+				responseData = await (projects as any)[haloPSA.operation].execute.call(this, i);
 				break;
 			case 'sites':
 				responseData = await (sites as any)[haloPSA.operation].execute.call(this, i);

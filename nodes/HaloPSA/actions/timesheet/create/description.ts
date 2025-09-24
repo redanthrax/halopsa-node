@@ -2,17 +2,21 @@ import { INodeProperties } from 'n8n-workflow';
 
 export const createDescription: INodeProperties[] = [
 	{
-		displayName: 'Agent ID',
+		displayName: 'Agent Name or ID',
 		name: 'agent_id',
-		type: 'number',
+		type: 'options',
 		displayOptions: {
 			show: {
 				resource: ['timesheet'],
 				operation: ['create'],
 			},
 		},
-		default: 0,
-		description: 'The agent ID for the timesheet',
+		default: '',
+		description: 'The agent for the timesheet. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		typeOptions: {
+			loadOptionsMethod: 'getAgents',
+		},
+		options: [],
 	},
 	{
 		displayName: 'Date',

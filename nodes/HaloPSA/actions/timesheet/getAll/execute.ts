@@ -12,7 +12,6 @@ export async function execute(
 	
 	const qs = {} as IDataObject;
 	
-	// Apply filters
 	if (filters.agent_id) qs.agent_id = filters.agent_id;
 	if (filters.date) qs.date = filters.date;
 	
@@ -25,14 +24,11 @@ export async function execute(
 	const endpoint = '/Timesheet';
 	const body = {} as IDataObject;
 
-	// API returns array directly for Timesheet endpoint
 	let responseData: HaloTimesheet[] = await apiRequest.call(this, requestMethod, endpoint, body, qs);
 
-	// Ensure we have an array
 	if (!Array.isArray(responseData)) {
 		responseData = [responseData];
 	}
 
-	// Return the timesheets array
 	return this.helpers.returnJsonArray(responseData);
 }

@@ -3,11 +3,18 @@ import {
 	INodeProperties,
 } from 'n8n-workflow';
 
-export class HaloPSAApi implements ICredentialType {
-	name = 'haloPSAApi';
-	displayName = 'HaloPSA API';
+export class HaloPSACompleteApiOAuth2OAuth2Api implements ICredentialType {
+	name = 'haloPSACompleteApiOAuth2OAuth2Api';
+	displayName = 'HaloPSA Complete API OAuth2 API';
+	extends = ['oAuth2Api'];
 	documentationUrl = 'https://github.com/redanthrax/halopsa-node';
 	properties: INodeProperties[] = [
+		{
+			displayName: 'Grant Type',
+			name: 'grantType',
+			type: 'hidden',
+			default: 'clientCredentials',
+		},
 		{
 			displayName: 'Base API URL',
 			name: 'baseUrl',
@@ -16,6 +23,15 @@ export class HaloPSAApi implements ICredentialType {
 			placeholder: 'https://your-domain.halopsa.com',
 			required: true,
 			description: 'The base URL of your HaloPSA instance',
+		},
+		{
+			displayName: 'Access Token URL',
+			name: 'accessTokenUrl',
+			type: 'string',
+			default: '',
+			required: true,
+			placeholder: 'https://your-domain.halopsa.com/auth/token',
+			description: 'The OAuth2 token endpoint URL',
 		},
 		{
 			displayName: 'Client ID',

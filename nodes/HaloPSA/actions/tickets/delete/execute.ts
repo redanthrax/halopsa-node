@@ -11,7 +11,6 @@ export async function execute(
 	
 	const qs = {} as IDataObject;
 	
-	// Add reason if provided
 	if (reason) {
 		qs.reason = reason;
 	}
@@ -22,6 +21,5 @@ export async function execute(
 
 	await apiRequest.call(this, requestMethod, endpoint, body, qs);
 
-	// Return success response
 	return this.helpers.returnJsonArray([{ success: true, ticketId, deleted: true }]);
 }

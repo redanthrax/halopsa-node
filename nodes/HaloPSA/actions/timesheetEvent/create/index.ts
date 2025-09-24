@@ -9,18 +9,15 @@ export async function execute(
 ): Promise<INodeExecutionData[]> {
 	const body = {} as IDataObject;
 	
-	// Get main properties
 	if (this.getNodeParameter('agent_id', index, 0)) body.agent_id = this.getNodeParameter('agent_id', index);
 	if (this.getNodeParameter('subject', index, '')) body.subject = this.getNodeParameter('subject', index);
 	
-	// Get additional fields
 	const additionalFields = this.getNodeParameter('additionalFields', index, {}) as IDataObject;
 	Object.assign(body, additionalFields);
 
 	const requestMethod = 'POST';
 	const endpoint = '/TimesheetEvent';
 	
-	// API expects array of timesheet events
 	const requestBody = [body];
 
 	const responseData: HaloTimesheetEvent[] = await apiRequest.call(this, requestMethod, endpoint, requestBody, {});

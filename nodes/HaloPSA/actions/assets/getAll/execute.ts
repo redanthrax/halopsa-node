@@ -11,8 +11,6 @@ export async function execute(
 	
 	const qs = {} as IDataObject;
 	
-	// Apply filters - comprehensive mapping of all available filters
-	// Basic filters
 	if (filters.activeinactive) qs.activeinactive = filters.activeinactive;
 	if (filters.advanced_search) qs.advanced_search = filters.advanced_search;
 	if (filters.assetgroup_id) qs.assetgroup_id = filters.assetgroup_id;
@@ -23,7 +21,6 @@ export async function execute(
 	if (filters.assettype_id) qs.assettype_id = filters.assettype_id;
 	if (filters.assettypes) qs.assettypes = filters.assettypes;
 	
-	// Boolean filters
 	if (filters.bookmarked !== undefined) qs.bookmarked = filters.bookmarked;
 	if (filters.consignable !== undefined) qs.consignable = filters.consignable;
 	if (filters.domotzagents !== undefined) qs.domotzagents = filters.domotzagents;
@@ -52,7 +49,6 @@ export async function execute(
 	if (filters.previously_selected !== undefined) qs.previously_selected = filters.previously_selected;
 	if (filters.search_inventory_number_only !== undefined) qs.search_inventory_number_only = filters.search_inventory_number_only;
 	
-	// Number filters
 	if (filters.client_id) qs.client_id = filters.client_id;
 	if (filters.columns_id) qs.columns_id = filters.columns_id;
 	if (filters.consignment_id) qs.consignment_id = filters.consignment_id;
@@ -79,10 +75,8 @@ export async function execute(
 	if (filters.tickettype_id) qs.tickettype_id = filters.tickettype_id;
 	if (filters.user_id) qs.user_id = filters.user_id;
 	
-	// String filters
 	if (filters.excludethese) qs.excludethese = filters.excludethese;
 	if (filters.globalSearchID) qs.globalSearchID = filters.globalSearchID;
-	// Handle include_custom_fields multiOptions - convert array to comma-separated string
 	if (filters.include_custom_fields && Array.isArray(filters.include_custom_fields) && filters.include_custom_fields.length > 0) {
 		qs.include_custom_fields = filters.include_custom_fields.join(',');
 	} else if (filters.include_custom_fields && typeof filters.include_custom_fields === 'string') {
@@ -114,6 +108,5 @@ export async function execute(
 	let responseData: any;
 	responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
 
-	// Return the assets array from the response, or the response directly if it's an array
 	return this.helpers.returnJsonArray(responseData.assets || responseData || []);
 }

@@ -16,7 +16,6 @@ export async function execute(
 
 	try {
 		const response = await apiRequest.call(this, 'POST', '/Webhook', [body]);
-		// API returns an array, get the first (and should be only) item
 		const webhook = Array.isArray(response) ? response[0] : response;
 
 		return [{

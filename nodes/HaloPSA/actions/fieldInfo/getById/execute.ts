@@ -10,7 +10,6 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 	const endpoint = `/FieldInfo/${id}`;
 	const body = {};
 	
-	// Build query parameters from additional options
 	const qs: IDataObject = {};
 	
 	if (additionalOptions) {
@@ -19,6 +18,5 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 
 	const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
 	
-	// Return as array for consistency
 	return [responseData as IDataObject];
 }

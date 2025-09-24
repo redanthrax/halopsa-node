@@ -12,14 +12,12 @@ export async function execute(
 		id: parseInt(timesheetId, 10),
 	} as IDataObject;
 
-	// Get update fields
 	const updateFields = this.getNodeParameter('updateFields', index, {}) as IDataObject;
 	Object.assign(body, updateFields);
 
 	const requestMethod = 'POST';
 	const endpoint = '/Timesheet';
 
-	// API expects array of timesheets
 	const requestBody = [body];
 
 	const responseData: HaloTimesheet[] = await apiRequest.call(this, requestMethod, endpoint, requestBody, {});

@@ -1,14 +1,12 @@
 import { IDataObject } from 'n8n-workflow';
 import { HaloAddress, HaloPriority } from './common';
 
-// Response structure for /Tickets endpoint (list)
 export interface HaloTicketsListResponse extends IDataObject {
 	record_count: number;
 	tickets: HaloTicketSummary[];
 	include_children: boolean;
 }
 
-// Ticket structure from /Tickets endpoint (summary view)
 export interface HaloTicketSummary extends IDataObject {
 	id: number;
 	dateoccurred?: string;
@@ -108,9 +106,7 @@ export interface HaloTicketSummary extends IDataObject {
 	purchaseordernumber?: string;
 }
 
-// Full ticket structure for /Tickets/{id} endpoint (detailed view)
 export interface HaloTicketDetailed extends HaloTicketSummary {
-	// Additional fields available in detailed view
 	sla_name?: string;
 	status_name?: string;
 	tickettype_name?: string;
@@ -207,12 +203,9 @@ export interface HaloTicketDetailed extends HaloTicketSummary {
 	team_department_id?: number;
 }
 
-// For creating new tickets - comprehensive fields based on the full API response
 export interface HaloTicketCreate extends IDataObject {
-	// Core required fields
 	summary: string;
 	
-	// Optional core fields
 	dateoccurred?: string;
 	details?: string;
 	details_html?: string;
@@ -221,16 +214,13 @@ export interface HaloTicketCreate extends IDataObject {
 	priority_id?: number;
 	sla_id?: number;
 	
-	// Client and site information
 	client_id?: number;
 	site_id?: number;
 	user_id?: number;
 	
-	// Assignment
 	agent_id?: number;
 	team_id?: number;
 	
-	// Categories
 	category_1?: string;
 	category_2?: string;
 	category_3?: string;
@@ -240,27 +230,22 @@ export interface HaloTicketCreate extends IDataObject {
 	categoryid_3?: number;
 	categoryid_4?: number;
 	
-	// Time and estimation
 	estimate?: number;
 	estimatedays?: number;
 	
-	// Contact information
 	reportedby?: string;
 	user_email?: string;
 	emailtolist?: string;
 	emailcclist?: string;
 	phonenumber?: string;
 	
-	// Product and knowledge base
 	product_id?: number;
 	matched_kb_id?: number;
 	
-	// Impact and urgency
 	impact?: number;
 	urgency?: number;
 	impactlevel?: number;
 	
-	// Opportunity fields
 	oppcontactname?: string;
 	oppcompanyname?: string;
 	oppemailaddress?: string;
@@ -277,11 +262,9 @@ export interface HaloTicketCreate extends IDataObject {
 	opptimezonename?: string;
 	oppdontaddtomailinglist?: boolean;
 	
-	// Financial
 	cost?: number;
 	quantity?: number;
 	
-	// Scheduling and timing
 	starttime?: string;
 	starttimeslot?: number;
 	targetdate?: string;
@@ -289,12 +272,10 @@ export interface HaloTicketCreate extends IDataObject {
 	targettimeslot?: number;
 	deadlinedate?: string;
 	
-	// Source and supplier
 	source?: number;
 	supplier_status?: number;
 	supplier_contract_id?: number;
 	
-	// Flags and settings
 	flagged?: boolean;
 	onhold?: boolean;
 	excludefromsla?: boolean;
@@ -308,26 +289,22 @@ export interface HaloTicketCreate extends IDataObject {
 	development?: boolean;
 	reviewed?: boolean;
 	
-	// Organization
 	organisation_id?: number;
 	department_id?: number;
 	team_department_id?: number;
 	top_level_id?: number;
 	
-	// Workflow and pipeline
 	workflow_id?: number;
 	workflow_step?: number;
 	workflow_seq?: number;
 	pipeline_stage_id?: number;
 	
-	// Release management
 	release_id?: number;
 	release2_id?: number;
 	release3_id?: number;
 	release_important?: boolean;
 	releasenotegroup_id?: number;
 	
-	// Change management
 	alsoinform?: string;
 	backoutplan?: string;
 	communicationplan?: string;
@@ -337,12 +314,10 @@ export interface HaloTicketCreate extends IDataObject {
 	impactdescription?: string;
 	changeinformation_html?: string;
 	
-	// Appointments and resources
 	appointment_type?: number;
 	resourcetype_id?: number;
 	resource_booking_type?: number;
 	
-	// Project and billing
 	projectinternaltask?: boolean;
 	isbillable?: boolean;
 	itemsarebillable?: boolean;
@@ -351,12 +326,10 @@ export interface HaloTicketCreate extends IDataObject {
 	purchaseordernumber?: string;
 	budgettype_id?: number;
 	
-	// Integration fields
 	component_id?: number;
 	version_id?: number;
 	contract_id?: number;
 	
-	// External system integration
 	pagerdutyid?: string;
 	servicenow_id?: string;
 	connectwise_id?: number;
@@ -365,12 +338,10 @@ export interface HaloTicketCreate extends IDataObject {
 	ninja_device_id?: number;
 	atera_alert_id?: number;
 	
-	// Timezone
 	site_timezone?: string;
 	timezonename?: string;
 	section_timezone?: string;
 	
-	// Various settings
 	inform3rdpartysystem?: boolean;
 	forwardinboundupdates?: boolean;
 	loggedoutofhdworkinghours?: boolean;
@@ -378,24 +349,18 @@ export interface HaloTicketCreate extends IDataObject {
 	deadlinenotificationhours?: number;
 	showonroadmap?: boolean;
 	
-	// Address information
 	delivery_address?: HaloAddress;
 	billing_address?: HaloAddress;
 	
-	// Tags and labels
 	ticket_tags?: string;
 	
-	// Security and sensitivity
 	is_sensitive?: boolean;
 	hide_feedback?: boolean;
 	
-	// Email and messaging
 	sms_override?: string;
 	
-	// ITIL and service management
 	itil_requesttype_id?: number;
 	
-	// Other fields
 	guid?: string;
 	takenby?: string;
 	loggedonbehalfby?: string;

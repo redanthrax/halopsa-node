@@ -14,7 +14,6 @@ export async function execute(
 	const userId = this.getNodeParameter('user_id', index, 0) as number;
 	const additionalFields = this.getNodeParameter('additionalFields', index, {}) as IDataObject;
 	
-	// Build the ticket object
 	const ticketData: HaloTicketCreate = {
 		summary,
 		...((details && { details }) || {}),
@@ -23,7 +22,6 @@ export async function execute(
 		...((userId && { user_id: userId }) || {}),
 	};
 	
-	// Add additional fields
 	Object.keys(additionalFields).forEach(key => {
 		if (additionalFields[key] !== undefined && additionalFields[key] !== '' && additionalFields[key] !== 0) {
 			(ticketData as IDataObject)[key] = additionalFields[key];
@@ -33,12 +31,10 @@ export async function execute(
 	const requestMethod = 'POST';
 	const endpoint = '/Tickets';
 	
-	// The API expects an array of tickets
 	const body = [ticketData];
 
 	let responseData: HaloTicketDetailed[];
 	responseData = await apiRequest.call(this, requestMethod, endpoint, body, {});
 
-	// Return the first (and only) created ticket
 	return this.helpers.returnJsonArray(responseData);
 }

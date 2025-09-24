@@ -11,7 +11,6 @@ export async function execute(
 	
 	const qs = {} as IDataObject;
 	
-	// Apply additional options
 	if (additionalOptions.clientidoverride) qs.clientidoverride = additionalOptions.clientidoverride;
 	if (additionalOptions.get_htmldesigner_signature !== undefined) qs.get_htmldesigner_signature = additionalOptions.get_htmldesigner_signature;
 	if (additionalOptions.getholidayallowance !== undefined) qs.getholidayallowance = additionalOptions.getholidayallowance;

@@ -12,7 +12,6 @@ export async function execute(
 	
 	const qs = {} as IDataObject;
 	
-	// Apply filters - comprehensive mapping of all available filters
 	if (filters.advanced_search) qs.advanced_search = filters.advanced_search;
 	if (filters.asset_id) qs.asset_id = filters.asset_id;
 	if (filters.awaiting_approval !== undefined) qs.awaiting_approval = filters.awaiting_approval;
@@ -71,6 +70,5 @@ export async function execute(
 	let responseData: HaloInvoicesListResponse;
 	responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
 
-	// Return the invoices array from the response
 	return this.helpers.returnJsonArray(responseData.invoices as any[] || []);
 }

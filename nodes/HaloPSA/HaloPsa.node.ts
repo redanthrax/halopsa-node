@@ -1,27 +1,29 @@
+import * as actions from './actions/actions';
 import * as agents from './actions/agents';
-import * as assets from './actions/assets';
-import * as client from './actions/client';
-import * as fieldInfo from './actions/fieldInfo';
-import * as invoices from './actions/invoices';
-import * as sites from './actions/sites';
 import * as tickets from './actions/tickets';
-import * as ticketStatuses from './actions/ticketStatuses';
-import * as ticketTypes from './actions/ticketTypes';
+import * as projects from './actions/projects';
+import * as assets from './actions/assets';
+import * as sites from './actions/sites';
+import * as client from './actions/client';
+import * as invoices from './actions/invoices';
 import * as timesheet from './actions/timesheet';
 import * as timesheetEvent from './actions/timesheetEvent';
+import * as ticketStatuses from './actions/ticketStatuses';
+import * as ticketTypes from './actions/ticketTypes';
 import * as webhooks from './actions/webhooks';
 import * as webhookEvents from './actions/webhookEvents';
+import * as fieldInfo from './actions/fieldInfo';
 
 import {
 	IExecuteFunctions,
 	ILoadOptionsFunctions,
+	INodeExecutionData,
 	INodePropertyOptions,
 	INodeType,
 	INodeTypeDescription,
 	NodeConnectionType,
+	LoggerProxy as Logger,
 } from 'n8n-workflow';
-
-import { router } from './actions/router';
 
 export class HaloPsa implements INodeType {
 	description: INodeTypeDescription = {
@@ -32,23 +34,19 @@ export class HaloPsa implements INodeType {
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description: 'Get data from the HaloPSA API',
+		documentationUrl: 'https://github.com/redanthrax/halopsa-node',
 		defaults: {
 			name: 'HaloPSA Complete',
 		},
 		inputs: [NodeConnectionType.Main],
 		outputs: [NodeConnectionType.Main],
+		usableAsTool: true,
 		credentials: [
 			{
-				name: 'haloPSAApi',
+				name: 'haloPSACompleteApiOAuth2OAuth2Api',
 				required: true,
 			},
 		],
-		requestDefaults: {
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
-			},
-		},
 		properties: [
 			{
 				displayName: 'Resource',
@@ -56,6 +54,10 @@ export class HaloPsa implements INodeType {
 				type: 'options',
 				noDataExpression: true,
 			options: [
+				{
+					name: 'Action',
+					value: 'actions',
+				},
 				{
 					name: 'Agent',
 					value: 'agents',
@@ -75,6 +77,10 @@ export class HaloPsa implements INodeType {
 				{
 					name: 'Invoice',
 					value: 'invoices',
+				},
+				{
+					name: 'Project',
+					value: 'projects',
 				},
 				{
 					name: 'Site',
@@ -111,27 +117,30 @@ export class HaloPsa implements INodeType {
 				],
 				default: 'tickets',
 			},
+			...actions.description,
 			...agents.description,
-			...assets.description,
-			...client.description,
-			...fieldInfo.description,
-			...invoices.description,
-			...sites.description,
 			...tickets.description,
-			...ticketStatuses.description,
-			...ticketTypes.description,
+			...projects.description,
+			...assets.description,
+			...sites.description,
+			...client.description,
+			...invoices.description,
 			...timesheet.description,
 			...timesheetEvent.description,
+			...ticketStatuses.description,
+			...ticketTypes.description,
 			...webhooks.description,
 			...webhookEvents.description,
+			...fieldInfo.description,
 		],
 	};
 
 	methods = {
 		loadOptions: {
-			getTicketTypes: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
-				const { apiRequest } = await import('./transport');
-				try {
+		getTicketTypes: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+			Logger.debug('Loading ticket types for HaloPSA node', { node: this.getNode().name });
+			const { apiRequest } = await import('./transport');
+			try {
 					const requestMethod = 'GET';
 					const endpoint = '/TicketType';
 					const body = {};
@@ -153,7 +162,6 @@ export class HaloPsa implements INodeType {
 					}
 					return options.sort((a, b) => a.name.localeCompare(b.name));
 				} catch (error) {
-					// Return empty array if there's an error loading options
 					return [];
 				}
 			},
@@ -181,7 +189,6 @@ export class HaloPsa implements INodeType {
 					}
 					return options.sort((a, b) => a.name.localeCompare(b.name));
 				} catch (error) {
-					// Return empty array if there's an error loading options
 					return [];
 				}
 			},
@@ -189,12 +196,12 @@ export class HaloPsa implements INodeType {
 				const { apiRequest } = await import('./transport');
 				const resource = this.getCurrentNodeParameter('resource') as string;
 				
-				// Map resources to their typeid values in FieldInfo
 				const typeMapping: Record<string, number> = {
 					client: 2,
 					tickets: 1,
 					sites: 3,
 					assets: 5,
+					projects: 1, // Projects use same typeid as tickets in FieldInfo
 				};
 				
 				const typeid = typeMapping[resource];
@@ -224,14 +231,42 @@ export class HaloPsa implements INodeType {
 					}
 					return options.sort((a, b) => a.name.localeCompare(b.name));
 				} catch (error) {
-					// Return empty array if there's an error loading options
+				return [];
+			}
+			},
+			getAgents: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+				Logger.debug('Loading agents for HaloPSA node', { node: this.getNode().name });
+				const { apiRequest } = await import('./transport');
+				try {
+					const requestMethod = 'GET';
+					const endpoint = '/Agent';
+					const body = {};
+					const qs = {};
+
+					const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
+					
+					const options: INodePropertyOptions[] = [];
+					if (Array.isArray(responseData)) {
+						for (const agent of responseData) {
+							if (agent.id && agent.name) {
+								options.push({
+									name: agent.name,
+									value: agent.id.toString(),
+									description: agent.emailaddress || agent.login || '',
+								});
+							}
+						}
+					}
+					return options.sort((a, b) => a.name.localeCompare(b.name));
+				} catch (error) {
 					return [];
 				}
 			},
 		},
 	};
 
-	async execute(this: IExecuteFunctions) {
+	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
+		const { router } = await import('./actions/router');
 		return await router.call(this);
 	}
 }

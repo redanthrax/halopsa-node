@@ -23,3 +23,5 @@
 # For example, if you have local test data or configuration that should not be committed
 # /test-data
 # /config.json
+
+pnpm-lock.yaml

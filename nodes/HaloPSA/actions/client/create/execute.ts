@@ -13,23 +13,19 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 	const requestMethod = 'POST';
 	const endpoint = '/Client';
 	
-	// Build the client data object
 	const clientData: IDataObject = {
 		name,
 		...additionalFields,
 	};
 
-	// Wrap in array as the API expects an array of clients
 	const body = [clientData];
 	const qs = {};
 
 	const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
 	
-	// If it's already an array, return it directly
 	if (Array.isArray(responseData)) {
 		return responseData;
 	}
 	
-	// Otherwise, wrap in array
 	return [responseData as IDataObject];
 }

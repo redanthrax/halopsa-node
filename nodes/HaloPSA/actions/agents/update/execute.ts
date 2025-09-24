@@ -13,7 +13,6 @@ export async function execute(
 		id: agentId,
 	};
 	
-	// Add update fields
 	if (updateFields.active !== undefined) body.active = updateFields.active;
 	if (updateFields.department_id) body.department_id = updateFields.department_id;
 	if (updateFields.emailaddress) body.emailaddress = updateFields.emailaddress;
@@ -29,7 +28,6 @@ export async function execute(
 	const endpoint = '/Agent';
 	const qs = {} as IDataObject;
 
-	// The API expects an array of agents
 	let responseData: any;
 	responseData = await apiRequest.call(this, requestMethod, endpoint, [body], qs);
 

@@ -12,10 +12,8 @@ export async function execute(
 	
 	const qs = {} as IDataObject;
 	
-	// Apply filters - mapping of available filters for sites
 	if (filters.client_id) qs.client_id = filters.client_id;
 	if (filters.inactive !== undefined) qs.inactive = filters.inactive;
-	// Handle include_custom_fields multiOptions - convert array to comma-separated string
 	if (filters.include_custom_fields && Array.isArray(filters.include_custom_fields) && filters.include_custom_fields.length > 0) {
 		qs.include_custom_fields = filters.include_custom_fields.join(',');
 	} else if (filters.include_custom_fields && typeof filters.include_custom_fields === 'string') {
@@ -49,6 +47,5 @@ export async function execute(
 	let responseData: HaloSiteListResponse;
 	responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
 
-	// Return the sites array from the response
 	return this.helpers.returnJsonArray(responseData.sites as any[] || []);
 }

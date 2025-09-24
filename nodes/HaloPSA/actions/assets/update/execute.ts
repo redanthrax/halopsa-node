@@ -13,7 +13,6 @@ export async function execute(
 		id: assetId,
 	};
 	
-	// Add update fields
 	if (updateFields.assettype_id) body.assettype_id = updateFields.assettype_id;
 	if (updateFields.business_owner_id) body.business_owner_id = updateFields.business_owner_id;
 	if (updateFields.client_id) body.client_id = updateFields.client_id;
@@ -44,7 +43,6 @@ export async function execute(
 	const endpoint = '/Asset';
 	const qs = {} as IDataObject;
 
-	// The API expects an array of assets
 	let responseData: any;
 	responseData = await apiRequest.call(this, requestMethod, endpoint, [body], qs);
 

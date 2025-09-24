@@ -12,11 +12,9 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 
 	const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
 	
-	// If it's already an array, return it directly
 	if (Array.isArray(responseData)) {
 		return responseData as IDataObject[];
 	}
 	
-	// Otherwise, wrap in array
 	return [responseData as IDataObject];
 }

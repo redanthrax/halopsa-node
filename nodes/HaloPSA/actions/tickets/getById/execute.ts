@@ -12,7 +12,6 @@ export async function execute(
 	
 	const qs = {} as IDataObject;
 	
-	// Apply options
 	if (options.includedetails !== undefined) qs.includedetails = options.includedetails;
 	if (options.includelastaction) qs.includelastaction = options.includelastaction;
 	if (options.includeattachments) qs.includeattachments = options.includeattachments;

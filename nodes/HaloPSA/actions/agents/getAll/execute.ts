@@ -11,7 +11,6 @@ export async function execute(
 	
 	const qs = {} as IDataObject;
 	
-	// Apply filters - comprehensive mapping of all available filters
 	if (filters.activeinactive) qs.activeinactive = filters.activeinactive;
 	if (filters.appointmentscreen !== undefined) qs.appointmentscreen = filters.appointmentscreen;
 	if (filters.basic_fields_only !== undefined) qs.basic_fields_only = filters.basic_fields_only;
@@ -70,7 +69,6 @@ export async function execute(
 	if (filters.view_id) qs.view_id = filters.view_id;
 	if (filters.withemail !== undefined) qs.withemail = filters.withemail;
 
-	// Handle pagination
 	if (!returnAll) {
 		const limit = this.getNodeParameter('limit', index) as number;
 		qs.page_size = limit;
@@ -78,7 +76,6 @@ export async function execute(
 
 	try {
 		const response = await apiRequest.call(this, 'GET', '/Agent', {}, qs);
-		// Response is directly an array of agents
 		const agents = Array.isArray(response) ? response : [];
 
 		return agents.map((agent: any) => ({

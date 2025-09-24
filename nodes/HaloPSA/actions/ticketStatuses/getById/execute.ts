@@ -12,7 +12,6 @@ export async function getById(
 	
 	const qs = {} as IDataObject;
 	
-	// Apply options
 	if (options.includedetails !== undefined) qs.includedetails = options.includedetails;
 
 	const requestMethod = 'GET';

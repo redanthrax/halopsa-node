@@ -11,7 +11,6 @@ export async function execute(
 	
 	const qs = {} as IDataObject;
 	
-	// Apply filters based on swagger documentation
 	if (filters.automation_id) qs.automation_id = filters.automation_id;
 	if (filters.idonly !== undefined) qs.idonly = filters.idonly;
 	if (filters.integrationmethod_id) qs.integrationmethod_id = filters.integrationmethod_id;
@@ -30,7 +29,6 @@ export async function execute(
 	if (filters.pageinate !== undefined) qs.pageinate = filters.pageinate;
 	if (filters.webhook_id) qs.webhook_id = filters.webhook_id;
 
-	// Handle pagination
 	if (!returnAll) {
 		const limit = this.getNodeParameter('limit', index) as number;
 		qs.count = limit;
@@ -38,7 +36,6 @@ export async function execute(
 
 	try {
 		const response = await apiRequest.call(this, 'GET', '/WebhookEvent', {}, qs);
-		// Response is directly an array of webhook events
 		const webhookEvents = Array.isArray(response) ? response : [];
 
 		return webhookEvents.map((webhookEvent: any) => ({
