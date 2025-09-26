@@ -63,6 +63,9 @@ Configure and manage ticket type definitions.
 ### [Tickets](./docs/tickets.md)
 Complete CRUD operations for HaloPSA tickets with comprehensive filtering options.
 
+### [Users](./docs/users.md)
+Comprehensive user management with full CRUD operations, extensive filtering options, and advanced configuration including security roles, site associations, and custom field support.
+
 ### [Timesheet](./docs/timesheet.md)
 Track work hours with timesheet management including creation, updates, and time tracking.
 
