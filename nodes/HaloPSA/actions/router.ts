@@ -18,6 +18,7 @@ import * as ticketTypes from './ticketTypes';
 import * as tickets from './tickets';
 import * as timesheet from './timesheet';
 import * as timesheetEvent from './timesheetEvent';
+import * as users from './users';
 import * as webhooks from './webhooks';
 import * as webhookEvents from './webhookEvents';
 
@@ -75,6 +76,9 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 				break;
 			case 'timesheetEvent':
 				responseData = await (timesheetEvent as any)[haloPSA.operation].execute.call(this, i);
+				break;
+			case 'users':
+				responseData = await (users as any)[haloPSA.operation].execute.call(this, i);
 				break;
 			case 'webhooks':
 				responseData = await (webhooks as any)[haloPSA.operation].execute.call(this, i);

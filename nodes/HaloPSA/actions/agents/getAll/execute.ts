@@ -6,7 +6,6 @@ export async function execute(
 	this: IExecuteFunctions,
 	index: number,
 ): Promise<INodeExecutionData[]> {
-	const returnAll = this.getNodeParameter('returnAll', index) as boolean;
 	const filters = this.getNodeParameter('filters', index, {}) as IDataObject;
 	
 	const qs = {} as IDataObject;
@@ -68,11 +67,6 @@ export async function execute(
 	if (filters.tickettype_id) qs.tickettype_id = filters.tickettype_id;
 	if (filters.view_id) qs.view_id = filters.view_id;
 	if (filters.withemail !== undefined) qs.withemail = filters.withemail;
-
-	if (!returnAll) {
-		const limit = this.getNodeParameter('limit', index) as number;
-		qs.page_size = limit;
-	}
 
 	try {
 		const response = await apiRequest.call(this, 'GET', '/Agent', {}, qs);

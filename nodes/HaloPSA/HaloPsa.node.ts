@@ -13,6 +13,7 @@ import * as ticketTypes from './actions/ticketTypes';
 import * as webhooks from './actions/webhooks';
 import * as webhookEvents from './actions/webhookEvents';
 import * as fieldInfo from './actions/fieldInfo';
+import * as users from './actions/users';
 
 import {
 	IExecuteFunctions,
@@ -107,6 +108,10 @@ export class HaloPsa implements INodeType {
 					value: 'timesheetEvent',
 				},
 				{
+					name: 'User',
+					value: 'users',
+				},
+				{
 					name: 'Webhook',
 					value: 'webhooks',
 				},
@@ -132,6 +137,7 @@ export class HaloPsa implements INodeType {
 			...webhooks.description,
 			...webhookEvents.description,
 			...fieldInfo.description,
+			...users.description,
 		],
 	};
 
@@ -255,6 +261,39 @@ export class HaloPsa implements INodeType {
 									description: agent.emailaddress || agent.login || '',
 								});
 							}
+						}
+					}
+					return options.sort((a, b) => a.name.localeCompare(b.name));
+				} catch (error) {
+				return [];
+			}
+			},
+			getUsers: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+				Logger.debug('Loading users for HaloPSA node', { node: this.getNode().name });
+				const { apiRequest } = await import('./transport');
+				try {
+					const requestMethod = 'GET';
+					const endpoint = '/Users';
+					const body = {};
+					const qs = {};
+
+					const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
+					
+					const options: INodePropertyOptions[] = [];
+					let users = [];
+					if (responseData && responseData.users) {
+						users = Array.isArray(responseData.users) ? responseData.users : [responseData.users];
+					} else if (Array.isArray(responseData)) {
+						users = responseData;
+					}
+					
+					for (const user of users) {
+						if (user.id && user.name) {
+							options.push({
+								name: user.name,
+								value: user.id.toString(),
+								description: user.emailaddress || user.client_name || '',
+							});
 						}
 					}
 					return options.sort((a, b) => a.name.localeCompare(b.name));
