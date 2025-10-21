@@ -1,6 +1,6 @@
 import { IExecuteFunctions } from 'n8n-workflow';
 import { IDataObject } from 'n8n-workflow';
-import { apiRequest } from '../../../transport';
+import { apiRequest, apiRequestAllItems } from '../../../transport';
 import { ClientListResponse } from '../../interfaces/client';
 
 export async function execute(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
@@ -28,6 +28,11 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 	
 	if (!returnAll && limit) {
 		qs.count = limit;
+	}
+
+if (returnAll) {
+		const all = await apiRequestAllItems.call(this, requestMethod, endpoint, 'clients', body, qs);
+		return all;
 	}
 
 	const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);

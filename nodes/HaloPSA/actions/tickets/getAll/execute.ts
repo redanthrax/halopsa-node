@@ -1,6 +1,6 @@
 import { IExecuteFunctions } from 'n8n-workflow';
 import { IDataObject, INodeExecutionData } from 'n8n-workflow';
-import { apiRequest } from '../../../transport';
+import { apiRequest, apiRequestAllItems } from '../../../transport';
 import { HaloTicketsListResponse } from '../../Interfaces';
 
 export async function execute(
@@ -231,8 +231,12 @@ export async function execute(
 	const endpoint = '/Tickets';
 	const body = {} as IDataObject;
 
-	let responseData: HaloTicketsListResponse;
-	responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
+if (returnAll) {
+	const all = await apiRequestAllItems.call(this, requestMethod, endpoint, 'tickets', body, qs);
+	return this.helpers.returnJsonArray(all);
+}
 
-	return this.helpers.returnJsonArray(responseData.tickets || []);
+let responseData: HaloTicketsListResponse;
+responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
+return this.helpers.returnJsonArray(responseData.tickets || []);
 }

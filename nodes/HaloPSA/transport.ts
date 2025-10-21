@@ -97,3 +97,66 @@ export async function apiRequest(
 		throw new NodeApiError(this.getNode(), error);
 	}
 }
+
+export async function apiRequestAllItems(
+	this: IHookFunctions | IExecuteFunctions | ILoadOptionsFunctions,
+	method: IHttpRequestMethods,
+	endpoint: string,
+	resourceKey: string,
+	body: IDataObject | GenericValue | GenericValue[] = {},
+	qs: IDataObject = {},
+): Promise<any[]> {
+	const allItems: any[] = [];
+	const pageSize = 1000; // Maximum page size for HaloPSA
+	let page = 1;
+	let hasMorePages = true;
+
+	while (hasMorePages) {
+		// Set pagination parameters
+		const paginatedQs = {
+			...qs,
+			count: pageSize,
+			pageinate: true,
+			page_no: page,
+		};
+
+		Logger.debug(`HaloPSA Paginated Request - Page ${page}`, {
+			endpoint,
+			pageSize,
+			node: this.getNode().name,
+		});
+
+		const response = await apiRequest.call(this, method, endpoint, body, paginatedQs);
+		
+		// Extract items from response
+		let items: any[];
+		if (resourceKey === '' || !resourceKey) {
+			// API returns array directly
+			items = Array.isArray(response) ? response : [];
+		} else {
+			// API returns object with resource key
+			items = response[resourceKey] || [];
+		}
+		allItems.push(...items);
+
+		// Check if there are more pages
+		// If we got fewer items than the page size, we've reached the end
+		hasMorePages = items.length === pageSize;
+		page++;
+
+		Logger.debug(`HaloPSA Paginated Response - Page ${page - 1}`, {
+			itemsReceived: items.length,
+			totalItemsSoFar: allItems.length,
+			hasMorePages,
+			node: this.getNode().name,
+		});
+	}
+
+	Logger.debug('HaloPSA Pagination Complete', {
+		totalItems: allItems.length,
+		totalPages: page - 1,
+		node: this.getNode().name,
+	});
+
+	return allItems;
+}

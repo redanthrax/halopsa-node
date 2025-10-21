@@ -1,6 +1,6 @@
 import { IExecuteFunctions } from 'n8n-workflow';
 import { IDataObject, INodeExecutionData } from 'n8n-workflow';
-import { apiRequest } from '../../../transport';
+import { apiRequest, apiRequestAllItems } from '../../../transport';
 
 export async function execute(
 	this: IExecuteFunctions,
@@ -105,8 +105,13 @@ export async function execute(
 	const endpoint = '/Asset';
 	const body = {} as IDataObject;
 
-	let responseData: any;
-	responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
+if (returnAll) {
+	const all = await apiRequestAllItems.call(this, requestMethod, endpoint, 'assets', body, qs);
+	return this.helpers.returnJsonArray(all);
+}
 
-	return this.helpers.returnJsonArray(responseData.assets || responseData || []);
+let responseData: any;
+responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
+
+return this.helpers.returnJsonArray(responseData.assets || responseData || []);
 }

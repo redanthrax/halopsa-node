@@ -1,4 +1,5 @@
 import {
+	Icon,
 	ICredentialType,
 	INodeProperties,
 } from 'n8n-workflow';
@@ -8,6 +9,10 @@ export class HaloPSACompleteApiOAuth2OAuth2Api implements ICredentialType {
 	displayName = 'HaloPSA Complete API OAuth2 API';
 	extends = ['oAuth2Api'];
 	documentationUrl = 'https://github.com/redanthrax/halopsa-node';
+	icon: Icon = {
+		light: 'file:../nodes/HaloPSA/halopsa.svg',
+		dark: 'file:../nodes/HaloPSA/halopsa.svg'
+	};
 	properties: INodeProperties[] = [
 		{
 			displayName: 'Grant Type',
