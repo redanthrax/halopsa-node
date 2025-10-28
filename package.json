@@ -39,7 +39,8 @@
       "dist/credentials/HaloPSACompleteApiOAuth2OAuth2Api.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/HaloPSA/HaloPsa.node.js"
+      "dist/nodes/HaloPSA/HaloPsa.node.js",
+      "dist/nodes/HaloPSA/HaloPsaTrigger.node.js"
     ]
   },
   "devDependencies": {

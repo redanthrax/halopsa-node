@@ -3,6 +3,7 @@ import {
 	IDataObject,
 	IExecuteFunctions,
 	IHookFunctions,
+	IWebhookFunctions,
 	IHttpRequestMethods,
 	IHttpRequestOptions,
 	ILoadOptionsFunctions,
@@ -17,7 +18,7 @@ interface TokenResponse {
 }
 
 export async function getAccessToken(
-	this: IHookFunctions | IExecuteFunctions | ILoadOptionsFunctions,
+	this: IHookFunctions | IExecuteFunctions | ILoadOptionsFunctions | IWebhookFunctions,
 ): Promise<string> {
 	const creds = await this.getCredentials('haloPSACompleteApiOAuth2OAuth2Api');
 	
@@ -49,7 +50,7 @@ export async function getAccessToken(
 }
 
 export async function apiRequest(
-	this: IHookFunctions | IExecuteFunctions | ILoadOptionsFunctions,
+	this: IHookFunctions | IExecuteFunctions | ILoadOptionsFunctions | IWebhookFunctions,
 	method: IHttpRequestMethods,
 	endpoint: string,
 	body: IDataObject | GenericValue | GenericValue[] = {},
@@ -99,7 +100,7 @@ export async function apiRequest(
 }
 
 export async function apiRequestAllItems(
-	this: IHookFunctions | IExecuteFunctions | ILoadOptionsFunctions,
+	this: IHookFunctions | IExecuteFunctions | ILoadOptionsFunctions | IWebhookFunctions,
 	method: IHttpRequestMethods,
 	endpoint: string,
 	resourceKey: string,
