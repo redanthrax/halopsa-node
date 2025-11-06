@@ -15,7 +15,7 @@ import * as webhookEvents from './actions/webhookEvents';
 import * as fieldInfo from './actions/fieldInfo';
 import * as users from './actions/users';
 
-import type {
+import {
 	IExecuteFunctions,
 	ILoadOptionsFunctions,
 	INodeExecutionData,
@@ -24,7 +24,6 @@ import type {
 	INodeTypeDescription,
 	LoggerProxy as Logger,
 } from 'n8n-workflow';
-import { NodeConnectionTypes, LoggerProxy as Logger } from 'n8n-workflow';
 
 export class HaloPsa implements INodeType {
 	description: INodeTypeDescription = {
