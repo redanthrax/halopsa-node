@@ -5,7 +5,6 @@ import {
 	INodeType,
 	INodeTypeDescription,
 	IWebhookResponseData,
-	NodeConnectionType,
 	ILoadOptionsFunctions,
 	INodePropertyOptions,
 } from 'n8n-workflow';
@@ -25,7 +24,7 @@ export class HaloPsaTrigger implements INodeType {
 			name: 'HaloPSA Trigger',
 		},
 		inputs: [],
-		outputs: [NodeConnectionType.Main],
+		outputs: ['main'],
 		credentials: [
 			{
 				name: 'haloPSACompleteApiOAuth2OAuth2Api',
@@ -42,7 +41,7 @@ export class HaloPsaTrigger implements INodeType {
 		],
 		properties: [
 			{
-				displayName: 'Event Type',
+				displayName: 'Event Type Name or ID',
 				name: 'eventNumber',
 				type: 'options',
 				typeOptions: {
@@ -50,7 +49,7 @@ export class HaloPsaTrigger implements INodeType {
 				},
 				default: 1,
 				required: true,
-				description: 'The HaloPSA event type to trigger on',
+				description: 'The HaloPSA event type to trigger on. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Webhook Name',
@@ -71,7 +70,7 @@ export class HaloPsaTrigger implements INodeType {
 				typeOptions: {
 					theme: 'warning',
 				},
-				description: 'WARNING: If a webhook with the same name already exists in HaloPSA, it will be automatically updated with your current configuration instead of creating a duplicate.',
+				description: 'WARNING: If a webhook with the same name already exists in HaloPSA, it will be automatically updated with your current configuration instead of creating a duplicate',
 			},
 			{
 				displayName: 'Options',
@@ -79,14 +78,7 @@ export class HaloPsaTrigger implements INodeType {
 				type: 'collection',
 				placeholder: 'Add Option',
 				default: {},
-				options: [
-					{
-						displayName: 'Include Details',
-						name: 'includeDetails',
-						type: 'boolean',
-						default: true,
-						description: 'Whether to request detailed information in the webhook payload',
-					},
+			options: [
 					{
 						displayName: 'Active',
 						name: 'active',
@@ -95,21 +87,28 @@ export class HaloPsaTrigger implements INodeType {
 						description: 'Whether the webhook is active',
 					},
 					{
-						displayName: 'Content Type',
-						name: 'contentType',
-						type: 'options',
-						options: [
-							{
-								name: 'application/json',
-								value: 'application/json',
+						displayName: 'Batch Delay (Seconds)',
+						name: 'batchDelaySeconds',
+						type: 'number',
+						default: 60,
+						displayOptions: {
+							show: {
+								batchMethod: [1],
 							},
-							{
-								name: 'application/x-www-form-urlencoded',
-								value: 'application/x-www-form-urlencoded',
+						},
+						description: 'Delay in seconds before sending batched events',
+					},
+					{
+						displayName: 'Batch Limit',
+						name: 'batchLimit',
+						type: 'number',
+						default: 10,
+						displayOptions: {
+							show: {
+								batchMethod: [2],
 							},
-						],
-						default: 'application/json',
-						description: 'Content type for the webhook payload',
+						},
+						description: 'Maximum number of events per batch (0 = unlimited)',
 					},
 					{
 						displayName: 'Batch Method',
@@ -136,28 +135,28 @@ export class HaloPsaTrigger implements INodeType {
 						description: 'How to batch webhook executions',
 					},
 					{
-						displayName: 'Batch Delay (Seconds)',
-						name: 'batchDelaySeconds',
-						type: 'number',
-						default: 60,
-						displayOptions: {
-							show: {
-								batchMethod: [1],
+						displayName: 'Content Type',
+						name: 'contentType',
+						type: 'options',
+						options: [
+							{
+								name: 'Application/json',
+								value: 'application/json',
 							},
-						},
-						description: 'Delay in seconds before sending batched events',
+							{
+								name: 'Application/X-Www-Form-Urlencoded',
+								value: 'application/x-www-form-urlencoded',
+							},
+						],
+						default: 'application/json',
+						description: 'Content type for the webhook payload',
 					},
 					{
-						displayName: 'Batch Limit',
-						name: 'batchLimit',
-						type: 'number',
-						default: 10,
-						displayOptions: {
-							show: {
-								batchMethod: [2],
-							},
-						},
-						description: 'Maximum number of events per batch (0 = unlimited)',
+						displayName: 'Include Details',
+						name: 'includeDetails',
+						type: 'boolean',
+						default: true,
+						description: 'Whether to request detailed information in the webhook payload',
 					},
 				],
 			},
@@ -362,7 +361,7 @@ export class HaloPsaTrigger implements INodeType {
 					{ name: 'OOH Ticket Updated by User', value: 7, description: 'Triggers when an out-of-hours ticket is updated by a user' },
 					{ name: 'Ticket Updated by User (Qualified)', value: 8, description: 'Triggers when a qualified ticket is updated by a user' },
 					{ name: 'Ticket Changed', value: 9, description: 'Triggers when a ticket is changed' },
-					{ name: 'Re-assign', value: 10, description: 'Triggers when a ticket is reassigned' },
+					{ name: 'Re-Assign', value: 10, description: 'Triggers when a ticket is reassigned' },
 					{ name: 'Closed', value: 11, description: 'Triggers when a ticket is closed' },
 					{ name: 'Ticket Status Changed', value: 12, description: 'Triggers when a ticket status changes' },
 					{ name: 'Ticket Updated', value: 17, description: 'Triggers when a ticket is updated (general)' },

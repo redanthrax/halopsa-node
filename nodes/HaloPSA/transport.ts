@@ -39,7 +39,7 @@ export async function getAccessToken(
 	};
 
 	try {
-		const tokenResponse = await this.helpers.request(tokenOptions);
+		const tokenResponse = await this.helpers.httpRequest(tokenOptions);
 		const parsedResponse: TokenResponse = JSON.parse(tokenResponse);
 		return parsedResponse.access_token;
 	} catch (error) {
@@ -80,7 +80,7 @@ export async function apiRequest(
 	});
 
 	try {
-		const response = await this.helpers.request(options);
+		const response = await this.helpers.httpRequest(options);
 		Logger.debug('HaloPSA API Response received', {
 			url: options.url,
 			responseType: typeof response,
