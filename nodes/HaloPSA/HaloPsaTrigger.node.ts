@@ -1,4 +1,4 @@
-import {
+import type {
 	IHookFunctions,
 	IWebhookFunctions,
 	IDataObject,
@@ -8,6 +8,7 @@ import {
 	ILoadOptionsFunctions,
 	INodePropertyOptions,
 } from 'n8n-workflow';
+import { NodeConnectionTypes } from 'n8n-workflow';
 
 import { apiRequest } from './transport';
 
