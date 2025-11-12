@@ -105,7 +105,7 @@ Create a new asset with comprehensive configuration options.
 
 ## Update
 
-Update an existing asset with any available field modifications.
+Update an existing asset with any available field modifications, including custom field items.
 
 **Required Parameters:**
 - **Asset ID**: The ID of the asset to update
@@ -116,8 +116,16 @@ Update an existing asset with any available field modifications.
 - Contract and supplier associations
 - Status and priority settings
 - Inventory tracking information
-- Custom field values
 - Notes and documentation
+
+**Custom Field Items**:
+To update custom field values for an asset:
+1. **Asset Type (For Fields)**: Select the asset type from the dropdown (loaded from HaloPSA) to load available custom fields for that type
+2. **Field Items**: Add one or more field items with:
+   - **Field Name or ID**: Select from the dynamically loaded list of fields for the asset type
+   - **Value**: The value to set for the field
+
+Both the asset types and field lists are dynamically loaded from HaloPSA's API. Asset types are fetched from the `/AssetType` endpoint, and fields are loaded from the `/FieldInfo` endpoint based on the selected asset type. This ensures you can only select valid asset types and custom fields that are configured for that specific asset type.
 
 
 ## Delete

@@ -206,7 +206,7 @@ export class HaloPsa implements INodeType {
 					tickets: 1,
 					sites: 3,
 					assets: 5,
-					projects: 1, // Projects use same typeid as tickets in FieldInfo
+					projects: 1,
 				};
 				
 				const typeid = typeMapping[resource];
@@ -236,8 +236,70 @@ export class HaloPsa implements INodeType {
 					}
 					return options.sort((a, b) => a.name.localeCompare(b.name));
 				} catch (error) {
-				return [];
-			}
+					return [];
+				}
+			},
+			getAssetTypes: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+				const { apiRequest } = await import('./transport');
+				try {
+					const requestMethod = 'GET';
+					const endpoint = '/AssetType';
+					const body = {};
+					const qs = {};
+
+					const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
+					
+					const options: INodePropertyOptions[] = [];
+					if (Array.isArray(responseData)) {
+						for (const assetType of responseData) {
+							if (assetType.id && assetType.name) {
+								options.push({
+									name: assetType.name,
+									value: assetType.id.toString(),
+									description: assetType.description || '',
+								});
+							}
+						}
+					}
+					return options.sort((a, b) => a.name.localeCompare(b.name));
+				} catch (error) {
+					return [];
+				}
+			},
+			getAssetFields: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+				const { apiRequest } = await import('./transport');
+				const { getFieldTypeDescription } = await import('./utils');
+				const assettypeIdParam = this.getCurrentNodeParameter('assettype_id_for_fields');
+				const assettypeId = typeof assettypeIdParam === 'string' ? parseInt(assettypeIdParam, 10) : (assettypeIdParam as number);
+				
+				if (!assettypeId || assettypeId === 0 || typeof assettypeId !== 'number' || isNaN(assettypeId)) {
+					return [];
+				}
+				
+				try {
+					const requestMethod = 'GET';
+					const endpoint = `/AssetType/${assettypeId}`;
+					const body = {};
+					const qs = { fieldsandlayoutonly: true, includetyperestrictions: true };
+
+					const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
+					
+					const options: INodePropertyOptions[] = [];
+					if (responseData && responseData.field_list && Array.isArray(responseData.field_list)) {
+						for (const field of responseData.field_list) {
+							if (field.id && field.name) {
+								options.push({
+									name: field.name,
+									value: field.id.toString(),
+									description: getFieldTypeDescription(field),
+								});
+							}
+						}
+					}
+					return options.sort((a, b) => a.name.localeCompare(b.name));
+				} catch (error) {
+					return [];
+				}
 			},
 			getAgents: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				Logger.debug('Loading agents for HaloPSA node', { node: this.getNode().name });

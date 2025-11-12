@@ -8,6 +8,10 @@ export async function execute(
 ): Promise<INodeExecutionData[]> {
 	const assetId = this.getNodeParameter('id', index) as number;
 	const updateFields = this.getNodeParameter('updateFields', index, {}) as IDataObject;
+	const fieldItems = this.getNodeParameter('fieldItems.fieldItem', index, []) as Array<{
+		field: string;
+		value: string;
+	}>;
 	
 	const body: IDataObject = {
 		id: assetId,
@@ -38,6 +42,22 @@ export async function execute(
 	if (updateFields.third_party_id) body.third_party_id = updateFields.third_party_id;
 	if (updateFields.use) body.use = updateFields.use;
 	if (updateFields.user_id) body.user_id = updateFields.user_id;
+	
+	if (fieldItems && fieldItems.length > 0) {
+		const fields: Array<{ id: number; value: string }> = [];
+		for (const item of fieldItems) {
+			if (item.field && item.value !== undefined) {
+				const fieldId = typeof item.field === 'string' ? parseInt(item.field, 10) : item.field;
+				fields.push({
+					id: fieldId,
+					value: item.value,
+				});
+			}
+		}
+		if (fields.length > 0) {
+			body.fields = fields;
+		}
+	}
 
 	const requestMethod = 'POST';
 	const endpoint = '/Asset';

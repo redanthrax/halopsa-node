@@ -11,6 +11,21 @@ import {
 
 import { apiRequest } from './transport';
 
+const EVENT_TYPES: Record<number, string> = {
+	3: 'New Ticket Logged',
+	19: 'Ticket Updated by User',
+	39: 'Closed',
+	42: '1st SLA Warning',
+	46: '2nd SLA Warning',
+	70: 'Ticket Deadline',
+	76: 'Ticket Status Changed',
+	1072: 'Ticket Deleted',
+};
+
+function getEventName(eventNumber: number): string {
+	return EVENT_TYPES[eventNumber] || `Event ${eventNumber}`;
+}
+
 export class HaloPsaTrigger implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'HaloPSA Trigger',
@@ -169,7 +184,7 @@ export class HaloPsaTrigger implements INodeType {
 				const webhookUrl = this.getNodeWebhookUrl('default');
 				const eventNumber = this.getNodeParameter('eventNumber') as number;
 				const webhookName = this.getNodeParameter('webhookName') as string;
-				const fullWebhookName = `${webhookName} - Event ${eventNumber}`;
+				const fullWebhookName = `${webhookName} - ${getEventName(eventNumber)}`;
 
 				try {
 					const webhooks = await apiRequest.call(
@@ -223,7 +238,7 @@ export class HaloPsaTrigger implements INodeType {
 				const existingWebhookId = staticData.webhookId as string;
 
 				const webhookData: IDataObject = {
-					name: `${webhookName} - Event ${eventNumber}`,
+					name: `${webhookName} - ${getEventName(eventNumber)}`,
 					url: webhookUrl,
 					type: 0,
 					method: 0,
@@ -352,23 +367,14 @@ export class HaloPsaTrigger implements INodeType {
 		loadOptions: {
 			async getEventTypes(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				return [
-					{ name: 'New Ticket Logged', value: 1, description: 'Triggers when a new ticket is logged' },
-					{ name: 'New P1 Ticket Logged', value: 2, description: 'Triggers when a new P1 priority ticket is logged' },
-					{ name: 'New OOH Ticket Logged', value: 3, description: 'Triggers when a new out-of-hours ticket is logged' },
-					{ name: 'New Ticket Logged (Qualified)', value: 4, description: 'Triggers when a new qualified ticket is logged' },
-					{ name: 'Ticket Updated by User', value: 5, description: 'Triggers when a ticket is updated by a user' },
-					{ name: 'P1 Ticket Updated by User', value: 6, description: 'Triggers when a P1 ticket is updated by a user' },
-					{ name: 'OOH Ticket Updated by User', value: 7, description: 'Triggers when an out-of-hours ticket is updated by a user' },
-					{ name: 'Ticket Updated by User (Qualified)', value: 8, description: 'Triggers when a qualified ticket is updated by a user' },
-					{ name: 'Ticket Changed', value: 9, description: 'Triggers when a ticket is changed' },
-					{ name: 'Re-Assign', value: 10, description: 'Triggers when a ticket is reassigned' },
-					{ name: 'Closed', value: 11, description: 'Triggers when a ticket is closed' },
-					{ name: 'Ticket Status Changed', value: 12, description: 'Triggers when a ticket status changes' },
-					{ name: 'Ticket Updated', value: 17, description: 'Triggers when a ticket is updated (general)' },
-					{ name: 'Ticket Reassigned', value: 33, description: 'Triggers when a ticket is reassigned' },
-					{ name: 'Ticket Cleared', value: 37, description: 'Triggers when a ticket is cleared' },
-					{ name: 'Ticket Status Changed (General)', value: 74, description: 'Triggers when ticket status changes' },
-					{ name: 'SLA Breached', value: 1090, description: 'Triggers when an SLA is breached' },
+					{ name: 'New Ticket Logged', value: 3, description: 'Triggers when a new ticket is logged' },
+					{ name: 'Ticket Updated by User', value: 19, description: 'Triggers when a ticket is updated by a user' },
+					{ name: 'Closed', value: 39, description: 'Triggers when a ticket is closed' },
+					{ name: '1st SLA Warning', value: 42, description: 'Triggers on first SLA warning' },
+					{ name: '2nd SLA Warning', value: 46, description: 'Triggers on second SLA warning' },
+					{ name: 'Ticket Deadline', value: 70, description: 'Triggers when a ticket reaches its deadline' },
+					{ name: 'Ticket Status Changed', value: 76, description: 'Triggers when a ticket status changes' },
+					{ name: 'Ticket Deleted', value: 1072, description: 'Triggers when a ticket is deleted' },
 				];
 			},
 		},
@@ -385,7 +391,7 @@ export class HaloPsaTrigger implements INodeType {
 			const options = this.getNodeParameter('options', {}) as IDataObject;
 
 			const webhookData: IDataObject = {
-				name: `${webhookName} - Event ${eventNumber}`,
+				name: `${webhookName} - ${getEventName(eventNumber)}`,
 				url: webhookUrl,
 				type: 0,
 				method: 0,

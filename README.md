@@ -36,7 +36,24 @@ npm install n8n-nodes-halopsacomplete
 
 ## Supported Operations
 
-### [Agents](./docs/agents.md)
+### Triggers
+
+#### HaloPSA Trigger
+Receive real-time webhook notifications from HaloPSA for ticket events:
+- **New Ticket Logged** - Triggered when a new ticket is created
+- **Ticket Updated by User** - Triggered when a user updates a ticket
+- **Closed** - Triggered when a ticket is closed
+- **1st SLA Warning** - Triggered on first SLA breach warning
+- **2nd SLA Warning** - Triggered on second SLA breach warning
+- **Ticket Deadline** - Triggered when a ticket reaches its deadline
+- **Ticket Status Changed** - Triggered when ticket status changes
+- **Ticket Deleted** - Triggered when a ticket is deleted
+
+The trigger automatically creates and manages webhooks in HaloPSA, handling subscription and cleanup.
+
+### Actions
+
+#### [Agents](./docs/agents.md)
 Manage agent records with extensive filtering options for departments, teams, roles, and permissions.
 
 ### [Assets](./docs/assets.md)

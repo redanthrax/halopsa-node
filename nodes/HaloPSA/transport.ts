@@ -40,7 +40,12 @@ export async function getAccessToken(
 
 	try {
 		const tokenResponse = await this.helpers.httpRequest(tokenOptions);
-		const parsedResponse: TokenResponse = JSON.parse(tokenResponse);
+		let parsedResponse: TokenResponse;
+		if (typeof tokenResponse === 'string') {
+			parsedResponse = JSON.parse(tokenResponse);
+		} else {
+			parsedResponse = tokenResponse as TokenResponse;
+		}
 		return parsedResponse.access_token;
 	} catch (error) {
 		throw new NodeApiError(this.getNode(), error, {

@@ -215,4 +215,63 @@ export const updateDescription: INodeProperties[] = [
 			},
 		],
 	},
+	{
+		displayName: 'Asset Type (For Fields)',
+		name: 'assettype_id_for_fields',
+		type: 'options',
+		typeOptions: {
+			loadOptionsMethod: 'getAssetTypes',
+		},
+		displayOptions: {
+			show: {
+				resource: ['assets'],
+				operation: ['update'],
+			},
+		},
+		default: '',
+		description: 'The asset type - required to load available fields for this asset type. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+	},
+	{
+		displayName: 'Field Items',
+		name: 'fieldItems',
+		type: 'fixedCollection',
+		placeholder: 'Add Field Item',
+		typeOptions: {
+			multipleValues: true,
+		},
+		displayOptions: {
+			show: {
+				resource: ['assets'],
+				operation: ['update'],
+			},
+		},
+		default: {},
+		description: 'Custom field values to update for this asset',
+		options: [
+			{
+				name: 'fieldItem',
+				displayName: 'Field Item',
+				values: [
+					{
+						displayName: 'Field Name or ID',
+						name: 'field',
+						type: 'options',
+						typeOptions: {
+							loadOptionsDependsOn: ['assettype_id_for_fields'],
+							loadOptionsMethod: 'getAssetFields',
+						},
+						default: '',
+						description: 'The custom field to update. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+					},
+					{
+						displayName: 'Value',
+						name: 'value',
+						type: 'string',
+						default: '',
+						description: 'The value to set for this field',
+					},
+				],
+			},
+		],
+	},
 ];
