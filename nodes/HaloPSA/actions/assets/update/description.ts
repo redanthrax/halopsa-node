@@ -216,7 +216,7 @@ export const updateDescription: INodeProperties[] = [
 		],
 	},
 	{
-		displayName: 'Asset Type (For Fields)',
+		displayName: 'Asset Type (For Fields) Name or ID',
 		name: 'assettype_id_for_fields',
 		type: 'options',
 		typeOptions: {
