@@ -36,7 +36,6 @@ export const description: INodeProperties[] = [
 			{
 				name: 'Get Asset Types',
 				value: 'getAssetTypes',
-				description: 'Get asset types',
 				action: 'Get asset types',
 			},
 			{
