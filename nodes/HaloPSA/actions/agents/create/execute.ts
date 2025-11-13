@@ -6,23 +6,29 @@ export async function execute(
 	this: IExecuteFunctions,
 	index: number,
 ): Promise<INodeExecutionData[]> {
-	const emailAddress = this.getNodeParameter('emailaddress', index) as string;
+	const email = this.getNodeParameter('email', index) as string;
 	const name = this.getNodeParameter('name', index) as string;
 	const additionalFields = this.getNodeParameter('additionalFields', index, {}) as IDataObject;
 	
 	const body: IDataObject = {
-		emailaddress: emailAddress,
+		email: email,
 		name: name,
 	};
 	
-	if (additionalFields.active !== undefined) body.active = additionalFields.active;
-	if (additionalFields.department_id) body.department_id = additionalFields.department_id;
+	if (additionalFields.isdisabled !== undefined) body.isdisabled = additionalFields.isdisabled;
+	if (additionalFields.department_id) {
+		const v = additionalFields.department_id;
+		body.department_id = typeof v === 'string' ? parseInt(v, 10) : v;
+	}
 	if (additionalFields.firstname) body.firstname = additionalFields.firstname;
 	if (additionalFields.isadmin !== undefined) body.isadmin = additionalFields.isadmin;
-	if (additionalFields.lastname) body.lastname = additionalFields.lastname;
+	if (additionalFields.surname) body.surname = additionalFields.surname;
 	if (additionalFields.loginname) body.loginname = additionalFields.loginname;
-	if (additionalFields.phonenumber) body.phonenumber = additionalFields.phonenumber;
-	if (additionalFields.team_id) body.team_id = additionalFields.team_id;
+	if (additionalFields.sms) body.sms = additionalFields.sms;
+	if (additionalFields.team_id) {
+		const v = additionalFields.team_id;
+		body.team_id = typeof v === 'string' ? parseInt(v, 10) : v;
+	}
 
 	const requestMethod = 'POST';
 	const endpoint = '/Agent';

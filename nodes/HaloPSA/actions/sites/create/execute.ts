@@ -7,7 +7,8 @@ export async function execute(
 	index: number,
 ): Promise<INodeExecutionData[]> {
 	const name = this.getNodeParameter('name', index) as string;
-	const client_id = this.getNodeParameter('client_id', index) as number;
+	const clientIdParam = this.getNodeParameter('client_id', index);
+	const client_id = typeof clientIdParam === 'string' ? parseInt(clientIdParam, 10) : (clientIdParam as number);
 
 	const additionalFields = this.getNodeParameter('additionalFields', index, {}) as IDataObject;
 

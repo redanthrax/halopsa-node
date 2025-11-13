@@ -29,11 +29,14 @@ export const updateDescription: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'Client ID',
+				displayName: 'Client Name or ID',
 				name: 'client_id',
-				type: 'number',
-				default: 0,
-				description: 'The client ID to which the user belongs',
+				type: 'options',
+				typeOptions: {
+					loadOptionsMethod: 'getClients',
+				},
+				default: '',
+				description: 'The client to which the user belongs. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Colour',
@@ -99,11 +102,14 @@ export const updateDescription: INodeProperties[] = [
 				description: 'Whether this is a service account',
 			},
 			{
-				displayName: 'Linked Agent ID',
+				displayName: 'Linked Agent Name or ID',
 				name: 'linked_agent_id',
-				type: 'number',
-				default: 0,
-				description: 'The ID of the linked agent',
+				type: 'options',
+				typeOptions: {
+					loadOptionsMethod: 'getAgents',
+				},
+				default: '',
+				description: 'The linked agent. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Name',
@@ -141,11 +147,15 @@ export const updateDescription: INodeProperties[] = [
 				description: 'The priority ID for the user',
 			},
 			{
-				displayName: 'Site ID',
+				displayName: 'Site Name or ID',
 				name: 'site_id',
-				type: 'number',
-				default: 0,
-				description: 'The site ID to which the user belongs',
+				type: 'options',
+				typeOptions: {
+					loadOptionsDependsOn: ['updateFields.client_id'],
+					loadOptionsMethod: 'getSites',
+				},
+				default: '',
+				description: 'The site to which the user belongs. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Site Phone Number',

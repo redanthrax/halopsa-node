@@ -17,9 +17,18 @@ export async function execute(
 		id: assetId,
 	};
 	
-	if (updateFields.assettype_id) body.assettype_id = updateFields.assettype_id;
-	if (updateFields.business_owner_id) body.business_owner_id = updateFields.business_owner_id;
-	if (updateFields.client_id) body.client_id = updateFields.client_id;
+	if (updateFields.assettype_id) {
+		const v = updateFields.assettype_id;
+		body.assettype_id = typeof v === 'string' ? parseInt(v, 10) : v;
+	}
+	if (updateFields.business_owner_id) {
+		const v = updateFields.business_owner_id;
+		body.business_owner_id = typeof v === 'string' ? parseInt(v, 10) : v;
+	}
+	if (updateFields.client_id) {
+		const v = updateFields.client_id;
+		body.client_id = typeof v === 'string' ? parseInt(v, 10) : v;
+	}
 	if (updateFields.contract_id !== undefined) body.contract_id = updateFields.contract_id;
 	if (updateFields.contract_ref) body.contract_ref = updateFields.contract_ref;
 	if (updateFields.criticality) body.criticality = updateFields.criticality;
@@ -33,15 +42,27 @@ export async function execute(
 	if (updateFields.key_field3) body.key_field3 = updateFields.key_field3;
 	if (updateFields.notes) body.notes = updateFields.notes;
 	if (updateFields.priority_id) body.priority_id = updateFields.priority_id;
-	if (updateFields.site_id) body.site_id = updateFields.site_id;
+	if (updateFields.site_id) {
+		const v = updateFields.site_id;
+		body.site_id = typeof v === 'string' ? parseInt(v, 10) : v;
+	}
 	if (updateFields.sla_id !== undefined) body.sla_id = updateFields.sla_id;
-	if (updateFields.status_id) body.status_id = updateFields.status_id;
+	if (updateFields.status_id) {
+		const v = updateFields.status_id;
+		body.status_id = typeof v === 'string' ? parseInt(v, 10) : v;
+	}
 	if (updateFields.supplier_contract_id) body.supplier_contract_id = updateFields.supplier_contract_id;
 	if (updateFields.supplier_id) body.supplier_id = updateFields.supplier_id;
-	if (updateFields.technical_owner_id) body.technical_owner_id = updateFields.technical_owner_id;
+	if (updateFields.technical_owner_id) {
+		const v = updateFields.technical_owner_id;
+		body.technical_owner_id = typeof v === 'string' ? parseInt(v, 10) : v;
+	}
 	if (updateFields.third_party_id) body.third_party_id = updateFields.third_party_id;
 	if (updateFields.use) body.use = updateFields.use;
-	if (updateFields.user_id) body.user_id = updateFields.user_id;
+	if (updateFields.user_id) {
+		const v = updateFields.user_id;
+		body.user_id = typeof v === 'string' ? parseInt(v, 10) : v;
+	}
 	
 	if (fieldItems && fieldItems.length > 0) {
 		const fields: Array<{ id: number; value: string }> = [];

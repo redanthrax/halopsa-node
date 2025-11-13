@@ -9,10 +9,17 @@ export async function execute(
 ): Promise<INodeExecutionData[]> {
 	const body = {} as IDataObject;
 	
-	if (this.getNodeParameter('agent_id', index, 0)) body.agent_id = this.getNodeParameter('agent_id', index);
+	const agentId = this.getNodeParameter('agent_id', index, 0);
+	if (agentId) {
+		body.agent_id = typeof agentId === 'string' ? parseInt(agentId, 10) : agentId;
+	}
 	if (this.getNodeParameter('date', index, '')) body.date = this.getNodeParameter('date', index);
 	
 	const additionalFields = this.getNodeParameter('additionalFields', index, {}) as IDataObject;
+	if (additionalFields.timesheet_manager !== undefined && additionalFields.timesheet_manager !== '') {
+		const v = additionalFields.timesheet_manager as string | number;
+		additionalFields.timesheet_manager = typeof v === 'string' ? parseInt(v, 10) : v;
+	}
 	Object.assign(body, additionalFields);
 
 	const requestMethod = 'POST';

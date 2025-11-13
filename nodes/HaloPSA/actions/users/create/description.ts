@@ -30,18 +30,39 @@ export const createDescription: INodeProperties[] = [
 		description: 'The email address for the new user',
 	},
 	{
-		displayName: 'Site ID',
-		name: 'site_id',
-		type: 'number',
+		displayName: 'Client Name or ID',
+		name: 'client_id',
+		type: 'options',
+		description: 'The client to which the user belongs. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		typeOptions: {
+			loadOptionsMethod: 'getClients',
+		},
 		displayOptions: {
 			show: {
 				resource: ['users'],
 				operation: ['create'],
 			},
 		},
-		default: 0,
+		default: '',
 		required: true,
-		description: 'The site ID to which the user belongs',
+	},
+	{
+		displayName: 'Site Name or ID',
+		name: 'site_id',
+		type: 'options',
+		description: 'The site to which the user belongs. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		typeOptions: {
+			loadOptionsDependsOn: ['client_id'],
+			loadOptionsMethod: 'getSites',
+		},
+		displayOptions: {
+			show: {
+				resource: ['users'],
+				operation: ['create'],
+			},
+		},
+		default: '',
+		required: true,
 	},
 	{
 		displayName: 'Additional Fields',
@@ -56,13 +77,6 @@ export const createDescription: INodeProperties[] = [
 			},
 		},
 		options: [
-			{
-				displayName: 'Client ID',
-				name: 'client_id',
-				type: 'number',
-				default: 0,
-				description: 'The client ID to which the user belongs',
-			},
 			{
 				displayName: 'Colour',
 				name: 'colour',

@@ -29,11 +29,14 @@ export const updateDescription: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'Agent ID',
+				displayName: 'Agent Name or ID',
 				name: 'agent_id',
-				type: 'number',
-				default: 0,
-				description: 'The assigned agent ID',
+				type: 'options',
+				typeOptions: {
+					loadOptionsMethod: 'getAgents',
+				},
+				default: '',
+				description: 'The assigned agent. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Category 1',
@@ -85,10 +88,14 @@ export const updateDescription: INodeProperties[] = [
 				default: 0,
 			},
 			{
-				displayName: 'Status ID',
+				displayName: 'Status Name or ID',
 				name: 'status_id',
-				type: 'number',
-				default: 0,
+				type: 'options',
+				typeOptions: {
+					loadOptionsMethod: 'getTicketStatuses',
+				},
+				default: '',
+				description: 'The ticket status. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Summary',

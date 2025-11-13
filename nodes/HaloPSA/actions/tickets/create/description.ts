@@ -33,40 +33,54 @@ export const createDescription: INodeProperties[] = [
 		description: 'The ticket details/description',
 	},
 	{
-		displayName: 'Client ID',
+		displayName: 'Client Name or ID',
 		name: 'client_id',
-		type: 'number',
+		type: 'options',
+		description: 'The client for this ticket. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		typeOptions: {
+			loadOptionsMethod: 'getClients',
+		},
 		displayOptions: {
 			show: {
 				resource: ['tickets'],
 				operation: ['create'],
 			},
 		},
-		default: 0,
+		default: '',
 	},
 	{
-		displayName: 'Site ID',
+		displayName: 'Site Name or ID',
 		name: 'site_id',
-		type: 'number',
+		type: 'options',
+		description: 'The site for this ticket. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		typeOptions: {
+			loadOptionsDependsOn: ['client_id'],
+			loadOptionsMethod: 'getSites',
+		},
 		displayOptions: {
 			show: {
 				resource: ['tickets'],
 				operation: ['create'],
 			},
 		},
-		default: 0,
+		default: '',
 	},
 	{
-		displayName: 'User ID',
+		displayName: 'User Name or ID',
 		name: 'user_id',
-		type: 'number',
+		type: 'options',
+		description: 'The user for this ticket. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		typeOptions: {
+			loadOptionsDependsOn: ['client_id'],
+			loadOptionsMethod: 'getClientUsers',
+		},
 		displayOptions: {
 			show: {
 				resource: ['tickets'],
 				operation: ['create'],
 			},
 		},
-		default: 0,
+		default: '',
 	},
 	
 	{
@@ -339,10 +353,14 @@ export const createDescription: INodeProperties[] = [
 				description: 'State or region',
 			},
 			{
-				displayName: 'Status ID',
+				displayName: 'Status Name or ID',
 				name: 'status_id',
-				type: 'number',
-				default: 1,
+				type: 'options',
+				typeOptions: {
+					loadOptionsMethod: 'getTicketStatuses',
+				},
+				default: '',
+				description: 'The ticket status. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Target Date',

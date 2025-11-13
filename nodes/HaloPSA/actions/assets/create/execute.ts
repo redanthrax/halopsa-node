@@ -6,9 +6,12 @@ export async function execute(
 	this: IExecuteFunctions,
 	index: number,
 ): Promise<INodeExecutionData[]> {
-	const assettypeId = this.getNodeParameter('assettype_id', index) as number;
-	const clientId = this.getNodeParameter('client_id', index) as number;
-	const siteId = this.getNodeParameter('site_id', index) as number;
+	const assettypeIdParam = this.getNodeParameter('assettype_id', index);
+	const assettypeId = typeof assettypeIdParam === 'string' ? parseInt(assettypeIdParam, 10) : (assettypeIdParam as number);
+	const clientIdParam = this.getNodeParameter('client_id', index);
+	const clientId = typeof clientIdParam === 'string' ? parseInt(clientIdParam, 10) : (clientIdParam as number);
+	const siteIdParam = this.getNodeParameter('site_id', index);
+	const siteId = typeof siteIdParam === 'string' ? parseInt(siteIdParam, 10) : (siteIdParam as number);
 	const additionalFields = this.getNodeParameter('additionalFields', index, {}) as IDataObject;
 	const fieldItems = this.getNodeParameter('fieldItems.fieldItem', index, []) as Array<{
 		field: string;
@@ -36,13 +39,19 @@ export async function execute(
 	if (additionalFields.notes) body.notes = additionalFields.notes;
 	if (additionalFields.priority_id) body.priority_id = additionalFields.priority_id;
 	if (additionalFields.sla_id !== undefined) body.sla_id = additionalFields.sla_id;
-	if (additionalFields.status_id) body.status_id = additionalFields.status_id;
+	if (additionalFields.status_id) {
+		const statusIdValue = additionalFields.status_id;
+		body.status_id = typeof statusIdValue === 'string' ? parseInt(statusIdValue, 10) : statusIdValue;
+	}
 	if (additionalFields.supplier_contract_id) body.supplier_contract_id = additionalFields.supplier_contract_id;
 	if (additionalFields.supplier_id) body.supplier_id = additionalFields.supplier_id;
 	if (additionalFields.technical_owner_id) body.technical_owner_id = additionalFields.technical_owner_id;
 	if (additionalFields.third_party_id) body.third_party_id = additionalFields.third_party_id;
 	if (additionalFields.use) body.use = additionalFields.use;
-	if (additionalFields.user_id) body.user_id = additionalFields.user_id;
+	if (additionalFields.user_id) {
+		const userIdValue = additionalFields.user_id;
+		body.user_id = typeof userIdValue === 'string' ? parseInt(userIdValue, 10) : userIdValue;
+	}
 	
 	if (fieldItems && fieldItems.length > 0) {
 		const fields: Array<{ id: number; value: string }> = [];

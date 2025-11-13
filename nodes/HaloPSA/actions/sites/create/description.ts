@@ -16,18 +16,21 @@ export const createDescription: INodeProperties[] = [
 		description: 'The name of the site',
 	},
 	{
-		displayName: 'Client ID',
+		displayName: 'Client Name or ID',
 		name: 'client_id',
-		type: 'number',
+		type: 'options',
+		description: 'The client that owns this site. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		typeOptions: {
+			loadOptionsMethod: 'getClients',
+		},
 		displayOptions: {
 			show: {
 				resource: ['sites'],
 				operation: ['create'],
 			},
 		},
-		default: 0,
+		default: '',
 		required: true,
-		description: 'The client ID that owns this site',
 	},
 	{
 		displayName: 'Additional Fields',

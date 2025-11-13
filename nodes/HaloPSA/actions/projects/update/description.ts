@@ -29,11 +29,14 @@ export const description: INodeProperties[] = [
 		},
 	options: [
 		{
-			displayName: 'Agent ID',
+			displayName: 'Agent Name or ID',
 			name: 'agent_id',
-			type: 'number',
-			default: 0,
-			description: 'The ID of the assigned agent',
+			type: 'options',
+			typeOptions: {
+				loadOptionsMethod: 'getAgents',
+			},
+			default: '',
+			description: 'The assigned agent. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		},
 		{
 			displayName: 'Budget Amount',
@@ -56,11 +59,14 @@ export const description: INodeProperties[] = [
 			description: 'The budgeted hours for the project',
 		},
 		{
-			displayName: 'Client ID',
+			displayName: 'Client Name or ID',
 			name: 'client_id',
-			type: 'number',
-			default: 0,
-			description: 'The ID of the client this project belongs to',
+			type: 'options',
+			typeOptions: {
+				loadOptionsMethod: 'getClients',
+			},
+			default: '',
+			description: 'The client this project belongs to. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		},
 		{
 			displayName: 'Closed Date',
@@ -122,11 +128,15 @@ export const description: INodeProperties[] = [
 			description: 'The ID of the project priority',
 		},
 		{
-			displayName: 'Site ID',
+			displayName: 'Site Name or ID',
 			name: 'site_id',
-			type: 'number',
-			default: 0,
-			description: 'The ID of the site this project is associated with',
+			type: 'options',
+			typeOptions: {
+				loadOptionsDependsOn: ['updateFields.client_id'],
+				loadOptionsMethod: 'getSites',
+			},
+			default: '',
+			description: 'The site this project is associated with. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		},
 		{
 			displayName: 'Start Date',
@@ -136,11 +146,14 @@ export const description: INodeProperties[] = [
 			description: 'The start date of the project',
 		},
 		{
-			displayName: 'Status ID',
+			displayName: 'Status Name or ID',
 			name: 'status_id',
-			type: 'number',
-			default: 0,
-			description: 'The ID of the project status',
+			type: 'options',
+			typeOptions: {
+				loadOptionsMethod: 'getTicketStatuses',
+			},
+			default: '',
+			description: 'The project status. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		},
 		{
 			displayName: 'Summary',
@@ -171,11 +184,15 @@ export const description: INodeProperties[] = [
 			description: 'The ID of the project type',
 		},
 		{
-			displayName: 'User ID',
+			displayName: 'User Name or ID',
 			name: 'user_id',
-			type: 'number',
-			default: 0,
-			description: 'The ID of the user requesting the project',
+			type: 'options',
+			typeOptions: {
+				loadOptionsDependsOn: ['updateFields.client_id'],
+				loadOptionsMethod: 'getClientUsers',
+			},
+			default: '',
+			description: 'The user requesting the project. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		},
 	],
 	},

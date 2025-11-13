@@ -71,11 +71,14 @@ export const updateDescription: INodeProperties[] = [
 				description: 'Last name of accounts contact',
 			},
 			{
-				displayName: 'Client ID',
+				displayName: 'Client Name or ID',
 				name: 'client_id',
-				type: 'number',
-				default: 0,
-				description: 'The client ID that owns this site',
+				type: 'options',
+				typeOptions: {
+					loadOptionsMethod: 'getClients',
+				},
+				default: '',
+				description: 'The client that owns this site. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Colour',
@@ -99,11 +102,15 @@ export const updateDescription: INodeProperties[] = [
 				description: 'Default stock location ID',
 			},
 			{
-				displayName: 'Deliver By',
+				displayName: 'Deliver By Name or ID',
 				name: 'deliverby',
-				type: 'number',
-				default: 0,
-				description: 'User ID for delivery contact',
+				type: 'options',
+				typeOptions: {
+					loadOptionsDependsOn: ['updateFields.client_id'],
+					loadOptionsMethod: 'getClientUsers',
+				},
+				default: '',
+				description: 'User for delivery contact. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Disclaimer Match String',
@@ -127,11 +134,15 @@ export const updateDescription: INodeProperties[] = [
 				description: 'Prefix to add to email subjects',
 			},
 			{
-				displayName: 'Facilities Manager',
+				displayName: 'Facilities Manager Name or ID',
 				name: 'facilitiesmanager',
-				type: 'number',
-				default: 0,
-				description: 'User ID of facilities manager',
+				type: 'options',
+				typeOptions: {
+					loadOptionsDependsOn: ['updateFields.client_id'],
+					loadOptionsMethod: 'getClientUsers',
+				},
+				default: '',
+				description: 'User for facilities manager. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Geocoord 1',
@@ -148,11 +159,15 @@ export const updateDescription: INodeProperties[] = [
 				description: 'Second geographic coordinate',
 			},
 			{
-				displayName: 'In Use By',
+				displayName: 'In Use By Name or ID',
 				name: 'inuseby',
-				type: 'number',
-				default: 0,
-				description: 'User ID of who is using this site',
+				type: 'options',
+				typeOptions: {
+					loadOptionsDependsOn: ['updateFields.client_id'],
+					loadOptionsMethod: 'getClientUsers',
+				},
+				default: '',
+				description: 'User who is using this site. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Inactive',
@@ -235,11 +250,15 @@ export const updateDescription: INodeProperties[] = [
 				description: 'Reference number for the site',
 			},
 			{
-				displayName: 'Regional Director',
+				displayName: 'Regional Director Name or ID',
 				name: 'regionaldirector',
-				type: 'number',
-				default: 0,
-				description: 'User ID of regional director',
+				type: 'options',
+				typeOptions: {
+					loadOptionsDependsOn: ['updateFields.client_id'],
+					loadOptionsMethod: 'getClientUsers',
+				},
+				default: '',
+				description: 'User for regional director. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Seriousness Level',

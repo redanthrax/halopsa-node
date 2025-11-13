@@ -3,7 +3,7 @@ import { INodeProperties } from 'n8n-workflow';
 export const createDescription: INodeProperties[] = [
 	{
 		displayName: 'Email Address',
-		name: 'emailaddress',
+		name: 'email',
 		type: 'string',
 		displayOptions: {
 			show: {
@@ -44,17 +44,20 @@ export const createDescription: INodeProperties[] = [
 		options: [
 			{
 				displayName: 'Active',
-				name: 'active',
+				name: 'isdisabled',
 				type: 'boolean',
-				default: true,
-				description: 'Whether the agent is active',
+				default: false,
+				description: 'Whether the agent is disabled (false = active, true = disabled)',
 			},
 			{
-				displayName: 'Department ID',
+				displayName: 'Department Name or ID',
 				name: 'department_id',
-				type: 'number',
-				default: 0,
-				description: 'The department ID for the agent',
+				type: 'options',
+				typeOptions: {
+					loadOptionsMethod: 'getDepartments',
+				},
+				default: '',
+				description: 'The department for the agent. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'First Name',
@@ -72,10 +75,10 @@ export const createDescription: INodeProperties[] = [
 			},
 			{
 				displayName: 'Last Name',
-				name: 'lastname',
+				name: 'surname',
 				type: 'string',
 				default: '',
-				description: 'The last name of the agent',
+				description: 'The last name (surname) of the agent',
 			},
 			{
 				displayName: 'Login Name',
@@ -86,17 +89,20 @@ export const createDescription: INodeProperties[] = [
 			},
 			{
 				displayName: 'Phone Number',
-				name: 'phonenumber',
+				name: 'sms',
 				type: 'string',
 				default: '',
-				description: 'The phone number of the agent',
+				description: 'The phone/SMS number of the agent',
 			},
 			{
-				displayName: 'Team ID',
+				displayName: 'Team Name or ID',
 				name: 'team_id',
-				type: 'number',
-				default: 0,
-				description: 'The team ID for the agent',
+				type: 'options',
+				typeOptions: {
+					loadOptionsMethod: 'getTeams',
+				},
+				default: '',
+				description: 'The team for the agent. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 		],
 	},

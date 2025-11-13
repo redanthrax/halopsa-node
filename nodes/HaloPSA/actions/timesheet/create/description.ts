@@ -94,11 +94,14 @@ export const createDescription: INodeProperties[] = [
 				description: 'Target hours for the timesheet',
 			},
 			{
-				displayName: 'Timesheet Manager',
+				displayName: 'Timesheet Manager Name or ID',
 				name: 'timesheet_manager',
-				type: 'number',
-				default: 0,
-				description: 'ID of the timesheet manager',
+				type: 'options',
+				typeOptions: {
+					loadOptionsMethod: 'getAgents',
+				},
+				default: '',
+				description: 'Timesheet manager agent. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Work Hours',

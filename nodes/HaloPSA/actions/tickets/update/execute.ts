@@ -10,13 +10,24 @@ export async function execute(
 	const ticketId = this.getNodeParameter('ticketId', index) as number;
 	const updateFields = this.getNodeParameter('updateFields', index, {}) as IDataObject;
 	
+	// Normalize potential string IDs from dropdowns
+	const normalizedUpdate: IDataObject = { ...updateFields };
+	if (normalizedUpdate.agent_id !== undefined && normalizedUpdate.agent_id !== '') {
+		const v = normalizedUpdate.agent_id as string | number;
+		normalizedUpdate.agent_id = typeof v === 'string' ? parseInt(v, 10) : v;
+	}
+	if (normalizedUpdate.status_id !== undefined && normalizedUpdate.status_id !== '') {
+		const v = normalizedUpdate.status_id as string | number;
+		normalizedUpdate.status_id = typeof v === 'string' ? parseInt(v, 10) : v;
+	}
+	
 	const ticketData: IDataObject = {
 		id: ticketId,
 	};
 	
-	Object.keys(updateFields).forEach(key => {
-		if (updateFields[key] !== undefined && updateFields[key] !== '' && updateFields[key] !== 0) {
-			ticketData[key] = updateFields[key];
+	Object.keys(normalizedUpdate).forEach(key => {
+		if (normalizedUpdate[key] !== undefined && normalizedUpdate[key] !== '' && normalizedUpdate[key] !== 0) {
+			ticketData[key] = normalizedUpdate[key];
 		}
 	});
 

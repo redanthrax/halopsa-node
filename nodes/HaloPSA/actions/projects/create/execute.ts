@@ -8,8 +8,14 @@ export async function execute(
 	index: number,
 ): Promise<INodeExecutionData[]> {
 	const summary = this.getNodeParameter('summary', index) as string;
-	const client_id = this.getNodeParameter('client_id', index) as number;
+	const clientIdParam = this.getNodeParameter('client_id', index);
+	const client_id = typeof clientIdParam === 'string' ? parseInt(clientIdParam, 10) : (clientIdParam as number);
 	const additionalFields = this.getNodeParameter('additionalFields', index, {}) as IDataObject;
+
+	if (additionalFields.user_id) {
+		const userIdValue = additionalFields.user_id;
+		additionalFields.user_id = typeof userIdValue === 'string' ? parseInt(userIdValue, 10) : userIdValue;
+	}
 
 	const body: HaloProjectCreate = {
 		summary,

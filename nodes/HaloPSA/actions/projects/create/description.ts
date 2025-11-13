@@ -16,9 +16,13 @@ export const description: INodeProperties[] = [
 		description: 'The project summary/title',
 	},
 	{
-		displayName: 'Client ID',
+		displayName: 'Client Name or ID',
 		name: 'client_id',
-		type: 'number',
+		type: 'options',
+		description: 'The client this project belongs to. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		typeOptions: {
+			loadOptionsMethod: 'getClients',
+		},
 		required: true,
 		displayOptions: {
 			show: {
@@ -26,8 +30,7 @@ export const description: INodeProperties[] = [
 				operation: ['create'],
 			},
 		},
-		default: 0,
-		description: 'The ID of the client this project belongs to',
+		default: '',
 	},
 	{
 		displayName: 'Additional Fields',
@@ -144,11 +147,15 @@ export const description: INodeProperties[] = [
 				options: [],
 		},
 		{
-			displayName: 'Site ID',
+			displayName: 'Site Name or ID',
 			name: 'site_id',
-			type: 'number',
-			default: 0,
-			description: 'The ID of the site this project is associated with',
+			type: 'options',
+			typeOptions: {
+				loadOptionsDependsOn: ['client_id'],
+				loadOptionsMethod: 'getSites',
+			},
+			default: '',
+			description: 'The site this project is associated with. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		},
 		{
 			displayName: 'Start Date',
@@ -179,11 +186,15 @@ export const description: INodeProperties[] = [
 			description: 'The ID of the assigned team',
 		},
 		{
-			displayName: 'User ID',
+			displayName: 'User Name or ID',
 			name: 'user_id',
-			type: 'number',
-			default: 0,
-			description: 'The ID of the user requesting the project',
+			type: 'options',
+			typeOptions: {
+				loadOptionsDependsOn: ['client_id'],
+				loadOptionsMethod: 'getClientUsers',
+			},
+			default: '',
+			description: 'The user requesting the project. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		},
 	],
 	},

@@ -40,7 +40,6 @@ export class HaloPsa implements INodeType {
 		},
 		inputs: ['main'],
 		outputs: ['main'],
-		usableAsTool: true,
 		credentials: [
 			{
 				name: 'haloPSACompleteApiOAuth2OAuth2Api',
@@ -160,7 +159,6 @@ export class HaloPsa implements INodeType {
 								options.push({
 									name: ticketType.name,
 									value: ticketType.id.toString(),
-									description: ticketType.description || '',
 								});
 							}
 						}
@@ -187,7 +185,6 @@ export class HaloPsa implements INodeType {
 								options.push({
 									name: status.name,
 									value: status.id.toString(),
-									description: status.shortname || '',
 								});
 							}
 						}
@@ -319,7 +316,6 @@ export class HaloPsa implements INodeType {
 								options.push({
 									name: agent.name,
 									value: agent.id.toString(),
-									description: agent.emailaddress || agent.login || '',
 								});
 							}
 						}
@@ -353,7 +349,6 @@ export class HaloPsa implements INodeType {
 							options.push({
 								name: user.name,
 								value: user.id.toString(),
-								description: user.emailaddress || user.client_name || '',
 							});
 						}
 					}
@@ -362,6 +357,197 @@ export class HaloPsa implements INodeType {
 					return [];
 				}
 			},
+			getClients: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+				Logger.debug('Loading clients for HaloPSA node', { node: this.getNode().name });
+				const { apiRequest } = await import('./transport');
+				try {
+					const requestMethod = 'GET';
+					const endpoint = '/Client';
+					const body = {};
+					const qs = {};
+
+					const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
+					
+					const options: INodePropertyOptions[] = [];
+					let clients = [];
+					if (responseData && responseData.clients) {
+						clients = Array.isArray(responseData.clients) ? responseData.clients : [responseData.clients];
+					} else if (Array.isArray(responseData)) {
+						clients = responseData;
+					}
+					
+					for (const client of clients) {
+						if (client.id && client.name) {
+							options.push({
+								name: client.name,
+								value: client.id.toString(),
+							});
+						}
+					}
+					return options.sort((a, b) => a.name.localeCompare(b.name));
+				} catch (error) {
+					return [];
+				}
+			},
+		getSites: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+			Logger.debug('Loading sites for HaloPSA node', { node: this.getNode().name });
+			const { apiRequest } = await import('./transport');
+			let clientIdParam = this.getCurrentNodeParameter('client_id');
+			if (!clientIdParam) {
+				clientIdParam = this.getCurrentNodeParameter('updateFields.client_id');
+			}
+			if (!clientIdParam) {
+				clientIdParam = this.getCurrentNodeParameter('additionalFields.client_id');
+			}
+			const clientId = typeof clientIdParam === 'string' ? parseInt(clientIdParam, 10) : (clientIdParam as number);
+			
+			if (!clientId || clientId === 0 || typeof clientId !== 'number' || isNaN(clientId)) {
+				return [];
+			}
+				
+				try {
+					const requestMethod = 'GET';
+					const endpoint = '/Site';
+					const body = {};
+					const qs = { client_id: clientId };
+
+					const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
+					
+					const options: INodePropertyOptions[] = [];
+					let sites = [];
+					if (responseData && responseData.sites) {
+						sites = Array.isArray(responseData.sites) ? responseData.sites : [responseData.sites];
+					} else if (Array.isArray(responseData)) {
+						sites = responseData;
+					}
+					
+					for (const site of sites) {
+						if (site.id && site.name) {
+							options.push({
+								name: site.name,
+								value: site.id.toString(),
+							});
+						}
+					}
+					return options.sort((a, b) => a.name.localeCompare(b.name));
+				} catch (error) {
+					return [];
+				}
+			},
+		getClientUsers: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+			Logger.debug('Loading users for client in HaloPSA node', { node: this.getNode().name });
+			const { apiRequest } = await import('./transport');
+			let clientIdParam = this.getCurrentNodeParameter('client_id');
+			if (!clientIdParam) {
+				clientIdParam = this.getCurrentNodeParameter('updateFields.client_id');
+			}
+			if (!clientIdParam) {
+				clientIdParam = this.getCurrentNodeParameter('additionalFields.client_id');
+			}
+			const clientId = typeof clientIdParam === 'string' ? parseInt(clientIdParam, 10) : (clientIdParam as number);
+			
+			if (!clientId || clientId === 0 || typeof clientId !== 'number' || isNaN(clientId)) {
+				return [];
+			}
+				
+				try {
+					const requestMethod = 'GET';
+					const endpoint = '/Users';
+					const body = {};
+					const qs = { client_id: clientId };
+
+					const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
+					
+					const options: INodePropertyOptions[] = [];
+					let users = [];
+					if (responseData && responseData.users) {
+						users = Array.isArray(responseData.users) ? responseData.users : [responseData.users];
+					} else if (Array.isArray(responseData)) {
+						users = responseData;
+					}
+					
+					for (const user of users) {
+						if (user.id && user.name) {
+							options.push({
+								name: user.name,
+								value: user.id.toString(),
+							});
+						}
+					}
+					return options.sort((a, b) => a.name.localeCompare(b.name));
+				} catch (error) {
+				return [];
+				}
+			},
+		getTeams: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+			Logger.debug('Loading teams for HaloPSA node', { node: this.getNode().name });
+			const { apiRequest } = await import('./transport');
+			try {
+				const requestMethod = 'GET';
+				const endpoint = '/team';
+				const body = {};
+				const qs = {
+					showall: true,
+					can_edit_only: true,
+					includeenabled: true,
+					includedisabled: true,
+				};
+
+				const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
+				
+				const options: INodePropertyOptions[] = [];
+				const teams = Array.isArray(responseData) ? responseData : [responseData];
+				
+				for (const team of teams) {
+					if (team.id && team.name) {
+						options.push({
+							name: team.name,
+							value: team.id.toString(),
+						});
+					}
+				}
+				return options.sort((a, b) => a.name.localeCompare(b.name));
+			} catch (error) {
+				return [];
+			}
+		},
+		getDepartments: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+			Logger.debug('Loading departments for HaloPSA node', { node: this.getNode().name });
+			const { apiRequest } = await import('./transport');
+			try {
+				const requestMethod = 'GET';
+				const endpoint = '/Organisation';
+				const body = {};
+				const qs = {};
+
+				const orgsResponse = await apiRequest.call(this, requestMethod, endpoint, body, qs);
+				
+				const options: INodePropertyOptions[] = [];
+				const organisations = Array.isArray(orgsResponse) ? orgsResponse : [orgsResponse];
+				
+				for (const org of organisations) {
+					if (org.id) {
+						const orgEndpoint = `/Organisation/${org.id}`;
+						const orgQs = { includedetails: true };
+						const orgDetails = await apiRequest.call(this, requestMethod, orgEndpoint, body, orgQs);
+						
+						if (orgDetails.departments && Array.isArray(orgDetails.departments)) {
+							for (const dept of orgDetails.departments) {
+								if (dept.id && dept.name) {
+									options.push({
+										name: dept.name,
+										value: dept.id.toString(),
+									});
+								}
+							}
+						}
+					}
+				}
+				return options.sort((a, b) => a.name.localeCompare(b.name));
+			} catch (error) {
+				return [];
+			}
+		},
 		},
 	};
 

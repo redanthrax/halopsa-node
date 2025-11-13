@@ -19,31 +19,39 @@ export const createDescription: INodeProperties[] = [
 		description: 'The asset type for the new asset. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 	},
 	{
-		displayName: 'Client ID',
+		displayName: 'Client Name or ID',
 		name: 'client_id',
-		type: 'number',
+		type: 'options',
+		description: 'The client that owns this asset. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		typeOptions: {
+			loadOptionsMethod: 'getClients',
+		},
 		displayOptions: {
 			show: {
 				resource: ['assets'],
 				operation: ['create'],
 			},
 		},
-		default: 0,
+		default: '',
 		required: true,
-		description: 'The client ID that owns this asset',
 	},
 	{
-		displayName: 'Site ID',
+		displayName: 'Site Name or ID',
 		name: 'site_id',
-		type: 'number',
+		type: 'options',
+		description: 'The site where this asset is located. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		typeOptions: {
+			loadOptionsDependsOn: ['client_id'],
+			loadOptionsMethod: 'getSites',
+		},
 		displayOptions: {
 			show: {
 				resource: ['assets'],
 				operation: ['create'],
 			},
 		},
-		default: 0,
-		description: 'The site ID where this asset is located',
+		default: '',
+		required: true,
 	},
 	{
 		displayName: 'Additional Fields',
@@ -166,11 +174,14 @@ export const createDescription: INodeProperties[] = [
 				description: 'The SLA ID for the asset',
 			},
 			{
-				displayName: 'Status ID',
+				displayName: 'Status Name or ID',
 				name: 'status_id',
-				type: 'number',
-				default: 1,
-				description: 'The status ID of the asset',
+				type: 'options',
+				typeOptions: {
+					loadOptionsMethod: 'getTicketStatuses',
+				},
+				default: '',
+				description: 'The status of the asset. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Supplier Contract ID',
@@ -216,11 +227,15 @@ export const createDescription: INodeProperties[] = [
 				description: 'The use type of the asset',
 			},
 			{
-				displayName: 'User ID',
+				displayName: 'User Name or ID',
 				name: 'user_id',
-				type: 'number',
-				default: 0,
-				description: 'The user ID assigned to this asset',
+				type: 'options',
+				typeOptions: {
+					loadOptionsDependsOn: ['client_id'],
+					loadOptionsMethod: 'getClientUsers',
+				},
+				default: '',
+				description: 'The user assigned to this asset. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 		],
 	},

@@ -13,16 +13,22 @@ export async function execute(
 		id: agentId,
 	};
 	
-	if (updateFields.active !== undefined) body.active = updateFields.active;
-	if (updateFields.department_id) body.department_id = updateFields.department_id;
-	if (updateFields.emailaddress) body.emailaddress = updateFields.emailaddress;
+	if (updateFields.isdisabled !== undefined) body.isdisabled = updateFields.isdisabled;
+	if (updateFields.department_id) {
+		const v = updateFields.department_id;
+		body.department_id = typeof v === 'string' ? parseInt(v, 10) : v;
+	}
+	if (updateFields.email) body.email = updateFields.email;
 	if (updateFields.firstname) body.firstname = updateFields.firstname;
 	if (updateFields.isadmin !== undefined) body.isadmin = updateFields.isadmin;
-	if (updateFields.lastname) body.lastname = updateFields.lastname;
+	if (updateFields.surname) body.surname = updateFields.surname;
 	if (updateFields.loginname) body.loginname = updateFields.loginname;
 	if (updateFields.name) body.name = updateFields.name;
-	if (updateFields.phonenumber) body.phonenumber = updateFields.phonenumber;
-	if (updateFields.team_id) body.team_id = updateFields.team_id;
+	if (updateFields.sms) body.sms = updateFields.sms;
+	if (updateFields.team_id) {
+		const v = updateFields.team_id;
+		body.team_id = typeof v === 'string' ? parseInt(v, 10) : v;
+	}
 
 	const requestMethod = 'POST';
 	const endpoint = '/Agent';
