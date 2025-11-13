@@ -10,6 +10,10 @@ export async function execute(
 	const clientId = this.getNodeParameter('client_id', index) as number;
 	const siteId = this.getNodeParameter('site_id', index) as number;
 	const additionalFields = this.getNodeParameter('additionalFields', index, {}) as IDataObject;
+	const fieldItems = this.getNodeParameter('fieldItems.fieldItem', index, []) as Array<{
+		field: string;
+		value: string;
+	}>;
 	
 	const body: IDataObject = {
 		assettype_id: assettypeId,
@@ -39,6 +43,22 @@ export async function execute(
 	if (additionalFields.third_party_id) body.third_party_id = additionalFields.third_party_id;
 	if (additionalFields.use) body.use = additionalFields.use;
 	if (additionalFields.user_id) body.user_id = additionalFields.user_id;
+	
+	if (fieldItems && fieldItems.length > 0) {
+		const fields: Array<{ id: number; value: string }> = [];
+		for (const item of fieldItems) {
+			if (item.field && item.value !== undefined) {
+				const fieldId = typeof item.field === 'string' ? parseInt(item.field, 10) : item.field;
+				fields.push({
+					id: fieldId,
+					value: item.value,
+				});
+			}
+		}
+		if (fields.length > 0) {
+			body.fields = fields;
+		}
+	}
 
 	const requestMethod = 'POST';
 	const endpoint = '/Asset';

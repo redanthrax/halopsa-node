@@ -2,18 +2,21 @@ import { INodeProperties } from 'n8n-workflow';
 
 export const createDescription: INodeProperties[] = [
 	{
-		displayName: 'Asset Type ID',
+		displayName: 'Asset Type Name or ID',
 		name: 'assettype_id',
-		type: 'number',
+		type: 'options',
+		typeOptions: {
+			loadOptionsMethod: 'getAssetTypes',
+		},
 		displayOptions: {
 			show: {
 				resource: ['assets'],
 				operation: ['create'],
 			},
 		},
-		default: 0,
+		default: '',
 		required: true,
-		description: 'The asset type ID for the new asset',
+		description: 'The asset type for the new asset. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 	},
 	{
 		displayName: 'Client ID',
@@ -218,6 +221,65 @@ export const createDescription: INodeProperties[] = [
 				type: 'number',
 				default: 0,
 				description: 'The user ID assigned to this asset',
+			},
+		],
+	},
+	{
+		displayName: 'Asset Type (For Fields) Name or ID',
+		name: 'assettype_id_for_fields',
+		type: 'options',
+		typeOptions: {
+			loadOptionsMethod: 'getAssetTypes',
+		},
+		displayOptions: {
+			show: {
+				resource: ['assets'],
+				operation: ['create'],
+			},
+		},
+		default: '',
+		description: 'The asset type - required to load available fields for this asset type. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+	},
+	{
+		displayName: 'Field Items',
+		name: 'fieldItems',
+		type: 'fixedCollection',
+		placeholder: 'Add Field Item',
+		typeOptions: {
+			multipleValues: true,
+		},
+		displayOptions: {
+			show: {
+				resource: ['assets'],
+				operation: ['create'],
+			},
+		},
+		default: {},
+		description: 'Custom field values to set for this asset',
+		options: [
+			{
+				name: 'fieldItem',
+				displayName: 'Field Item',
+				values: [
+					{
+						displayName: 'Field Name or ID',
+						name: 'field',
+						type: 'options',
+						typeOptions: {
+							loadOptionsDependsOn: ['assettype_id_for_fields'],
+							loadOptionsMethod: 'getAssetFields',
+						},
+						default: '',
+						description: 'The custom field to set. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+					},
+					{
+						displayName: 'Value',
+						name: 'value',
+						type: 'string',
+						default: '',
+						description: 'The value to set for this field',
+					},
+				],
 			},
 		],
 	},
