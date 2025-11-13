@@ -1,12 +1,13 @@
 import * as getAll from './getAll';
 import * as getById from './getById';
+import * as getAssetTypes from './getAssetTypes';
 import * as create from './create';
 import * as update from './update';
 import * as deleteAsset from './delete';
 
 import { INodeProperties } from 'n8n-workflow';
 
-export { getAll, getById, create, update, deleteAsset as delete };
+export { getAll, getById, getAssetTypes, create, update, deleteAsset as delete };
 
 export const description: INodeProperties[] = [
 	{
@@ -33,6 +34,12 @@ export const description: INodeProperties[] = [
 				action: 'Delete an asset',
 			},
 			{
+				name: 'Get Asset Types',
+				value: 'getAssetTypes',
+				description: 'Get asset types',
+				action: 'Get asset types',
+			},
+			{
 				name: 'Get by ID',
 				value: 'getById',
 				description: 'Get an asset by ID',
@@ -55,6 +62,7 @@ export const description: INodeProperties[] = [
 	},
 	...getAll.description,
 	...getById.description,
+	...getAssetTypes.description,
 	...create.description,
 	...update.description,
 	...deleteAsset.description,
