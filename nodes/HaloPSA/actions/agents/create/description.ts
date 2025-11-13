@@ -5,6 +5,7 @@ export const createDescription: INodeProperties[] = [
 		displayName: 'Email Address',
 		name: 'email',
 		type: 'string',
+		placeholder: 'name@email.com',
 		displayOptions: {
 			show: {
 				resource: ['agents'],

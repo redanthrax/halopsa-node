@@ -49,6 +49,7 @@ export const updateDescription: INodeProperties[] = [
 				displayName: 'Email Address',
 				name: 'email',
 				type: 'string',
+				placeholder: 'name@email.com',
 				default: '',
 				description: 'The email address for the agent',
 			},
