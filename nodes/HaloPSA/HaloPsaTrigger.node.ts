@@ -205,7 +205,7 @@ export class HaloPsaTrigger implements INodeType {
 							existingWebhook = webhooks.find(
 								(webhook: IDataObject) => webhook.name === fullWebhookName
 							);
-							
+
 							if (existingWebhook) {
 								needsUpdate = existingWebhook.url !== webhookUrl;
 							}
@@ -214,11 +214,11 @@ export class HaloPsaTrigger implements INodeType {
 						if (existingWebhook) {
 							const webhookData = this.getWorkflowStaticData('node');
 							webhookData.webhookId = existingWebhook.id;
-							
+
 							if (needsUpdate) {
 								return false;
 							}
-							
+
 							return true;
 						}
 					}
@@ -280,7 +280,7 @@ export class HaloPsaTrigger implements INodeType {
 						webhookId = (response as IDataObject).id as string;
 					}
 
-				if (webhookId) {
+					if (webhookId) {
 						staticData.webhookId = webhookId;
 						staticData.eventNumber = eventNumber;
 
@@ -308,16 +308,16 @@ export class HaloPsaTrigger implements INodeType {
 									useworkinghours: '0',
 									conditions: [],
 									emailtemplate_id: 32,
-							};
+								};
 
-							const notificationResponse = await apiRequest.call(
-								this,
-								'POST',
-								'/Notification',
-								[notificationData],
-								{}
-							);
-						} catch (error) {
+								await apiRequest.call(
+									this,
+									'POST',
+									'/Notification',
+									[notificationData],
+									{}
+								);
+							} catch (error) {
 							}
 						}
 
@@ -419,7 +419,7 @@ export class HaloPsaTrigger implements INodeType {
 				let existingWebhook;
 				if (Array.isArray(webhooks)) {
 					existingWebhook = webhooks.find(
-						(webhook: IDataObject) => 
+						(webhook: IDataObject) =>
 							webhook.url === webhookUrl || webhook.name === webhookData.name
 					);
 				}
