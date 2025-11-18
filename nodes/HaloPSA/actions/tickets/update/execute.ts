@@ -26,7 +26,7 @@ export async function execute(
 	};
 	
 	Object.keys(normalizedUpdate).forEach(key => {
-		if (normalizedUpdate[key] !== undefined && normalizedUpdate[key] !== '' && normalizedUpdate[key] !== 0) {
+		if (normalizedUpdate[key] !== undefined && normalizedUpdate[key] !== '') {
 			ticketData[key] = normalizedUpdate[key];
 		}
 	});

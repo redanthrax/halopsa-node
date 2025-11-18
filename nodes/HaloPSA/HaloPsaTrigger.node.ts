@@ -308,21 +308,16 @@ export class HaloPsaTrigger implements INodeType {
 									useworkinghours: '0',
 									conditions: [],
 									emailtemplate_id: 32,
-								};
+							};
 
-								console.log(`Creating notification for webhook ${webhookId}:`, JSON.stringify(notificationData));
-
-								const notificationResponse = await apiRequest.call(
-									this,
-									'POST',
-									'/Notification',
-									[notificationData],
-									{}
-								);
-
-								console.log(`Notification created:`, JSON.stringify(notificationResponse));
-							} catch (error) {
-								console.error(`Error creating notification:`, error);
+							const notificationResponse = await apiRequest.call(
+								this,
+								'POST',
+								'/Notification',
+								[notificationData],
+								{}
+							);
+						} catch (error) {
 							}
 						}
 

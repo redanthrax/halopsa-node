@@ -14,7 +14,7 @@ export async function execute(
 	};
 	
 	Object.keys(updateFields).forEach(key => {
-		if (updateFields[key] !== undefined && updateFields[key] !== '' && updateFields[key] !== 0) {
+		if (updateFields[key] !== undefined && updateFields[key] !== '') {
 			invoiceData[key] = updateFields[key];
 		}
 	});

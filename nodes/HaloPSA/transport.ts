@@ -85,7 +85,19 @@ export async function apiRequest(
 	});
 
 	try {
-		const response = await this.helpers.httpRequest(options);
+		const stringBody = typeof options.body === 'string' ? options.body : JSON.stringify(options.body);
+		Logger.debug('HaloPSA API Request Full Details', {
+			url: options.url,
+			method: options.method,
+			body: stringBody,
+		});
+		let response: any;
+		try {
+			response = await this.helpers.httpRequest(options);
+		} catch (httpError) {
+			// Capture the raw HTTP error before n8n wraps it
+			throw httpError;
+		}
 		Logger.debug('HaloPSA API Response received', {
 			url: options.url,
 			responseType: typeof response,
@@ -95,9 +107,40 @@ export async function apiRequest(
 		});
 		return response;
 	} catch (error) {
-		if (error.statusCode === 401) {
+		const statusCode = error?.status || error?.statusCode || parseInt(error?.httpCode as string, 10) || 0;
+		if (statusCode === 401) {
 			throw new NodeApiError(this.getNode(), error, {
 				message: 'Authentication failed - check your client credentials',
+			});
+		}
+		if (statusCode === 400) {
+			let errorText = '';
+			
+			// Check response.data first (this is where HaloPSA puts validation errors)
+			if (error.response?.data) {
+				if (typeof error.response.data === 'string') {
+					errorText = error.response.data.trim();
+				}
+			}
+			// Fallback: check error.error
+			if (!errorText && error.error) {
+				if (typeof error.error === 'string') {
+					errorText = error.error.trim();
+				} else if (typeof error.error === 'object') {
+					errorText = JSON.stringify(error.error);
+				}
+			}
+			// Fallback: check response.body
+			if (!errorText && error.response?.body) {
+				if (typeof error.response.body === 'string') {
+					errorText = error.response.body.trim();
+				}
+			}
+			
+			const message = errorText ? `Bad request - ${errorText}` : 'Bad request - please check your parameters';
+			
+			throw new NodeApiError(this.getNode(), error, {
+				message,
 			});
 		}
 		throw new NodeApiError(this.getNode(), error);
