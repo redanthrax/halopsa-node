@@ -161,18 +161,18 @@ export const getALLDescription: INodeProperties[] = [
 				description: 'Whether to exclude voided invoices',
 			},
 			{
-				displayName: 'Include Details',
-				name: 'includedetails',
-				type: 'boolean',
-				default: false,
-				description: 'Whether to include extra objects in the response',
-			},
-			{
 				displayName: 'Include Credits',
 				name: 'includecredits',
 				type: 'boolean',
 				default: false,
 				description: 'Whether to include invoice type credits in the response',
+			},
+			{
+				displayName: 'Include Details',
+				name: 'includedetails',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to include extra objects in the response',
 			},
 			{
 				displayName: 'Include Invoices',
@@ -215,6 +215,20 @@ export const getALLDescription: INodeProperties[] = [
 				type: 'boolean',
 				default: false,
 				description: 'Whether to include the field invoicedatestart in the response',
+			},
+			{
+				displayName: 'My Approvals',
+				name: 'my_approvals',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to filter on my approvals',
+			},
+			{
+				displayName: 'Not Posted Only',
+				name: 'notpostedonly',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to filter on invoices that have not been posted',
 			},
 			{
 				displayName: 'Order',
@@ -309,20 +323,6 @@ export const getALLDescription: INodeProperties[] = [
 				type: 'boolean',
 				default: false,
 				description: 'Whether to use pagination in the response',
-			},
-			{
-				displayName: 'My Approvals',
-				name: 'my_approvals',
-				type: 'boolean',
-				default: false,
-				description: 'Whether to filter on my approvals',
-			},
-			{
-				displayName: 'Not Posted Only',
-				name: 'notpostedonly',
-				type: 'boolean',
-				default: false,
-				description: 'Whether to filter on invoices that have not been posted',
 			},
 			{
 				displayName: 'Payment Statuses',
