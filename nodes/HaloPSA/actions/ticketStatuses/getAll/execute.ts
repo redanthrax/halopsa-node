@@ -11,22 +11,9 @@ export async function getAll(
 	
 	const qs = {} as IDataObject;
 	
-	if (filters.domain) qs.domain = filters.domain;
-	if (filters.excludeclosed !== undefined) qs.excludeclosed = filters.excludeclosed;
-	if (filters.excludepending !== undefined) qs.excludepending = filters.excludepending;
-	if (filters.outcome_id) qs.outcome_id = filters.outcome_id;
-	if (filters.showall !== undefined) qs.showall = filters.showall;
-	if (filters.showcounts !== undefined) qs.showcounts = filters.showcounts;
-	if (filters.showquickchangeoptions !== undefined) qs.showquickchangeoptions = filters.showquickchangeoptions;
-	if (filters.split_closed !== undefined) qs.split_closed = filters.split_closed;
-	if (filters.ticket_id) qs.ticket_id = filters.ticket_id;
-	if (filters.ticket_id_firstchild) qs.ticket_id_firstchild = filters.ticket_id_firstchild;
-	if (filters.ticketarea_id) qs.ticketarea_id = filters.ticketarea_id;
-	if (filters.tickettype_group_id) qs.tickettype_group_id = filters.tickettype_group_id;
-	if (filters.tickettype_id) qs.tickettype_id = filters.tickettype_id;
-	if (filters.tickettype_ids) qs.tickettype_ids = filters.tickettype_ids;
-	if (filters.type) qs.type = filters.type;
-	if (filters.view_id) qs.view_id = filters.view_id;
+	if (filters) {
+		Object.assign(qs, filters);
+	}
 
 	const requestMethod = 'GET';
 	const endpoint = '/Status';

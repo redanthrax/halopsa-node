@@ -66,6 +66,13 @@ export const getALLDescription: INodeProperties[] = [
 				description: 'Whether to filter on awaiting approval',
 			},
 			{
+				displayName: 'Billing Category IDs',
+				name: 'billingcategory_ids',
+				type: 'string',
+				default: '',
+				description: 'Filter by the specified billing categories, comma-separated',
+			},
+			{
 				displayName: 'Billing Date',
 				name: 'billing_date',
 				type: 'dateTime',
@@ -78,6 +85,13 @@ export const getALLDescription: INodeProperties[] = [
 				type: 'number',
 				default: 0,
 				description: 'Filter by the specified client',
+			},
+			{
+				displayName: 'Client IDs',
+				name: 'client_ids',
+				type: 'string',
+				default: '',
+				description: 'Filter by the specified clients, comma-separated',
 			},
 			{
 				displayName: 'Contract ID',
@@ -134,10 +148,10 @@ export const getALLDescription: INodeProperties[] = [
 			},
 			{
 				displayName: 'End Date',
-				name: 'enddate',
+				name: 'end_date',
 				type: 'dateTime',
 				default: '',
-				description: 'For use with the datesearch parameter',
+				description: 'Filter Invoices with date less than specified date (Date Filter selected by datesearch parameter)',
 			},
 			{
 				displayName: 'Exclude Voided',
@@ -154,11 +168,53 @@ export const getALLDescription: INodeProperties[] = [
 				description: 'Whether to include extra objects in the response',
 			},
 			{
+				displayName: 'Include Credits',
+				name: 'includecredits',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to include invoice type credits in the response',
+			},
+			{
+				displayName: 'Include Invoices',
+				name: 'includeinvoices',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to include invoice type invoice in the response',
+			},
+			{
+				displayName: 'Include Lines',
+				name: 'includelines',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to include invoice lines in the response',
+			},
+			{
 				displayName: 'Include Linked Item Details',
 				name: 'include_linked_item_details',
 				type: 'boolean',
 				default: false,
 				description: 'Whether to include invoice lines linked item details',
+			},
+			{
+				displayName: 'Include PO Invoices',
+				name: 'includepoinvoices',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to include PO invoices in the response',
+			},
+			{
+				displayName: 'Invoice Date End',
+				name: 'invoicedateend',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to include the field invoicedateend in the response',
+			},
+			{
+				displayName: 'Invoice Date Start',
+				name: 'invoicedatestart',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to include the field invoicedatestart in the response',
 			},
 			{
 				displayName: 'Order',
@@ -253,6 +309,20 @@ export const getALLDescription: INodeProperties[] = [
 				type: 'boolean',
 				default: false,
 				description: 'Whether to use pagination in the response',
+			},
+			{
+				displayName: 'My Approvals',
+				name: 'my_approvals',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to filter on my approvals',
+			},
+			{
+				displayName: 'Not Posted Only',
+				name: 'notpostedonly',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to filter on invoices that have not been posted',
 			},
 			{
 				displayName: 'Payment Statuses',
@@ -364,10 +434,10 @@ export const getALLDescription: INodeProperties[] = [
 			},
 			{
 				displayName: 'Start Date',
-				name: 'startdate',
+				name: 'start_date',
 				type: 'dateTime',
 				default: '',
-				description: 'For use with the datesearch parameter',
+				description: 'Filter Invoices with date greater than specified date (Date Filter selected by datesearch parameter)',
 			},
 			{
 				displayName: 'Stripe Auto Payment Required',

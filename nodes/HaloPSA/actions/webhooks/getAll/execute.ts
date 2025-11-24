@@ -11,8 +11,9 @@ export async function execute(
 	
 	const qs = {} as IDataObject;
 	
-	if (filters.isazureautomation !== undefined) qs.isazureautomation = filters.isazureautomation;
-	if (filters.type) qs.type = filters.type;
+	if (filters) {
+		Object.assign(qs, filters);
+	}
 
 	if (!returnAll) {
 		const limit = this.getNodeParameter('limit', index) as number;

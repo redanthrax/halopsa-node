@@ -12,8 +12,9 @@ export async function execute(
 	
 	const qs = {} as IDataObject;
 	
-	if (filters.agent_id) qs.agent_id = filters.agent_id;
-	if (filters.date) qs.date = filters.date;
+	if (filters) {
+		Object.assign(qs, filters);
+	}
 	
 	if (!returnAll) {
 		const limit = this.getNodeParameter('limit', index, 50) as number;
