@@ -151,7 +151,7 @@ export class HaloPsa implements INodeType {
 					const qs = {};
 
 					const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
-					
+
 					const options: INodePropertyOptions[] = [];
 					if (Array.isArray(responseData)) {
 						for (const ticketType of responseData) {
@@ -177,7 +177,7 @@ export class HaloPsa implements INodeType {
 					const qs = {};
 
 					const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
-					
+
 					const options: INodePropertyOptions[] = [];
 					if (Array.isArray(responseData)) {
 						for (const status of responseData) {
@@ -197,20 +197,21 @@ export class HaloPsa implements INodeType {
 			getCustomFields: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const { apiRequest } = await import('./transport');
 				const resource = this.getCurrentNodeParameter('resource') as string;
-				
+
 				const typeMapping: Record<string, number> = {
 					client: 2,
 					tickets: 1,
 					sites: 3,
 					assets: 5,
 					projects: 1,
+					users: 4,
 				};
-				
+
 				const typeid = typeMapping[resource];
-				if (!typeid) {
+				if (typeid === undefined) {
 					return [];
 				}
-				
+
 				try {
 					const requestMethod = 'GET';
 					const endpoint = '/FieldInfo';
@@ -218,7 +219,7 @@ export class HaloPsa implements INodeType {
 					const qs = { typeid };
 
 					const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
-					
+
 					const options: INodePropertyOptions[] = [];
 					if (Array.isArray(responseData)) {
 						for (const field of responseData) {
@@ -245,7 +246,7 @@ export class HaloPsa implements INodeType {
 					const qs = {};
 
 					const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
-					
+
 					const options: INodePropertyOptions[] = [];
 					if (Array.isArray(responseData)) {
 						for (const assetType of responseData) {
@@ -268,11 +269,11 @@ export class HaloPsa implements INodeType {
 				const { getFieldTypeDescription } = await import('./utils');
 				const assettypeIdParam = this.getCurrentNodeParameter('assettype_id_for_fields');
 				const assettypeId = typeof assettypeIdParam === 'string' ? parseInt(assettypeIdParam, 10) : (assettypeIdParam as number);
-				
+
 				if (!assettypeId || assettypeId === 0 || typeof assettypeId !== 'number' || isNaN(assettypeId)) {
 					return [];
 				}
-				
+
 				try {
 					const requestMethod = 'GET';
 					const endpoint = `/AssetType/${assettypeId}`;
@@ -280,7 +281,7 @@ export class HaloPsa implements INodeType {
 					const qs = { fieldsandlayoutonly: true, includetyperestrictions: true };
 
 					const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
-					
+
 					const options: INodePropertyOptions[] = [];
 					if (responseData && responseData.field_list && Array.isArray(responseData.field_list)) {
 						for (const field of responseData.field_list) {
@@ -308,7 +309,7 @@ export class HaloPsa implements INodeType {
 					const qs = {};
 
 					const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
-					
+
 					const options: INodePropertyOptions[] = [];
 					if (Array.isArray(responseData)) {
 						for (const agent of responseData) {
@@ -335,7 +336,7 @@ export class HaloPsa implements INodeType {
 					const qs = {};
 
 					const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
-					
+
 					const options: INodePropertyOptions[] = [];
 					let users = [];
 					if (responseData && responseData.users) {
@@ -343,7 +344,7 @@ export class HaloPsa implements INodeType {
 					} else if (Array.isArray(responseData)) {
 						users = responseData;
 					}
-					
+
 					for (const user of users) {
 						if (user.id && user.name) {
 							options.push({
@@ -367,7 +368,7 @@ export class HaloPsa implements INodeType {
 					const qs = {};
 
 					const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
-					
+
 					const options: INodePropertyOptions[] = [];
 					let clients = [];
 					if (responseData && responseData.clients) {
@@ -375,7 +376,7 @@ export class HaloPsa implements INodeType {
 					} else if (Array.isArray(responseData)) {
 						clients = responseData;
 					}
-					
+
 					for (const client of clients) {
 						if (client.id && client.name) {
 							options.push({
@@ -400,11 +401,11 @@ export class HaloPsa implements INodeType {
 				clientIdParam = this.getCurrentNodeParameter('additionalFields.client_id');
 			}
 			const clientId = typeof clientIdParam === 'string' ? parseInt(clientIdParam, 10) : (clientIdParam as number);
-			
+
 			if (!clientId || clientId === 0 || typeof clientId !== 'number' || isNaN(clientId)) {
 				return [];
 			}
-				
+
 				try {
 					const requestMethod = 'GET';
 					const endpoint = '/Site';
@@ -412,7 +413,7 @@ export class HaloPsa implements INodeType {
 					const qs = { client_id: clientId };
 
 					const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
-					
+
 					const options: INodePropertyOptions[] = [];
 					let sites = [];
 					if (responseData && responseData.sites) {
@@ -420,7 +421,7 @@ export class HaloPsa implements INodeType {
 					} else if (Array.isArray(responseData)) {
 						sites = responseData;
 					}
-					
+
 					for (const site of sites) {
 						if (site.id && site.name) {
 							options.push({
@@ -445,11 +446,11 @@ export class HaloPsa implements INodeType {
 				clientIdParam = this.getCurrentNodeParameter('additionalFields.client_id');
 			}
 			const clientId = typeof clientIdParam === 'string' ? parseInt(clientIdParam, 10) : (clientIdParam as number);
-			
+
 			if (!clientId || clientId === 0 || typeof clientId !== 'number' || isNaN(clientId)) {
 				return [];
 			}
-				
+
 				try {
 					const requestMethod = 'GET';
 					const endpoint = '/Users';
@@ -457,7 +458,7 @@ export class HaloPsa implements INodeType {
 					const qs = { client_id: clientId };
 
 					const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
-					
+
 					const options: INodePropertyOptions[] = [];
 					let users = [];
 					if (responseData && responseData.users) {
@@ -465,7 +466,7 @@ export class HaloPsa implements INodeType {
 					} else if (Array.isArray(responseData)) {
 						users = responseData;
 					}
-					
+
 					for (const user of users) {
 						if (user.id && user.name) {
 							options.push({
@@ -494,10 +495,10 @@ export class HaloPsa implements INodeType {
 				};
 
 				const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
-				
+
 				const options: INodePropertyOptions[] = [];
 				const teams = Array.isArray(responseData) ? responseData : [responseData];
-				
+
 				for (const team of teams) {
 					if (team.id && team.name) {
 						options.push({
@@ -521,16 +522,16 @@ export class HaloPsa implements INodeType {
 				const qs = {};
 
 				const orgsResponse = await apiRequest.call(this, requestMethod, endpoint, body, qs);
-				
+
 				const options: INodePropertyOptions[] = [];
 				const organisations = Array.isArray(orgsResponse) ? orgsResponse : [orgsResponse];
-				
+
 				for (const org of organisations) {
 					if (org.id) {
 						const orgEndpoint = `/Organisation/${org.id}`;
 						const orgQs = { includedetails: true };
 						const orgDetails = await apiRequest.call(this, requestMethod, orgEndpoint, body, orgQs);
-						
+
 						if (orgDetails.departments && Array.isArray(orgDetails.departments)) {
 							for (const dept of orgDetails.departments) {
 								if (dept.id && dept.name) {
