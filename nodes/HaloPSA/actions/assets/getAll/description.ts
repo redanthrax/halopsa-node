@@ -80,18 +80,14 @@ export const getALLDescription: INodeProperties[] = [
 				description: 'Filter Assets on asset statuses, comma-separated IDs',
 			},
 			{
-				displayName: 'Asset Type',
-				name: 'assettype',
-				type: 'number',
-				default: 0,
-				description: 'Filter by specific asset type ID',
-			},
-			{
-				displayName: 'Asset Type ID',
+				displayName: 'Asset Type Name or ID',
 				name: 'assettype_id',
-				type: 'number',
-				default: 0,
-				description: 'Filter by Assets belonging to a particular Asset type',
+				type: 'options',
+				typeOptions: {
+					loadOptionsMethod: 'getAssetTypes',
+				},
+				default: '',
+				description: 'Filter by Assets belonging to a particular Asset type. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Asset Types',

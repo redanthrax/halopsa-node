@@ -266,7 +266,6 @@ export class HaloPsa implements INodeType {
 			},
 			getAssetFields: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const { apiRequest } = await import('./transport');
-				const { getFieldTypeDescription } = await import('./utils');
 				const assettypeIdParam = this.getCurrentNodeParameter('assettype_id_for_fields');
 				const assettypeId = typeof assettypeIdParam === 'string' ? parseInt(assettypeIdParam, 10) : (assettypeIdParam as number);
 
@@ -278,18 +277,19 @@ export class HaloPsa implements INodeType {
 					const requestMethod = 'GET';
 					const endpoint = `/AssetType/${assettypeId}`;
 					const body = {};
-					const qs = { fieldsandlayoutonly: true, includetyperestrictions: true };
+					const qs = { includedetails: true };
 
 					const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
 
 					const options: INodePropertyOptions[] = [];
-					if (responseData && responseData.field_list && Array.isArray(responseData.field_list)) {
-						for (const field of responseData.field_list) {
-							if (field.id && field.name) {
+					if (responseData && responseData.fields && Array.isArray(responseData.fields)) {
+						for (const field of responseData.fields) {
+							if (field.field_id && field.field_name) {
+								const fieldId = typeof field.field_id === 'number' ? Math.floor(field.field_id) : field.field_id;
 								options.push({
-									name: field.name,
-									value: field.id.toString(),
-									description: getFieldTypeDescription(field),
+									name: field.field_name,
+									value: fieldId.toString(),
+									description: field.type ? `Type: ${field.type}` : '',
 								});
 							}
 						}

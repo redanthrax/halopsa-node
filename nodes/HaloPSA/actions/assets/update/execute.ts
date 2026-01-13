@@ -65,18 +65,18 @@ export async function execute(
 	}
 	
 	if (fieldItems && fieldItems.length > 0) {
-		const fields: Array<{ id: number; value: string }> = [];
+		const customfields: Array<{ id: number; value: string }> = [];
 		for (const item of fieldItems) {
 			if (item.field && item.value !== undefined) {
 				const fieldId = typeof item.field === 'string' ? parseInt(item.field, 10) : item.field;
-				fields.push({
+				customfields.push({
 					id: fieldId,
 					value: item.value,
 				});
 			}
 		}
-		if (fields.length > 0) {
-			body.fields = fields;
+		if (customfields.length > 0) {
+			body.customfields = customfields;
 		}
 	}
 
