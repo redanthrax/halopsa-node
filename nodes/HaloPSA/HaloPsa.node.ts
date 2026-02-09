@@ -23,6 +23,7 @@ import {
 	INodeType,
 	INodeTypeDescription,
 	LoggerProxy as Logger,
+	NodeConnectionType,
 } from 'n8n-workflow';
 
 export class HaloPsa implements INodeType {
@@ -38,8 +39,8 @@ export class HaloPsa implements INodeType {
 		defaults: {
 			name: 'HaloPSA Complete',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
 				name: 'haloPSACompleteApiOAuth2OAuth2Api',
