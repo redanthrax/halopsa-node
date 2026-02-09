@@ -63,7 +63,7 @@ export class HaloPsaTrigger implements INodeType {
 				typeOptions: {
 					loadOptionsMethod: 'getEventTypes',
 				},
-				default: 1,
+				default: '',
 				required: true,
 				description: 'The HaloPSA event type to trigger on. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
