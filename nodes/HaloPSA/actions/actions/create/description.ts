@@ -124,6 +124,13 @@ export const description: INodeProperties[] = [
 				description: 'The date and time of the action (defaults to current time if not specified)',
 			},
 			{
+				displayName: 'Hidden From User',
+				name: 'hiddenfromuser',
+				type: 'boolean',
+				default: false,
+				description: 'Whether the action content is hidden from the user',
+			},
+			{
 				displayName: 'Is JSON',
 				name: 'isjson',
 				type: 'boolean',
