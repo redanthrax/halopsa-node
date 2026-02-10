@@ -8,7 +8,6 @@ import {
 	IHttpRequestOptions,
 	ILoadOptionsFunctions,
 	NodeApiError,
-	LoggerProxy as Logger,
 } from 'n8n-workflow';
 
 interface TokenResponse {
@@ -76,21 +75,9 @@ export async function apiRequest(
 		json: true,
 	};
 
-	Logger.debug('HaloPSA API Request initiated', {
-		url: options.url,
-		method: options.method,
-		queryParams: options.qs,
-		body: options.body,
-		node: this.getNode().name,
-	});
+
 
 	try {
-		const stringBody = typeof options.body === 'string' ? options.body : JSON.stringify(options.body);
-		Logger.debug('HaloPSA API Request Full Details', {
-			url: options.url,
-			method: options.method,
-			body: stringBody,
-		});
 		let response: any;
 		try {
 			response = await this.helpers.httpRequest(options);
@@ -98,13 +85,6 @@ export async function apiRequest(
 			// Capture the raw HTTP error before n8n wraps it
 			throw httpError;
 		}
-		Logger.debug('HaloPSA API Response received', {
-			url: options.url,
-			responseType: typeof response,
-			responseKeys: response && typeof response === 'object' ? Object.keys(response) : 'N/A',
-			recordCount: response && typeof response === 'object' ? response.record_count : undefined,
-			node: this.getNode().name,
-		});
 		return response;
 	} catch (error) {
 		const statusCode = error?.status || error?.statusCode || parseInt(error?.httpCode as string, 10) || 0;
@@ -169,12 +149,6 @@ export async function apiRequestAllItems(
 			page_no: page,
 		};
 
-		Logger.debug(`HaloPSA Paginated Request - Page ${page}`, {
-			endpoint,
-			pageSize,
-			node: this.getNode().name,
-		});
-
 		const response = await apiRequest.call(this, method, endpoint, body, paginatedQs);
 		
 		// Extract items from response
@@ -193,19 +167,7 @@ export async function apiRequestAllItems(
 		hasMorePages = items.length === pageSize;
 		page++;
 
-		Logger.debug(`HaloPSA Paginated Response - Page ${page - 1}`, {
-			itemsReceived: items.length,
-			totalItemsSoFar: allItems.length,
-			hasMorePages,
-			node: this.getNode().name,
-		});
 	}
-
-	Logger.debug('HaloPSA Pagination Complete', {
-		totalItems: allItems.length,
-		totalPages: page - 1,
-		node: this.getNode().name,
-	});
 
 	return allItems;
 }

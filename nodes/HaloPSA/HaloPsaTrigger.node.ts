@@ -7,7 +7,7 @@ import {
 	IWebhookResponseData,
 	ILoadOptionsFunctions,
 	INodePropertyOptions,
-	NodeConnectionType,
+	NodeConnectionTypes,
 } from 'n8n-workflow';
 
 import { apiRequest } from './transport';
@@ -40,7 +40,7 @@ export class HaloPsaTrigger implements INodeType {
 			name: 'HaloPSA Trigger',
 		},
 		inputs: [],
-		outputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionTypes.Main],
 		credentials: [
 			{
 				name: 'haloPSACompleteApiOAuth2OAuth2Api',

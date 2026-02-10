@@ -22,8 +22,7 @@ import {
 	INodePropertyOptions,
 	INodeType,
 	INodeTypeDescription,
-	LoggerProxy as Logger,
-	NodeConnectionType,
+	NodeConnectionTypes,
 } from 'n8n-workflow';
 
 export class HaloPsa implements INodeType {
@@ -39,8 +38,8 @@ export class HaloPsa implements INodeType {
 		defaults: {
 			name: 'HaloPSA Complete',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: [NodeConnectionTypes.Main],
+		outputs: [NodeConnectionTypes.Main],
 		credentials: [
 			{
 				name: 'haloPSACompleteApiOAuth2OAuth2Api',
@@ -143,7 +142,6 @@ export class HaloPsa implements INodeType {
 	methods = {
 		loadOptions: {
 		getTicketTypes: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
-			Logger.debug('Loading ticket types for HaloPSA node', { node: this.getNode().name });
 			const { apiRequest } = await import('./transport');
 			try {
 					const requestMethod = 'GET';
@@ -301,7 +299,6 @@ export class HaloPsa implements INodeType {
 				}
 			},
 			getAgents: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
-				Logger.debug('Loading agents for HaloPSA node', { node: this.getNode().name });
 				const { apiRequest } = await import('./transport');
 				try {
 					const requestMethod = 'GET';
@@ -328,7 +325,6 @@ export class HaloPsa implements INodeType {
 			}
 			},
 			getUsers: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
-				Logger.debug('Loading users for HaloPSA node', { node: this.getNode().name });
 				const { apiRequest } = await import('./transport');
 				try {
 					const requestMethod = 'GET';
@@ -360,7 +356,6 @@ export class HaloPsa implements INodeType {
 				}
 			},
 			getClients: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
-				Logger.debug('Loading clients for HaloPSA node', { node: this.getNode().name });
 				const { apiRequest } = await import('./transport');
 				try {
 					const requestMethod = 'GET';
@@ -392,7 +387,6 @@ export class HaloPsa implements INodeType {
 				}
 			},
 		getSites: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
-			Logger.debug('Loading sites for HaloPSA node', { node: this.getNode().name });
 			const { apiRequest } = await import('./transport');
 			let clientIdParam = this.getCurrentNodeParameter('client_id');
 			if (!clientIdParam) {
@@ -437,7 +431,6 @@ export class HaloPsa implements INodeType {
 				}
 			},
 		getClientUsers: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
-			Logger.debug('Loading users for client in HaloPSA node', { node: this.getNode().name });
 			const { apiRequest } = await import('./transport');
 			let clientIdParam = this.getCurrentNodeParameter('client_id');
 			if (!clientIdParam) {
@@ -482,7 +475,6 @@ export class HaloPsa implements INodeType {
 				}
 			},
 		getTeams: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
-			Logger.debug('Loading teams for HaloPSA node', { node: this.getNode().name });
 			const { apiRequest } = await import('./transport');
 			try {
 				const requestMethod = 'GET';
@@ -514,7 +506,6 @@ export class HaloPsa implements INodeType {
 			}
 		},
 		getDepartments: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
-			Logger.debug('Loading departments for HaloPSA node', { node: this.getNode().name });
 			const { apiRequest } = await import('./transport');
 			try {
 				const requestMethod = 'GET';
