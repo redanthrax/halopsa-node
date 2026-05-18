@@ -1,10 +1,14 @@
 # Appointment Operations
 
-List HaloPSA appointments (`GET /api/Appointment`). Equivalent to halopsa-mcp `halopsa_list_appointments`.
+Manage HaloPSA appointments (`/api/Appointment`).
 
 ## Get Many
 
 **Parameters:**
 - **Return All** / **Limit** — Return All paginates through all pages; limited requests cap at 100 per API call
-- **Agent ID** — Optional filter (0 = all)
+- **Agent ID** — Comma-separated agent IDs via `agents` query param (0 = all)
 - **Start Date (UTC)** / **End Date (UTC)** — Optional ISO 8601 range passed to the API as `start_date` / `end_date`
+
+## Get by ID / Create / Update / Delete
+
+Use **Appointment ID** for get, update, and delete. **Create** and **Update** accept JSON for Appointment fields.
