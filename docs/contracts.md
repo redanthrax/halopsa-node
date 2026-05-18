@@ -1,6 +1,6 @@
 # Contract Operations
 
-List and retrieve HaloPSA client contracts (`/api/ClientContract`), including agreement budget and usage metadata. Requires `read:contracts` on your OAuth application.
+Manage HaloPSA client contracts (`/api/ClientContract`), including agreement budget and usage metadata. Requires `read:contracts` on your OAuth application.
 
 For agreement hour utilisation, use **Reporting → Contract Utilisation** (recommended) or **Execute SQL Query**. Matches halopsa-mcp `halopsa_get_contract_utilisation`.
 
@@ -15,3 +15,7 @@ For agreement hour utilisation, use **Reporting → Contract Utilisation** (reco
 
 **Parameters:**
 - **Contract ID** — Client contract ID
+
+## Create / Update / Delete
+
+**Create** accepts **Client ID** and JSON **Additional Fields**. **Update** requires **Contract ID** and **Update Fields** JSON. **Delete** removes a contract by ID.
