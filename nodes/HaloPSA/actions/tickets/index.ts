@@ -3,10 +3,22 @@ import * as getById from './getById';
 import * as create from './create';
 import * as update from './update';
 import * as deleteTicket from './delete';
+import * as processChildren from './processChildren';
+import * as recordView from './recordView';
+import * as vote from './vote';
 
 import { INodeProperties } from 'n8n-workflow';
 
-export { getAll, getById, create, update, deleteTicket as delete };
+export {
+	getAll,
+	getById,
+	create,
+	update,
+	deleteTicket as delete,
+	processChildren,
+	recordView,
+	vote,
+};
 
 export const description: INodeProperties[] = [
 	{
@@ -50,6 +62,24 @@ export const description: INodeProperties[] = [
 			description: 'Update a ticket',
 			action: 'Update a ticket',
 		},
+		{
+			name: 'Vote',
+			value: 'vote',
+			description: 'Submit a vote on a ticket',
+			action: 'Vote on a ticket',
+		},
+		{
+			name: 'Record View',
+			value: 'recordView',
+			description: 'Record that a ticket was viewed',
+			action: 'Record a ticket view',
+		},
+		{
+			name: 'Process Children',
+			value: 'processChildren',
+			description: 'Process child tickets for a parent ticket',
+			action: 'Process child tickets',
+		},
 	],
 		default: 'getAll',
 	},
@@ -58,4 +88,7 @@ export const description: INodeProperties[] = [
 	...create.description,
 	...update.description,
 	...deleteTicket.description,
+	...vote.description,
+	...recordView.description,
+	...processChildren.description,
 ];

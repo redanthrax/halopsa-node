@@ -70,3 +70,33 @@ Delete a ticket from HaloPSA.
 
 **Optional Parameters:**
 - **Reason**: Optional reason for deletion
+
+## Vote
+
+Submit a vote on a ticket (`POST /Tickets/vote`).
+
+**Required Parameters:**
+- **Ticket ID**: The ticket to vote on
+
+**Optional Parameters:**
+- **Additional Fields**: JSON body fields merged with the ticket ID
+
+## Record View
+
+Record that a ticket was viewed (`POST /Tickets/View`).
+
+**Required Parameters:**
+- **Ticket ID**: The ticket that was viewed
+
+**Optional Parameters:**
+- **Additional Fields**: JSON body fields merged with the ticket ID
+
+## Process Children
+
+Process child tickets for a parent (`POST /Tickets/processchildren`).
+
+**Required Parameters:**
+- **Ticket ID**: The parent ticket ID
+
+**Optional Parameters:**
+- **Additional Fields**: JSON body fields merged with the ticket ID
