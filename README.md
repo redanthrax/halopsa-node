@@ -4,7 +4,7 @@ An n8n community node for integrating with HaloPSA API.
 
 ## Development
 
-This repo uses **pnpm** with a committed lockfile and supply-chain controls (see [SECURITY.md](SECURITY.md)). After clone:
+This repo uses **pnpm** with a committed lockfile and supply-chain controls (see [SECURITY.md](SECURITY.md)). Development requires **Node.js 22+** (transitive `isolated-vm` from `n8n-workflow`). After clone:
 
 ```bash
 corepack enable && corepack prepare pnpm@10.19.0 --activate

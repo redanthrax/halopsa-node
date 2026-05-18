@@ -16,8 +16,7 @@
     "url": "git+https://github.com/redanthrax/halopsa-node.git"
   },
   "publishConfig": {
-    "access": "public",
-    "provenance": true
+    "access": "public"
   },
   "packageManager": "pnpm@10.19.0",
   "engines": {
