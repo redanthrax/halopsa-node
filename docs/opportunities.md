@@ -1,6 +1,6 @@
 # Opportunity Operations
 
-List HaloPSA sales opportunities (`GET /api/Opportunities`). Equivalent to halopsa-mcp `halopsa_list_opportunities`.
+List HaloPSA sales opportunities (`GET /api/Opportunities`). OpenAPI returns a `Faults_View` payload with a `tickets` array. Equivalent to halopsa-mcp `halopsa_list_opportunities`.
 
 ## Get Many
 

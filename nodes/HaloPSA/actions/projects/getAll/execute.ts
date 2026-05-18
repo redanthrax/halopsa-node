@@ -11,7 +11,7 @@ export async function execute(
 
 	return runGetAllRequest.call(this, index, {
 		endpoint: '/Projects',
-		resourceKey: 'faults',
+		resourceKey: 'tickets',
 		qs,
 	});
 }

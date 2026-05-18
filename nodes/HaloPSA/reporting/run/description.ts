@@ -30,6 +30,7 @@ export const runDescription: INodeProperties[] = [
 			},
 		},
 		default: {},
-		description: 'Optional JSON object of report parameters passed to the report runner',
+		description:
+			'Optional JSON object merged into GET /Report/{id} query string (e.g. client_id, ticket_id, reportingperiod) with loadreport=true',
 	},
 ];

@@ -520,7 +520,7 @@ export class HaloPsa implements INodeType {
 			const { apiRequest } = await import('./transport');
 			try {
 				const requestMethod = 'GET';
-				const endpoint = '/team';
+				const endpoint = '/Team';
 				const body = {};
 				const qs = {
 					showall: true,

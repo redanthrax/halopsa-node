@@ -1,6 +1,6 @@
 # Project Operations
 
-Manage HaloPSA projects (`/api/Projects`). List responses use the `faults` array.
+Manage HaloPSA projects (`/api/Projects`). List responses use the OpenAPI `Faults_View` shape (`tickets` array; some instances also return `faults`).
 
 ## Get Many
 

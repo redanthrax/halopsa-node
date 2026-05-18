@@ -11,7 +11,7 @@ export async function execute(
 
 	const qs: IDataObject = {};
 	if (agentId > 0) {
-		qs.agent_id = agentId;
+		qs.agents = String(agentId);
 	}
 	if (startDate) {
 		qs.start_date = startDate;

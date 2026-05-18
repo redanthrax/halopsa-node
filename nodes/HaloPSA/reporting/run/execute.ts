@@ -9,19 +9,19 @@ export async function execute(
 	const reportId = this.getNodeParameter('reportId', index) as number;
 	const parameters = this.getNodeParameter('parameters', index, {}) as IDataObject | string;
 
-	const body: IDataObject = { id: reportId };
+	const qs: IDataObject = { loadreport: true };
 
 	if (parameters && typeof parameters === 'object' && Object.keys(parameters).length > 0) {
-		body.parameters = parameters;
+		Object.assign(qs, parameters);
 	} else if (typeof parameters === 'string' && parameters.trim() !== '') {
 		try {
-			body.parameters = JSON.parse(parameters);
+			Object.assign(qs, JSON.parse(parameters) as IDataObject);
 		} catch {
-			body.parameters = parameters;
+			// ignore invalid JSON; loadreport-only request still runs
 		}
 	}
 
-	const response = await apiRequest.call(this, 'POST', '/Report/run', body, {});
+	const response = await apiRequest.call(this, 'GET', `/Report/${reportId}`, {}, qs);
 
 	return [{
 		json: response as IDataObject,

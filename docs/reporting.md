@@ -39,4 +39,4 @@ Retrieve a report definition including SQL and parameters (`GET /api/Report/{id}
 
 ## Run
 
-Execute a saved report (`POST /api/Report/run`) with optional **Parameters** JSON.
+Load and execute a saved report (`GET /api/Report/{id}?loadreport=true`) with optional **Parameters** JSON merged into the query string (e.g. `client_id`, `ticket_id`, `reportingperiod`).

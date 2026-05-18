@@ -18,7 +18,7 @@ export async function execute(
 
 	return runGetAllRequest.call(this, index, {
 		endpoint: '/Opportunities',
-		resourceKey: 'opportunities',
+		resourceKey: 'tickets',
 		qs,
 		maxLimit: 100,
 	});

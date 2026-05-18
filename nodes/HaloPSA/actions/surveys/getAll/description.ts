@@ -42,6 +42,7 @@ export const getAllDescription: INodeProperties[] = [
 			},
 		},
 		default: 0,
-		description: 'Filter by ticket ID (0 = no filter)',
+		description:
+			'Filter by ticket ID after fetch (0 = no filter). OpenAPI does not document query filters on GET /Feedback.',
 	},
 ];
