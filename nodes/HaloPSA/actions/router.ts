@@ -12,6 +12,7 @@ import * as attachments from './attachments';
 import * as automations from './automations';
 import * as assets from './assets';
 import * as client from './client';
+import * as cannedText from './cannedText';
 import * as contracts from './contracts';
 import * as customApi from './customApi';
 import * as knowledgeBase from './knowledgeBase';
@@ -72,6 +73,9 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 				break;
 			case 'automations':
 				responseData = await (automations as any)[haloPSA.operation].execute.call(this, i);
+				break;
+			case 'cannedText':
+				responseData = await (cannedText as any)[haloPSA.operation].execute.call(this, i);
 				break;
 			case 'client':
 				responseData = await (client as any)[haloPSA.operation].execute.call(this, i);

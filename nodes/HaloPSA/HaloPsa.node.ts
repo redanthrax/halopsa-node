@@ -12,6 +12,7 @@ import * as automations from './actions/automations';
 import * as assets from './actions/assets';
 import * as sites from './actions/sites';
 import * as client from './actions/client';
+import * as cannedText from './actions/cannedText';
 import * as contracts from './actions/contracts';
 import * as customApi from './actions/customApi';
 import * as knowledgeBase from './actions/knowledgeBase';
@@ -93,6 +94,10 @@ export class HaloPsa implements INodeType {
 				{
 					name: 'Automation',
 					value: 'automations',
+				},
+				{
+					name: 'Canned Text',
+					value: 'cannedText',
 				},
 				{
 					name: 'Client',
@@ -211,6 +216,7 @@ export class HaloPsa implements INodeType {
 			...attachments.description,
 			...automations.description,
 			...assets.description,
+			...cannedText.description,
 			...client.description,
 			...contracts.description,
 			...customApi.description,

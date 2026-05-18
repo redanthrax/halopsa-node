@@ -83,6 +83,7 @@ The trigger creates and manages webhooks in HaloPSA (subscription and cleanup).
 | Asset | [assets.md](./docs/assets.md) |
 | Attachment | [attachments.md](./docs/attachments.md) |
 | Automation | [automations.md](./docs/automations.md) |
+| Canned Text | [canned-text.md](./docs/canned-text.md) |
 | Client | [clients.md](./docs/clients.md) |
 | Contract | [contracts.md](./docs/contracts.md) |
 | Custom API Call | [custom-api.md](./docs/custom-api.md) |
