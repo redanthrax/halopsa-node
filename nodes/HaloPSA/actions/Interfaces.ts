@@ -57,7 +57,7 @@ export type HaloPSANotificationsOperation = 'getAll' | 'getById' | 'create' | 'd
 export type HaloPSACannedTextOperation = 'getAll' | 'getById' | 'create' | 'delete';
 export type HaloPSAHolidaysOperation = 'getAll' | 'getById' | 'create' | 'delete';
 export type HaloPSATagsOperation = 'getAll' | 'getById' | 'create' | 'delete';
-export type HaloPSAAutomationsOperation = 'getAll' | 'getById';
+export type HaloPSAAutomationsOperation = 'getAll' | 'getById' | 'delete' | 'runRunbook';
 export type HaloPSAKnowledgeBaseOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete' | 'vote';
 export type HaloPSALookupsOperation = 'getAll' | 'getById' | 'create' | 'delete' | 'clearCache';
 export interface HaloPSA {
