@@ -15,6 +15,7 @@ import * as client from './actions/client';
 import * as contracts from './actions/contracts';
 import * as customApi from './actions/customApi';
 import * as knowledgeBase from './actions/knowledgeBase';
+import * as notifications from './actions/notifications';
 import * as lookups from './actions/lookups';
 import * as opportunities from './actions/opportunities';
 import * as purchaseOrders from './actions/purchaseOrders';
@@ -118,6 +119,10 @@ export class HaloPsa implements INodeType {
 					value: 'items',
 				},
 				{
+					name: 'Notification',
+					value: 'notifications',
+				},
+				{
 					name: 'Knowledge Base',
 					value: 'knowledgeBase',
 				},
@@ -212,6 +217,7 @@ export class HaloPsa implements INodeType {
 			...fieldInfo.description,
 			...invoices.description,
 			...items.description,
+			...notifications.description,
 			...knowledgeBase.description,
 			...lookups.description,
 			...opportunities.description,

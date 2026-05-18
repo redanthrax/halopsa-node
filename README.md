@@ -89,6 +89,7 @@ The trigger creates and manages webhooks in HaloPSA (subscription and cleanup).
 | Field Info | [field-info.md](./docs/field-info.md) |
 | Invoice | [invoices.md](./docs/invoices.md) |
 | Item | [items.md](./docs/items.md) |
+| Notification | [notifications.md](./docs/notifications.md) |
 | Knowledge Base | [knowledge-base.md](./docs/knowledge-base.md) |
 | Lookup | [lookups.md](./docs/lookups.md) |
 | Opportunity | [opportunities.md](./docs/opportunities.md) |

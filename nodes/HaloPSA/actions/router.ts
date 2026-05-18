@@ -15,6 +15,7 @@ import * as client from './client';
 import * as contracts from './contracts';
 import * as customApi from './customApi';
 import * as knowledgeBase from './knowledgeBase';
+import * as notifications from './notifications';
 import * as lookups from './lookups';
 import * as opportunities from './opportunities';
 import * as purchaseOrders from './purchaseOrders';
@@ -80,6 +81,9 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 				break;
 			case 'customApi':
 				responseData = await (customApi as any)[haloPSA.operation].execute.call(this, i);
+				break;
+			case 'notifications':
+				responseData = await (notifications as any)[haloPSA.operation].execute.call(this, i);
 				break;
 			case 'knowledgeBase':
 				responseData = await (knowledgeBase as any)[haloPSA.operation].execute.call(this, i);
