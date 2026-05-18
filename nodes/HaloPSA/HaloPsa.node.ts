@@ -33,6 +33,7 @@ import * as holidays from './actions/holidays';
 import * as users from './actions/users';
 import * as reporting from './reporting';
 import * as surveys from './actions/surveys';
+import * as tags from './actions/tags';
 
 import {
 	IExecuteFunctions,
@@ -177,6 +178,10 @@ export class HaloPsa implements INodeType {
 					value: 'surveys',
 				},
 				{
+					name: 'Tag',
+					value: 'tags',
+				},
+				{
 					name: 'Ticket',
 					value: 'tickets',
 				},
@@ -241,6 +246,7 @@ export class HaloPsa implements INodeType {
 			...salesOrders.description,
 			...sites.description,
 			...surveys.description,
+			...tags.description,
 			...ticketApprovals.description,
 			...ticketStatuses.description,
 			...ticketTypes.description,

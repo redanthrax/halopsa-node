@@ -11,7 +11,7 @@ export * from './interfaces/sites';
 export * from './interfaces/projects';
 export * from './interfaces/webhooks';
 
-export type HaloPSAResource = 'actions' | 'agents' | 'appointments' | 'assets' | 'attachments' | 'automations' | 'cannedText' | 'notifications' | 'client' | 'contracts' | 'customApi' | 'fieldInfo' | 'holidays' | 'invoices' | 'items' | 'knowledgeBase' | 'lookups' | 'opportunities' | 'purchaseOrders' | 'quotations' | 'recurringInvoices' | 'reporting' | 'salesOrders' | 'sites' | 'surveys' | 'ticketApprovals' | 'tickets' | 
+export type HaloPSAResource = 'actions' | 'agents' | 'appointments' | 'assets' | 'attachments' | 'automations' | 'cannedText' | 'notifications' | 'client' | 'contracts' | 'customApi' | 'fieldInfo' | 'holidays' | 'invoices' | 'items' | 'knowledgeBase' | 'lookups' | 'opportunities' | 'purchaseOrders' | 'quotations' | 'recurringInvoices' | 'reporting' | 'salesOrders' | 'sites' | 'surveys' | 'tags' | 'ticketApprovals' | 'tickets' | 
 	'ticketStatuses' | 'ticketTypes' | 'timesheet' | 'timesheetEvent' | 'projects' | 'users' | 'webhooks' | 'webhookEvents';
 export type HaloPSAActionsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSAClientOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
@@ -56,6 +56,7 @@ export type HaloPSACustomApiOperation = 'request';
 export type HaloPSANotificationsOperation = 'getAll' | 'getById' | 'create' | 'delete';
 export type HaloPSACannedTextOperation = 'getAll' | 'getById' | 'create' | 'delete';
 export type HaloPSAHolidaysOperation = 'getAll' | 'getById' | 'create' | 'delete';
+export type HaloPSATagsOperation = 'getAll' | 'getById' | 'create' | 'delete';
 export type HaloPSAAutomationsOperation = 'getAll' | 'getById';
 export type HaloPSAKnowledgeBaseOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete' | 'vote';
 export type HaloPSALookupsOperation = 'getAll' | 'getById';
