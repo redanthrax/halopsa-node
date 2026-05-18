@@ -26,13 +26,13 @@ Check for persistence artifacts: `.claude/router_runtime.js`, malicious `.vscode
 
 ### Maintainer / publish hardening
 
-- Enable **npm 2FA** and configure **trusted publishing (OIDC)** for this package on npmjs.com.
-- Releases use [`.github/workflows/release.yml`](.github/workflows/release.yml): frozen lockfile → blocklist scan → build → `npm publish --provenance`.
-- Set `NPM_TOKEN` only as a fallback until OIDC trusted publishing is configured; prefer removing it once OIDC works.
+- Enable **npm 2FA** and configure **trusted publishing (OIDC)** for `n8n-nodes-halopsacomplete` on npmjs.com (Package → **Publishing access** → link this GitHub repo and the `Release` workflow). Releases do **not** use a long-lived `NPM_TOKEN`.
+- Releases use [`.github/workflows/release.yml`](.github/workflows/release.yml): frozen lockfile → blocklist scan → **pnpm audit** (high+) → **OSV-Scanner** → build → `npm publish --provenance` via OIDC.
 - Never use `pull_request_target` with write permissions + checkout of untrusted PR code.
 - Run `pnpm run audit:supply-chain` before release; `prepublishOnly` runs the same check locally.
-- CI also runs **pnpm audit** and **OSV-Scanner** on the lockfile (see `supply-chain.yml`).
-- Review Dependabot PRs before merge; avoid auto-merge without green CI.
+- CI **fails** on high+ `pnpm audit` findings and OSV lockfile hits (see `supply-chain.yml`). Transitive issues may be mitigated with `pnpm.overrides` in `package.json` (e.g. `lodash`).
+- **Branch protection (recommended):** require the **Supply chain security** check on `master` before merge; do not auto-merge Dependabot PRs without green CI.
+- Review Dependabot PRs; weekly dev-dependency groups still must pass supply-chain + audit + build.
 
 ### Blocklist maintenance
 

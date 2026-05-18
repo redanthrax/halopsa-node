@@ -34,6 +34,9 @@
     "prepublishOnly": "pnpm run audit:supply-chain && pnpm run build && pnpm exec eslint -c .eslintrc.prepublish.js nodes credentials package.json"
   },
   "pnpm": {
+    "overrides": {
+      "lodash": ">=4.18.0"
+    },
     "onlyBuiltDependencies": [
       "isolated-vm"
     ],

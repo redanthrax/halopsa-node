@@ -37,15 +37,12 @@ jobs:
 
       - name: pnpm audit (high severity and above)
         run: pnpm audit --audit-level=high
-        continue-on-error: true
 
       - name: OSV vulnerability scan (lockfile)
         uses: google/osv-scanner-action/osv-scanner-action@v2.3.3
         with:
           scan-args: |-
             --lockfile=pnpm-lock.yaml
-            --format=json
-        continue-on-error: true
 
       - name: Build
         run: pnpm run build

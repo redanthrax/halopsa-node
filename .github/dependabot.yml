@@ -6,6 +6,8 @@ updates:
       interval: weekly
       day: monday
     open-pull-requests-limit: 5
+    labels:
+      - dependencies
     groups:
       dev-dependencies:
         patterns:
@@ -14,3 +16,5 @@ updates:
     commit-message:
       prefix: chore
       include: scope
+    # All Dependabot PRs must pass the "Supply chain security" workflow before merge
+    # (enable required status checks on master in GitHub branch protection).
