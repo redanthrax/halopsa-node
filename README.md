@@ -92,6 +92,7 @@ The trigger creates and manages webhooks in HaloPSA (subscription and cleanup).
 | Lookup | [lookups.md](./docs/lookups.md) |
 | Opportunity | [opportunities.md](./docs/opportunities.md) |
 | Project | [projects.md](./docs/projects.md) |
+| Purchase Order | [purchase-orders.md](./docs/purchase-orders.md) |
 | Quotation | [quotations.md](./docs/quotations.md) |
 | Recurring Invoice | [recurring-invoices.md](./docs/recurring-invoices.md) |
 | Reporting | [reporting.md](./docs/reporting.md) |

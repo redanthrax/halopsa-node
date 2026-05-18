@@ -16,6 +16,7 @@ import * as customApi from './actions/customApi';
 import * as knowledgeBase from './actions/knowledgeBase';
 import * as lookups from './actions/lookups';
 import * as opportunities from './actions/opportunities';
+import * as purchaseOrders from './actions/purchaseOrders';
 import * as invoices from './actions/invoices';
 import * as timesheet from './actions/timesheet';
 import * as timesheetEvent from './actions/timesheetEvent';
@@ -127,6 +128,10 @@ export class HaloPsa implements INodeType {
 					value: 'projects',
 				},
 				{
+					name: 'Purchase Order',
+					value: 'purchaseOrders',
+				},
+				{
 					name: 'Quotation',
 					value: 'quotations',
 				},
@@ -200,6 +205,7 @@ export class HaloPsa implements INodeType {
 			...lookups.description,
 			...opportunities.description,
 			...projects.description,
+			...purchaseOrders.description,
 			...quotations.description,
 			...recurringInvoices.description,
 			...reporting.description,
