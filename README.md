@@ -46,6 +46,10 @@ Execute read-only SQL against the HaloPSA reporting database, list saved reports
 
 List and get knowledge base articles.
 
+### [Contracts](./docs/contracts.md)
+
+List and get client contracts (agreements).
+
 ### Dynamic filters (expressions)
 
 Operations that support **Filters** also expose **Filters (JSON)** for runtime values (e.g. `{"client_id": {{ $json.client_id }}}`). JSON keys override the same keys from the UI Filters collection. Use **Filters (JSON)** when driving filters from webhooks, upstream nodes, or expressions; use **Add Filter** in the UI for static values.
