@@ -42,6 +42,10 @@ npm install n8n-nodes-halopsacomplete
 
 Execute read-only SQL against the HaloPSA reporting database, list saved reports, and run saved report definitions (aligned with halopsa-mcp `halopsa_query` / report tools).
 
+### [Knowledge Base](./docs/knowledge-base.md)
+
+List and get knowledge base articles.
+
 ### Dynamic filters (expressions)
 
 Operations that support **Filters** also expose **Filters (JSON)** for runtime values (e.g. `{"client_id": {{ $json.client_id }}}`). JSON keys override the same keys from the UI Filters collection. Use **Filters (JSON)** when driving filters from webhooks, upstream nodes, or expressions; use **Add Filter** in the UI for static values.

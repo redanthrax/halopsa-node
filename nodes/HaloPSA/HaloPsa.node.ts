@@ -5,6 +5,7 @@ import * as projects from './actions/projects';
 import * as assets from './actions/assets';
 import * as sites from './actions/sites';
 import * as client from './actions/client';
+import * as knowledgeBase from './actions/knowledgeBase';
 import * as invoices from './actions/invoices';
 import * as timesheet from './actions/timesheet';
 import * as timesheetEvent from './actions/timesheetEvent';
@@ -79,6 +80,10 @@ export class HaloPsa implements INodeType {
 					value: 'invoices',
 				},
 				{
+					name: 'Knowledge Base',
+					value: 'knowledgeBase',
+				},
+				{
 					name: 'Project',
 					value: 'projects',
 				},
@@ -132,6 +137,7 @@ export class HaloPsa implements INodeType {
 			...assets.description,
 			...sites.description,
 			...client.description,
+			...knowledgeBase.description,
 			...invoices.description,
 			...timesheet.description,
 			...timesheetEvent.description,
