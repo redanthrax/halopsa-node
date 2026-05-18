@@ -30,7 +30,18 @@ export type HaloPSAWebhooksOperation = 'getAll' | 'getById' | 'create' | 'update
 export type HaloPSAWebhookEventsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSAFieldInfoOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSAUsersOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
-export type HaloPSAReportingOperation = 'contractUtilisation' | 'createPdf' | 'executeQuery' | 'getAll' | 'getById' | 'print' | 'run';
+export type HaloPSAReportingOperation =
+	| 'bookmark'
+	| 'contractUtilisation'
+	| 'createPdf'
+	| 'executeQuery'
+	| 'getAll'
+	| 'getById'
+	| 'getPublishedData'
+	| 'getRepositoryById'
+	| 'listRepository'
+	| 'print'
+	| 'run';
 export type HaloPSAAttachmentsOperation = 'getAll' | 'getById' | 'create' | 'delete';
 export type HaloPSAAppointmentsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSAOpportunitiesOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';

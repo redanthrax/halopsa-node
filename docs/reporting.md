@@ -48,3 +48,15 @@ Load and execute a saved report (`GET /api/Report/{id}?loadreport=true`) with op
 ## Create PDF
 
 `POST /api/Report/createpdf` with an AnalyzerProfile body to generate a PDF.
+
+## Bookmark
+
+`POST /api/Report/Bookmark` to bookmark a saved report.
+
+## Get Published Report Data
+
+`GET /api/ReportData/{publishedId}` for published report payloads.
+
+## List / Get Repository Reports
+
+`GET /api/ReportRepository` and `GET /api/ReportRepository/{id}` for the online report repository.
