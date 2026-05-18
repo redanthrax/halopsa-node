@@ -17,13 +17,20 @@ export async function execute(
 	normalizeCustomfieldsField(updateFields);
 
 	const normalizedUpdate: IDataObject = { ...updateFields };
-	if (normalizedUpdate.agent_id !== undefined && normalizedUpdate.agent_id !== '') {
-		const v = normalizedUpdate.agent_id as string | number;
-		normalizedUpdate.agent_id = typeof v === 'string' ? parseInt(v, 10) : v;
-	}
-	if (normalizedUpdate.status_id !== undefined && normalizedUpdate.status_id !== '') {
-		const v = normalizedUpdate.status_id as string | number;
-		normalizedUpdate.status_id = typeof v === 'string' ? parseInt(v, 10) : v;
+
+	const parseOptionalId = (value: string | number | undefined): number | undefined => {
+		if (value === undefined || value === '') {
+			return undefined;
+		}
+		const parsed = typeof value === 'string' ? parseInt(value, 10) : value;
+		return isNaN(parsed) ? undefined : parsed;
+	};
+
+	for (const key of ['client_id', 'site_id', 'user_id', 'agent_id', 'status_id'] as const) {
+		const parsed = parseOptionalId(normalizedUpdate[key] as string | number | undefined);
+		if (parsed !== undefined) {
+			normalizedUpdate[key] = parsed;
+		}
 	}
 
 	const ticketData: IDataObject = {

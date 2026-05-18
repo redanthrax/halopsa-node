@@ -60,7 +60,7 @@ Update an existing ticket.
 - **Ticket ID**: The ID of the ticket to update
 
 **Optional Parameters:**
-- **Update Fields**: Collection of fields to update including summary, details, status, priority, assignment, categories, **Custom Fields** (`customfields` JSON array), etc.
+- **Update Fields**: Collection of fields to update including **Client**, **Site**, **User**, summary, details, status, priority, assignment, categories, **Custom Fields** (`customfields` JSON array), etc.
 - **Update Fields (JSON)**: Overrides the Update Fields collection from expressions
 
 ## Delete

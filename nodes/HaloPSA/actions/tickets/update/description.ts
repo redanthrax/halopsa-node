@@ -30,6 +30,41 @@ export const updateDescription: INodeProperties[] = [
 		},
 		options: [
 			{
+				displayName: 'Client Name or ID',
+				name: 'client_id',
+				type: 'options',
+				typeOptions: {
+					loadOptionsMethod: 'getClients',
+				},
+				default: '',
+				description:
+					'The client for this ticket. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+			},
+			{
+				displayName: 'Site Name or ID',
+				name: 'site_id',
+				type: 'options',
+				typeOptions: {
+					loadOptionsDependsOn: ['updateFields.client_id'],
+					loadOptionsMethod: 'getSites',
+				},
+				default: '',
+				description:
+					'The site for this ticket. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+			},
+			{
+				displayName: 'User Name or ID',
+				name: 'user_id',
+				type: 'options',
+				typeOptions: {
+					loadOptionsDependsOn: ['updateFields.client_id'],
+					loadOptionsMethod: 'getClientUsers',
+				},
+				default: '',
+				description:
+					'The user for this ticket. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+			},
+			{
 				displayName: 'Agent Name or ID',
 				name: 'agent_id',
 				type: 'options',
