@@ -2,7 +2,7 @@
 
 List and retrieve HaloPSA client contracts (`/api/ClientContract`), including agreement budget and usage metadata. Requires `read:contracts` on your OAuth application.
 
-For agreement hour utilisation against the reporting database, use **Reporting → Execute SQL Query** or the halopsa-mcp `halopsa_get_contract_utilisation` tool.
+For agreement hour utilisation, use **Reporting → Contract Utilisation** (recommended) or **Execute SQL Query**. Matches halopsa-mcp `halopsa_get_contract_utilisation`.
 
 ## Get Many
 

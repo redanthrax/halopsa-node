@@ -1,5 +1,6 @@
 import * as actions from './actions/actions';
 import * as agents from './actions/agents';
+import * as appointments from './actions/appointments';
 import * as tickets from './actions/tickets';
 import * as projects from './actions/projects';
 import * as assets from './actions/assets';
@@ -8,6 +9,7 @@ import * as client from './actions/client';
 import * as contracts from './actions/contracts';
 import * as customApi from './actions/customApi';
 import * as knowledgeBase from './actions/knowledgeBase';
+import * as opportunities from './actions/opportunities';
 import * as invoices from './actions/invoices';
 import * as timesheet from './actions/timesheet';
 import * as timesheetEvent from './actions/timesheetEvent';
@@ -18,6 +20,7 @@ import * as webhookEvents from './actions/webhookEvents';
 import * as fieldInfo from './actions/fieldInfo';
 import * as users from './actions/users';
 import * as reporting from './reporting';
+import * as surveys from './actions/surveys';
 
 import {
 	IExecuteFunctions,
@@ -66,6 +69,10 @@ export class HaloPsa implements INodeType {
 					value: 'agents',
 				},
 				{
+					name: 'Appointment',
+					value: 'appointments',
+				},
+				{
 					name: 'Asset',
 					value: 'assets',
 				},
@@ -94,6 +101,10 @@ export class HaloPsa implements INodeType {
 					value: 'knowledgeBase',
 				},
 				{
+					name: 'Opportunity',
+					value: 'opportunities',
+				},
+				{
 					name: 'Project',
 					value: 'projects',
 				},
@@ -104,6 +115,10 @@ export class HaloPsa implements INodeType {
 				{
 					name: 'Site',
 					value: 'sites',
+				},
+				{
+					name: 'Survey',
+					value: 'surveys',
 				},
 				{
 					name: 'Ticket',
@@ -142,24 +157,27 @@ export class HaloPsa implements INodeType {
 			},
 			...actions.description,
 			...agents.description,
-			...tickets.description,
-			...projects.description,
+			...appointments.description,
 			...assets.description,
-			...sites.description,
 			...client.description,
 			...contracts.description,
 			...customApi.description,
-			...knowledgeBase.description,
+			...fieldInfo.description,
 			...invoices.description,
-			...timesheet.description,
-			...timesheetEvent.description,
+			...knowledgeBase.description,
+			...opportunities.description,
+			...projects.description,
+			...reporting.description,
+			...sites.description,
+			...surveys.description,
 			...ticketStatuses.description,
 			...ticketTypes.description,
+			...tickets.description,
+			...timesheet.description,
+			...timesheetEvent.description,
+			...users.description,
 			...webhooks.description,
 			...webhookEvents.description,
-			...fieldInfo.description,
-			...users.description,
-			...reporting.description,
 		],
 	};
 
@@ -526,6 +544,25 @@ export class HaloPsa implements INodeType {
 				}
 				return options.sort((a, b) => a.name.localeCompare(b.name));
 			} catch (error) {
+				return [];
+			}
+		},
+		getOutcomes: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+			const { apiRequest } = await import('./transport');
+			try {
+				const responseData = await apiRequest.call(this, 'GET', '/Outcome', {}, {});
+				const outcomes = Array.isArray(responseData) ? responseData : [];
+				const options: INodePropertyOptions[] = [];
+				for (const outcome of outcomes) {
+					if (outcome?.id != null) {
+						options.push({
+							name: (outcome.name as string) || `Outcome ${outcome.id}`,
+							value: outcome.id as number,
+						});
+					}
+				}
+				return options.sort((a, b) => a.name.localeCompare(b.name));
+			} catch {
 				return [];
 			}
 		},

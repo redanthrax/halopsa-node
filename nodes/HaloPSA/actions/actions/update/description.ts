@@ -53,11 +53,15 @@ export const description: INodeProperties[] = [
 			description: 'The content/note for the action',
 		},
 		{
-			displayName: 'Outcome',
-			name: 'outcome',
-			type: 'string',
+			displayName: 'Outcome Name or ID',
+			name: 'outcome_id',
+			type: 'options',
+			typeOptions: {
+				loadOptionsMethod: 'getOutcomes',
+			},
 			default: '',
-			description: 'The outcome/type of the action',
+			description:
+				'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
 		},
 		{
 			displayName: 'Pin Order',

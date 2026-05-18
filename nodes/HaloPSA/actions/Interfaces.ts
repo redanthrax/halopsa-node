@@ -11,7 +11,7 @@ export * from './interfaces/sites';
 export * from './interfaces/projects';
 export * from './interfaces/webhooks';
 
-export type HaloPSAResource = 'actions' | 'agents' | 'assets' | 'client' | 'contracts' | 'customApi' | 'fieldInfo' | 'invoices' | 'knowledgeBase' | 'reporting' | 'sites' | 'tickets' | 
+export type HaloPSAResource = 'actions' | 'agents' | 'appointments' | 'assets' | 'client' | 'contracts' | 'customApi' | 'fieldInfo' | 'invoices' | 'knowledgeBase' | 'opportunities' | 'reporting' | 'sites' | 'surveys' | 'tickets' | 
 	'ticketStatuses' | 'ticketTypes' | 'timesheet' | 'timesheetEvent' | 'projects' | 'users' | 'webhooks' | 'webhookEvents';
 export type HaloPSAActionsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSAClientOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
@@ -29,14 +29,17 @@ export type HaloPSAWebhooksOperation = 'getAll' | 'getById' | 'create' | 'update
 export type HaloPSAWebhookEventsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSAFieldInfoOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSAUsersOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
-export type HaloPSAReportingOperation = 'executeQuery' | 'getAll' | 'getById' | 'run';
+export type HaloPSAReportingOperation = 'contractUtilisation' | 'executeQuery' | 'getAll' | 'getById' | 'run';
+export type HaloPSAAppointmentsOperation = 'getAll';
+export type HaloPSAOpportunitiesOperation = 'getAll';
+export type HaloPSASurveysOperation = 'getAll';
 export type HaloPSAContractsOperation = 'getAll' | 'getById';
 export type HaloPSACustomApiOperation = 'request';
 export type HaloPSAKnowledgeBaseOperation = 'getAll' | 'getById';
 export interface HaloPSA {
 	resource: HaloPSAResource;
-	operation: HaloPSAActionsOperation | HaloPSAAgentsOperation | HaloPSAAssetsOperation | HaloPSAClientOperation |
-		HaloPSAContractsOperation | HaloPSACustomApiOperation | HaloPSAFieldInfoOperation | HaloPSAInvoicesOperation | HaloPSAKnowledgeBaseOperation | HaloPSAReportingOperation | HaloPSASitesOperation | HaloPSATicketsOperation |
+	operation: HaloPSAActionsOperation | HaloPSAAgentsOperation | HaloPSAAppointmentsOperation | HaloPSAAssetsOperation | HaloPSAClientOperation |
+		HaloPSAContractsOperation | HaloPSACustomApiOperation | HaloPSAFieldInfoOperation | HaloPSAInvoicesOperation | HaloPSAKnowledgeBaseOperation | HaloPSAOpportunitiesOperation | HaloPSAReportingOperation | HaloPSASitesOperation | HaloPSASurveysOperation | HaloPSATicketsOperation |
 		HaloPSATicketStatusesOperation | HaloPSATicketTypesOperation | HaloPSATimesheetOperation |
 		HaloPSATimesheetEventOperation | HaloPSAProjectsOperation | HaloPSAUsersOperation | HaloPSAWebhooksOperation | HaloPSAWebhookEventsOperation;
 }

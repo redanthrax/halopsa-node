@@ -54,9 +54,27 @@ List and get client contracts (agreements).
 
 Call any HaloPSA REST endpoint by path and method (escape hatch for endpoints without a typed resource).
 
-### Dynamic filters (expressions)
+### [Surveys](./docs/surveys.md)
 
-Operations that support **Filters** also expose **Filters (JSON)** for runtime values (e.g. `{"client_id": {{ $json.client_id }}}`). JSON keys override the same keys from the UI Filters collection. Use **Filters (JSON)** when driving filters from webhooks, upstream nodes, or expressions; use **Add Filter** in the UI for static values.
+List customer satisfaction survey responses.
+
+### [Opportunities](./docs/opportunities.md)
+
+List sales opportunities.
+
+### [Appointments](./docs/appointments.md)
+
+List appointments with optional agent and date range filters.
+
+### Dynamic filters and options (expressions)
+
+Operations that support **Filters** also expose **Filters (JSON)** for runtime values (e.g. `{"client_id": {{ $json.client_id }}}`). JSON keys override the same keys from the UI Filters collection.
+
+**Get by ID** operations on Tickets, Users, Assets, Projects, and Ticket Statuses also support **Options (JSON)** with the same override behavior.
+
+Use the JSON fields when driving values from webhooks, upstream nodes, or expressions; use the UI collections for static values.
+
+**Return All** on list operations paginates through the HaloPSA API automatically (1000 rows per page).
 
 ### Configuring Credentials in n8n
 
