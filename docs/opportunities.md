@@ -1,10 +1,11 @@
 # Opportunity Operations
 
-List HaloPSA sales opportunities (`GET /api/Opportunities`). OpenAPI returns a `Faults_View` payload with a `tickets` array. Equivalent to halopsa-mcp `halopsa_list_opportunities`.
+Manage HaloPSA sales opportunities (`/api/Opportunities`). List responses use the OpenAPI `Faults_View` shape (`tickets` array).
 
 ## Get Many
 
-**Parameters:**
-- **Return All** / **Limit** — Return All paginates through all pages; limited requests cap at 100 per API call
-- **Client ID** — Optional filter (0 = all)
-- **Search** — Optional text filter
+**Return All**, **Limit**, **Client ID**, **Search**
+
+## Get by ID / Create / Update / Delete
+
+Use **Opportunity ID** for get, update, and delete. **Create** and **Update** accept JSON for opportunity (fault) fields.
