@@ -7,7 +7,8 @@ Complete asset management with CRUD operations, comprehensive filtering, integra
 Retrieve multiple assets from HaloPSA with extensive filtering and pagination options.
 
 **Parameters:**
-- **Return All**: Whether to return all results or limit
+- **Return All**: Whether to return all results (paginates automatically, 1000 per page) or limit
+- **Filters (JSON)**: Overrides the Filters collection from expressions
 - **Limit**: Maximum number of assets to return (if Return All is false)
 - **Filters**: Comprehensive filtering options including:
 
@@ -66,6 +67,7 @@ Retrieve a specific asset by its ID with optional detailed information.
 - **Additional Options**: Optional settings including:
   - **Asset Type ID**: Specify asset type for additional context
   - **Include Activity**: Whether to include activity details in the response
+- **Options (JSON)**: Overrides the Options collection from expressions
   - **Include Allowed Status**: Whether to include allowed statuses details
   - **Include Details**: Whether to include extra objects in the response
   - **Include Diagram Details**: Whether to include diagram details

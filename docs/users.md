@@ -5,7 +5,7 @@
 Retrieve multiple users from HaloPSA with extensive filtering options.
 
 **Parameters:**
-- **Return All**: Whether to return all results or limit
+- **Return All**: Whether to return all results (paginates automatically, 1000 per page) or limit
 - **Limit**: Maximum number of users to return (if Return All is false)
 - **Filters**: Comprehensive filtering options (use **Filters (JSON)** for dynamic expressions, e.g. `{"client_id": 70}`)
 - **Return All**: When enabled, all pages are fetched automatically

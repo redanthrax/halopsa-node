@@ -7,7 +7,8 @@ Complete site management with full CRUD operations, extensive configuration opti
 Retrieve multiple sites from HaloPSA with comprehensive filtering and pagination options.
 
 **Parameters:**
-- **Return All**: Whether to return all results or limit
+- **Return All**: Whether to return all results (paginates automatically, 1000 per page) or limit
+- **Filters (JSON)**: Overrides the Filters collection from expressions
 - **Limit**: Maximum number of sites to return (if Return All is false)
 - **Filters**: Extensive filtering options including:
   - **Client ID**: Filter by the specified client

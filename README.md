@@ -38,44 +38,6 @@ npm install n8n-nodes-halopsacomplete
 5. Configure the appropriate scopes (recommend "all" for full access)
 6. Note down the Client ID and Client Secret for use in n8n
 
-### [Reporting](./docs/reporting.md)
-
-Execute read-only SQL against the HaloPSA reporting database, list saved reports, and run saved report definitions (aligned with halopsa-mcp `halopsa_query` / report tools).
-
-### [Knowledge Base](./docs/knowledge-base.md)
-
-List and get knowledge base articles.
-
-### [Contracts](./docs/contracts.md)
-
-List and get client contracts (agreements).
-
-### [Custom API Call](./docs/custom-api.md)
-
-Call any HaloPSA REST endpoint by path and method (escape hatch for endpoints without a typed resource).
-
-### [Surveys](./docs/surveys.md)
-
-List customer satisfaction survey responses.
-
-### [Opportunities](./docs/opportunities.md)
-
-List sales opportunities.
-
-### [Appointments](./docs/appointments.md)
-
-List appointments with optional agent and date range filters.
-
-### Dynamic filters and options (expressions)
-
-Operations that support **Filters** also expose **Filters (JSON)** for runtime values (e.g. `{"client_id": {{ $json.client_id }}}`). JSON keys override the same keys from the UI Filters collection.
-
-**Get by ID** operations on Tickets, Users, Assets, Projects, and Ticket Statuses also support **Options (JSON)** with the same override behavior.
-
-Use the JSON fields when driving values from webhooks, upstream nodes, or expressions; use the UI collections for static values.
-
-**Return All** on list operations paginates through the HaloPSA API automatically (1000 rows per page).
-
 ### Configuring Credentials in n8n
 
 1. **Base API URL**: Your HaloPSA instance URL (e.g., https://your-domain.halopsa.com)
@@ -83,66 +45,61 @@ Use the JSON fields when driving values from webhooks, upstream nodes, or expres
 3. **Client Secret**: OAuth 2.0 Client Secret from HaloPSA
 4. **Scope**: OAuth 2.0 scope (default: "all" for full API access)
 
+### Dynamic filters and options (expressions)
+
+Operations that support **Filters** also expose **Filters (JSON)** for runtime values (e.g. `{"client_id": {{ $json.client_id }}}`). JSON keys override the same keys from the UI Filters collection.
+
+**Get by ID** on Tickets, Users, Assets, Projects, and Ticket Statuses also support **Options (JSON)** with the same override behavior.
+
+Use the JSON fields when driving values from webhooks, upstream nodes, or expressions; use the UI collections for static values.
+
+**Return All** on list operations paginates through the HaloPSA API automatically (1000 rows per page).
+
 ## Supported Operations
 
 ### Triggers
 
 #### HaloPSA Trigger
+
 Receive real-time webhook notifications from HaloPSA for ticket events:
-- **New Ticket Logged** - Triggered when a new ticket is created
-- **Ticket Updated by User** - Triggered when a user updates a ticket
-- **Closed** - Triggered when a ticket is closed
-- **1st SLA Warning** - Triggered on first SLA breach warning
-- **2nd SLA Warning** - Triggered on second SLA breach warning
-- **Ticket Deadline** - Triggered when a ticket reaches its deadline
-- **Ticket Status Changed** - Triggered when ticket status changes
-- **Ticket Deleted** - Triggered when a ticket is deleted
 
-The trigger automatically creates and manages webhooks in HaloPSA, handling subscription and cleanup.
+- **New Ticket Logged** — New ticket created
+- **Ticket Updated by User** — User updated a ticket
+- **Closed** — Ticket closed
+- **1st SLA Warning** / **2nd SLA Warning** — SLA breach warnings
+- **Ticket Deadline** — Ticket reached its deadline
+- **Ticket Status Changed** — Status changed
+- **Ticket Deleted** — Ticket deleted
 
-### Actions
+The trigger creates and manages webhooks in HaloPSA (subscription and cleanup).
 
-#### [Agents](./docs/agents.md)
-Manage agent records with extensive filtering options for departments, teams, roles, and permissions.
+### Resources (actions)
 
-### [Assets](./docs/assets.md)
-Complete asset management with CRUD operations, comprehensive filtering, and integration support across multiple platforms.
-
-### [Clients](./docs/clients.md) 
-Manage client records including creation, updates, and retrieval with enhanced custom fields support.
-
-### [Field Info](./docs/field-info.md)
-Manage custom field definitions and metadata with CRUD operations and enhanced multi-select integration across resources.
-
-### [Invoices](./docs/invoices.md)
-Comprehensive invoice management with CRUD operations, line item updates, and voiding capabilities.
-
-### [Sites](./docs/sites.md)
-Complete site management with full CRUD operations, extensive configuration options, and comprehensive client integration.
-
-### [Ticket Statuses](./docs/ticket-statuses.md)
-Manage ticket status configurations and workflows.
-
-### [Ticket Types](./docs/ticket-types.md)
-Configure and manage ticket type definitions.
-
-### [Tickets](./docs/tickets.md)
-Complete CRUD operations for HaloPSA tickets with comprehensive filtering options.
-
-### [Users](./docs/users.md)
-Comprehensive user management with full CRUD operations, extensive filtering options, and advanced configuration including security roles, site associations, and custom field support.
-
-### [Timesheet](./docs/timesheet.md)
-Track work hours with timesheet management including creation, updates, and time tracking.
-
-### [Timesheet Events](./docs/timesheet-event.md)
-Manage individual timesheet events and time entries within timesheets.
-
-### [Webhooks](./docs/webhooks.md)
-Manage webhooks and automation runbooks with full CRUD operations and comprehensive configuration options.
-
-### [Webhook Events](./docs/webhookEvents.md)
-Manage webhook events that define the types of activities that can trigger webhook notifications.
+| Resource | Documentation |
+|----------|----------------|
+| Action (ticket actions / notes) | [actions.md](./docs/actions.md) |
+| Agent | [agents.md](./docs/agents.md) |
+| Appointment | [appointments.md](./docs/appointments.md) |
+| Asset | [assets.md](./docs/assets.md) |
+| Client | [clients.md](./docs/clients.md) |
+| Contract | [contracts.md](./docs/contracts.md) |
+| Custom API Call | [custom-api.md](./docs/custom-api.md) |
+| Field Info | [field-info.md](./docs/field-info.md) |
+| Invoice | [invoices.md](./docs/invoices.md) |
+| Knowledge Base | [knowledge-base.md](./docs/knowledge-base.md) |
+| Opportunity | [opportunities.md](./docs/opportunities.md) |
+| Project | [projects.md](./docs/projects.md) |
+| Reporting | [reporting.md](./docs/reporting.md) |
+| Site | [sites.md](./docs/sites.md) |
+| Survey | [surveys.md](./docs/surveys.md) |
+| Ticket | [tickets.md](./docs/tickets.md) |
+| Ticket Status | [ticket-statuses.md](./docs/ticket-statuses.md) |
+| Ticket Type | [ticket-types.md](./docs/ticket-types.md) |
+| Timesheet | [timesheet.md](./docs/timesheet.md) |
+| Timesheet Event | [timesheet-event.md](./docs/timesheet-event.md) |
+| User | [users.md](./docs/users.md) |
+| Webhook | [webhooks.md](./docs/webhooks.md) |
+| Webhook Event | [webhookEvents.md](./docs/webhookEvents.md) |
 
 ## Resources
 
@@ -153,4 +110,3 @@ Manage webhook events that define the types of activities that can trigger webho
 ## License
 
 MIT
-

@@ -5,7 +5,8 @@
 Retrieve multiple invoices from HaloPSA with optional filtering.
 
 **Parameters:**
-- **Return All**: Whether to return all results or limit
+- **Return All**: Whether to return all results (paginates automatically, 1000 per page) or limit
+- **Filters (JSON)**: Overrides the Filters collection from expressions
 - **Limit**: Maximum number of invoices to return (if Return All is false)
 - **Filters**: Various filtering options including:
   - Advanced Search, Asset ID, Client ID, Site ID

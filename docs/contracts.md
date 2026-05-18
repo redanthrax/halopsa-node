@@ -7,7 +7,7 @@ For agreement hour utilisation, use **Reporting → Contract Utilisation** (reco
 ## Get Many
 
 **Parameters:**
-- **Return All** / **Limit** — Pagination (API max 100 per request when limited)
+- **Return All** / **Limit** — Return All paginates through all pages; limited requests cap at 100 per API call
 - **Client ID** — Filter by client (0 = all clients)
 - **Search** — Optional text filter
 

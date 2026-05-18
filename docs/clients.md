@@ -5,8 +5,9 @@
 Retrieve multiple clients from HaloPSA with optional filtering.
 
 **Parameters:**
-- **Return All**: Whether to return all results or limit
+- **Return All**: Whether to return all results (paginates automatically, 1000 per page) or limit
 - **Limit**: Maximum number of clients to return (if Return All is false)
+- **Filters (JSON)**: Overrides the Filters collection from expressions
 - **Filters**: Various filtering options for clients
   - **Include Custom Fields**: Enhanced multi-select interface that dynamically loads client custom fields (Type ID = 2) from FieldInfo
 

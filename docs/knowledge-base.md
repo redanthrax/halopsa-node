@@ -5,7 +5,7 @@ List and retrieve HaloPSA knowledge base articles (`/api/KBArticle`). Requires `
 ## Get Many
 
 **Parameters:**
-- **Return All** / **Limit** — Pagination (API max 100 per request when limited)
+- **Return All** / **Limit** — Return All paginates through all pages; limited requests cap at 100 per API call
 - **Search** — Optional text filter
 
 ## Get by ID

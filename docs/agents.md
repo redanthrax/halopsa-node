@@ -5,8 +5,9 @@
 Retrieve multiple agents from HaloPSA with extensive filtering options.
 
 **Parameters:**
-- **Return All**: Whether to return all results or limit
+- **Return All**: Whether to return all results (paginates automatically, 1000 per page) or limit
 - **Limit**: Maximum number of agents to return (if Return All is false)
+- **Filters (JSON)**: Overrides the Filters collection from expressions
 - **Filters**: Comprehensive filtering options including:
   - Activity status (Active/Inactive, Include Disabled, Include Enabled)
   - Department and team filtering (Department ID, Team ID, Teams, Departments)

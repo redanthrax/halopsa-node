@@ -5,7 +5,8 @@
 Retrieve multiple webhooks from HaloPSA with filtering options.
 
 **Parameters:**
-- **Return All**: Whether to return all results or limit
+- **Return All**: Whether to return all results (paginates automatically, 1000 per page) or limit
+- **Filters (JSON)**: Overrides the Filters collection from expressions
 - **Limit**: Maximum number of webhooks to return (if Return All is false)
 - **Filters**: Filtering options including:
   - **Is Azure Automation**: Filter for Azure Automation webhooks only

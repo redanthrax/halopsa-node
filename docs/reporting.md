@@ -11,7 +11,7 @@ Uses reporting SQL on `ACTIONS.ActionChargeHours` (where `ActionContractID < 0`)
 **Parameters:**
 - **Start Date (UTC)** / **End Date (UTC)** — Defaults to the current UTC calendar month
 - **Client ID** — Optional filter (0 = all)
-- **Limit** — Max rows (1–500, default 100)
+- **Limit** — Max rows returned (default 50)
 
 **Output:** One item per client/contract with `charge_hours`, `contracted_hours`, `overage_hours`, `over_budget`, etc.
 
@@ -31,7 +31,7 @@ SELECT TOP 50 faultid, summary, status FROM faults WHERE dateoccured >= '2026-01
 
 ## Get Many
 
-List saved report definitions (`GET /api/Report`).
+List saved report definitions (`GET /api/Report`). **Return All** paginates through all pages; limited requests cap at 100 per API call.
 
 ## Get by ID
 

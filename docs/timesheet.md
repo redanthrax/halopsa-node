@@ -5,7 +5,8 @@
 Retrieve multiple timesheets from HaloPSA with filtering options.
 
 **Parameters:**
-- **Return All**: Whether to return all results or limit
+- **Return All**: Whether to return all results (paginates automatically, 1000 per page) or limit
+- **Filters (JSON)**: Overrides the Filters collection from expressions
 - **Limit**: Maximum number of timesheets to return (if Return All is false)
 - **Filters**: Filtering options including:
   - **Agent ID**: Filter by the specified agent

@@ -5,7 +5,8 @@
 Retrieve multiple webhook events from HaloPSA with optional filtering.
 
 **Parameters:**
-- **Return All**: Whether to return all results or limit
+- **Return All**: Whether to return all results (paginates automatically, 1000 per page) or limit
+- **Filters (JSON)**: Overrides the Filters collection from expressions
 - **Limit**: Maximum number of webhook events to return (if Return All is false)
 - **Filters**: Various filtering options including:
   - Automation ID, Integration Method ID, Webhook ID

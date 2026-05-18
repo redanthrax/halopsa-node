@@ -5,6 +5,6 @@ List HaloPSA appointments (`GET /api/Appointment`). Equivalent to halopsa-mcp `h
 ## Get Many
 
 **Parameters:**
-- **Return All** / **Limit**
+- **Return All** / **Limit** — Return All paginates through all pages; limited requests cap at 100 per API call
 - **Agent ID** — Optional filter (0 = all)
 - **Start Date (UTC)** / **End Date (UTC)** — Optional ISO 8601 range passed to the API as `start_date` / `end_date`

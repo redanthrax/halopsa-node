@@ -5,9 +5,10 @@
 Retrieve multiple tickets from HaloPSA with optional filtering.
 
 **Parameters:**
-- **Return All**: Whether to return all results or limit
+- **Return All**: Whether to return all results (paginates automatically, 1000 per page) or limit
 - **Limit**: Maximum number of tickets to return (if Return All is false)
 - **Filters**: Various filtering options including:
+- **Filters (JSON)**: Overrides the Filters collection from expressions, e.g. `{"client_id": {{ $json.client_id }}}`
   - Agent ID, Client ID, Site ID, User ID
   - Status ID, Priority ID, Team ID, Ticket Type ID
   - Categories 1-4
@@ -25,6 +26,7 @@ Retrieve a specific ticket by its ID.
 - **Options**: Additional data to include in the response:
   - Include Details, Last Action, Attachments
   - Agent Details, Linked Objects, Auditing
+- **Options (JSON)**: Overrides the Options collection from expressions
 
 ## Create
 

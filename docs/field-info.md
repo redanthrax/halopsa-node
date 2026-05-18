@@ -5,7 +5,8 @@
 Retrieve multiple field info records from HaloPSA with optional filtering. Field Info contains metadata about custom fields and their configuration.
 
 **Parameters:**
-- **Return All**: Whether to return all results or limit
+- **Return All**: Whether to return all results (paginates automatically, 1000 per page) or limit
+- **Filters (JSON)**: Overrides the Filters collection from expressions
 - **Limit**: Maximum number of field info records to return (if Return All is false)
 - **Filters**: Various filtering options including:
   - Access Control Level

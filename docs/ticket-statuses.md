@@ -5,15 +5,18 @@
 Retrieve multiple ticket statuses from HaloPSA.
 
 **Parameters:**
-- **Return All**: Whether to return all results or limit
+- **Return All**: Whether to return all results (paginates automatically, 1000 per page) or limit
+- **Filters (JSON)**: Overrides the Filters collection from expressions
 - **Limit**: Maximum number of ticket statuses to return (if Return All is false)
 
 ## Get by ID
 
 Retrieve a specific ticket status by its ID.
 
-**Required Parameters:**
+**Parameters:**
 - **Ticket Status ID**: The ID of the ticket status to retrieve
+- **Options**: Optional include-details and related flags
+- **Options (JSON)**: Overrides the Options collection from expressions
 
 ## Create
 
