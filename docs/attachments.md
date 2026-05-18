@@ -21,3 +21,11 @@ Upload a file using **Filename** and **Data (Base64)**. Set **Ticket ID** to lin
 ## Delete
 
 Delete an attachment by **Attachment ID**.
+
+## Get S3 Presigned URL
+
+Request an S3 presigned upload URL (`POST /Attachment/GetS3PresignedURL`). **Additional Fields** JSON is sent as a single-element array (PresignedURLRequest schema).
+
+## Presigned Upload Complete
+
+Mark a presigned upload complete (`POST /Attachment/PresignedURLUploadComplete`). **Additional Fields** JSON is sent as a single-element array.

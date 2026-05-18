@@ -2,10 +2,19 @@ import * as create from './create';
 import * as deleteAttachment from './delete';
 import * as getAll from './getAll';
 import * as getById from './getById';
+import * as getS3PresignedUrl from './getS3PresignedUrl';
+import * as presignedUploadComplete from './presignedUploadComplete';
 
 import { INodeProperties } from 'n8n-workflow';
 
-export { create, deleteAttachment as delete, getAll, getById };
+export {
+	create,
+	deleteAttachment as delete,
+	getAll,
+	getById,
+	getS3PresignedUrl,
+	presignedUploadComplete,
+};
 
 export const description: INodeProperties[] = [
 	{
@@ -43,6 +52,18 @@ export const description: INodeProperties[] = [
 				description: 'List attachments',
 				action: 'Get many attachments',
 			},
+			{
+				name: 'Get S3 Presigned URL',
+				value: 'getS3PresignedUrl',
+				description: 'Get S3 presigned upload URL',
+				action: 'Get S3 presigned URL',
+			},
+			{
+				name: 'Presigned Upload Complete',
+				value: 'presignedUploadComplete',
+				description: 'Complete presigned S3 upload',
+				action: 'Complete presigned upload',
+			},
 		],
 		default: 'getAll',
 	},
@@ -50,4 +71,6 @@ export const description: INodeProperties[] = [
 	...getById.description,
 	...create.description,
 	...deleteAttachment.description,
+	...getS3PresignedUrl.description,
+	...presignedUploadComplete.description,
 ];
