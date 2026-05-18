@@ -1,12 +1,14 @@
 import * as contractUtilisation from './contractUtilisation';
+import * as createPdf from './createPdf';
 import * as executeQuery from './executeQuery';
 import * as getAll from './getAll';
 import * as getById from './getById';
+import * as print from './print';
 import * as run from './run';
 
 import { INodeProperties } from 'n8n-workflow';
 
-export { contractUtilisation, executeQuery, getAll, getById, run };
+export { contractUtilisation, createPdf, executeQuery, getAll, getById, print, run };
 
 export const description: INodeProperties[] = [
 	{
@@ -45,17 +47,31 @@ export const description: INodeProperties[] = [
 				action: 'Get many reports',
 			},
 			{
+				name: 'Create PDF',
+				value: 'createPdf',
+				description: 'Generate a PDF from a saved report',
+				action: 'Create a report PDF',
+			},
+			{
+				name: 'Print',
+				value: 'print',
+				description: 'Print a saved report',
+				action: 'Print a report',
+			},
+			{
 				name: 'Run',
 				value: 'run',
-				description: 'Run a saved report',
+				description: 'Load a saved report with loadreport=true',
 				action: 'Run a report',
 			},
 		],
 		default: 'executeQuery',
 	},
 	...contractUtilisation.contractUtilisationDescription,
+	...createPdf.createPdfDescription,
 	...executeQuery.description,
 	...getAll.description,
 	...getById.description,
+	...print.printDescription,
 	...run.description,
 ];

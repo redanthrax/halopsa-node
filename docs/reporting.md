@@ -40,3 +40,11 @@ Retrieve a report definition including SQL and parameters (`GET /api/Report/{id}
 ## Run
 
 Load and execute a saved report (`GET /api/Report/{id}?loadreport=true`) with optional **Parameters** JSON merged into the query string (e.g. `client_id`, `ticket_id`, `reportingperiod`).
+
+## Print
+
+`POST /api/Report/print` with an AnalyzerProfile body array for the selected report.
+
+## Create PDF
+
+`POST /api/Report/createpdf` with an AnalyzerProfile body to generate a PDF.
