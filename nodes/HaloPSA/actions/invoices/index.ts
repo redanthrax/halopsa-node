@@ -6,6 +6,7 @@ import * as deleteInvoice from './delete';
 import * as updateLines from './updateLines';
 import * as voidInvoice from './void';
 import * as createPdf from './createPdf';
+import * as getLines from './getLines';
 
 import * as recordView from './recordView';
 import { INodeProperties } from 'n8n-workflow';
@@ -20,6 +21,7 @@ export {
 	updateLines,
 	voidInvoice as void,
 	createPdf,
+	getLines,
 };
 
 export const description: INodeProperties[] = [
@@ -88,6 +90,12 @@ export const description: INodeProperties[] = [
 				description: 'Generate a PDF for an invoice',
 				action: 'Create invoice PDF',
 			},
+			{
+				name: 'Get Lines',
+				value: 'getLines',
+				description: 'Get invoice line data',
+				action: 'Get invoice lines',
+			},
 		],
 		default: 'getAll',
 	},
@@ -100,4 +108,5 @@ export const description: INodeProperties[] = [
 	...updateLines.description,
 	...voidInvoice.description,
 	...createPdf.description,
+	...getLines.description,
 ];

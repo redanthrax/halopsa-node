@@ -1,12 +1,24 @@
 import * as create from './create';
+import * as createBooking from './createBooking';
 import * as deleteAppointment from './delete';
+import * as generate from './generate';
 import * as getAll from './getAll';
+import * as getBooking from './getBooking';
 import * as getById from './getById';
 import * as update from './update';
 
 import { INodeProperties } from 'n8n-workflow';
 
-export { create, deleteAppointment as delete, getAll, getById, update };
+export {
+	create,
+	createBooking,
+	deleteAppointment as delete,
+	generate,
+	getAll,
+	getBooking,
+	getById,
+	update,
+};
 
 export const description: INodeProperties[] = [
 	{
@@ -21,6 +33,9 @@ export const description: INodeProperties[] = [
 			{ name: 'Get by ID', value: 'getById', action: 'Get an appointment by ID' },
 			{ name: 'Get Many', value: 'getAll', action: 'Get many appointments' },
 			{ name: 'Update', value: 'update', action: 'Update an appointment' },
+			{ name: 'Get Booking', value: 'getBooking', action: 'Get appointment booking' },
+			{ name: 'Create Booking', value: 'createBooking', action: 'Create appointment booking' },
+			{ name: 'Generate', value: 'generate', action: 'Generate appointments' },
 		],
 		default: 'getAll',
 	},
@@ -29,4 +44,7 @@ export const description: INodeProperties[] = [
 	...create.description,
 	...update.description,
 	...deleteAppointment.description,
+	...getBooking.description,
+	...createBooking.description,
+	...generate.description,
 ];

@@ -19,3 +19,11 @@ For agreement hour utilisation, use **Reporting → Contract Utilisation** (reco
 ## Create / Update / Delete
 
 **Create** accepts **Client ID** and JSON **Additional Fields**. **Update** requires **Contract ID** and **Update Fields** JSON. **Delete** removes a contract by ID.
+
+## Approval
+
+Submit contract approvals via `POST /ClientContract/Approval`. **Approvals** must be a JSON array of `ContractApproval` objects.
+
+## Next Reference
+
+Allocate the next contract reference via `POST /ClientContract/NextRef`. **Additional Fields** accepts a `ContractHeader` object or array.

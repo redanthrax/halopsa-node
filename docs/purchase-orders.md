@@ -13,3 +13,7 @@ Standard CRUD with JSON fields.
 ## Record View
 
 Record that the record was viewed (`POST` …`/View`). Requires the entity ID and optional **Additional Fields** JSON merged into the body.
+
+## Confirm Receipt
+
+Confirm goods receipt (`POST /PurchaseOrder/confirmreceipt`). **Additional Fields** must be a `SupplierOrderHeader` object.

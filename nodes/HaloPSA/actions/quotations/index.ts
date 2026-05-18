@@ -4,10 +4,14 @@ import * as getAll from './getAll';
 import * as getById from './getById';
 import * as update from './update';
 
+import * as addLines from './addLines';
+import * as approval from './approval';
 import * as recordView from './recordView';
 import { INodeProperties } from 'n8n-workflow';
 
 export {
+	addLines,
+	approval,
 	recordView, create, deleteQuotation as delete, getAll, getById, update };
 
 export const description: INodeProperties[] = [
@@ -24,6 +28,8 @@ export const description: INodeProperties[] = [
 			{ name: 'Get Many', value: 'getAll', action: 'Get many quotations' },
 			{ name: 'Update', value: 'update', action: 'Update a quotation' },
 			{ name: 'Record View', value: 'recordView', action: 'Record a quotation view' },
+			{ name: 'Add Lines', value: 'addLines', action: 'Add quotation lines' },
+			{ name: 'Approval', value: 'approval', action: 'Submit quotation approval' },
 		],
 		default: 'getAll',
 	},
@@ -33,4 +39,6 @@ export const description: INodeProperties[] = [
 	...update.description,
 	...recordView.description,
 	...deleteQuotation.description,
+	...addLines.description,
+	...approval.description,
 ];

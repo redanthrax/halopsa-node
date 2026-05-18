@@ -13,3 +13,11 @@ Use **Quotation ID** for get, update, and delete. **Create** and **Update** acce
 ## Record View
 
 Record that the record was viewed (`POST` …`/View`). Requires the entity ID and optional **Additional Fields** JSON merged into the body.
+
+## Add Lines
+
+Add quotation lines via `POST /Quotation/Lines`. **Quotation Lines** must be a JSON array of `QuotationDetail` objects.
+
+## Approval
+
+Submit quotation approvals via `POST /Quotation/Approval`. **Approvals** must be a JSON array of `QuotationApproval` objects.

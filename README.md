@@ -80,12 +80,18 @@ The trigger creates and manages webhooks in HaloPSA (subscription and cleanup).
 | Action (ticket actions / notes) | [actions.md](./docs/actions.md) |
 | Agent | [agents.md](./docs/agents.md) |
 | Appointment | [appointments.md](./docs/appointments.md) |
+| Approval Process | [approval-processes.md](./docs/approval-processes.md) |
+| Approval Process Rule | [approval-process-rules.md](./docs/approval-process-rules.md) |
 | Asset | [assets.md](./docs/assets.md) |
 | Attachment | [attachments.md](./docs/attachments.md) |
 | Automation | [automations.md](./docs/automations.md) |
 | Canned Text | [canned-text.md](./docs/canned-text.md) |
+| Category | [categories.md](./docs/categories.md) |
 | Client | [clients.md](./docs/clients.md) |
 | Contract | [contracts.md](./docs/contracts.md) |
+| Contract Rule | [contract-rules.md](./docs/contract-rules.md) |
+| Contract Schedule | [contract-schedules.md](./docs/contract-schedules.md) |
+| Contract Schedule Plan | [contract-schedule-plans.md](./docs/contract-schedule-plans.md) |
 | Custom API Call | [custom-api.md](./docs/custom-api.md) |
 | Feed | [feed.md](./docs/feed.md) |
 | Field Info | [field-info.md](./docs/field-info.md) |
@@ -97,15 +103,28 @@ The trigger creates and manages webhooks in HaloPSA (subscription and cleanup).
 | Knowledge Base | [knowledge-base.md](./docs/knowledge-base.md) |
 | Lookup | [lookups.md](./docs/lookups.md) |
 | Opportunity | [opportunities.md](./docs/opportunities.md) |
+| Outcome | [outcomes.md](./docs/outcomes.md) |
+| Product Branch | [product-branches.md](./docs/product-branches.md) |
+| Product Component | [product-components.md](./docs/product-components.md) |
 | Project | [projects.md](./docs/projects.md) |
 | Purchase Order | [purchase-orders.md](./docs/purchase-orders.md) |
 | Quotation | [quotations.md](./docs/quotations.md) |
+| Raynet | [raynet.md](./docs/raynet.md) |
+| Raynet Details | [raynet-details.md](./docs/raynet-details.md) |
 | Recurring Invoice | [recurring-invoices.md](./docs/recurring-invoices.md) |
+| Release | [releases.md](./docs/releases.md) |
+| Release Note Group | [release-note-groups.md](./docs/release-note-groups.md) |
 | Reporting | [reporting.md](./docs/reporting.md) |
 | Sales Order | [sales-orders.md](./docs/sales-orders.md) |
+| Secure Secret Link | [secure-secret-links.md](./docs/secure-secret-links.md) |
+| Security Check | [security-checks.md](./docs/security-checks.md) |
 | Site | [sites.md](./docs/sites.md) |
+| Supplier | [suppliers.md](./docs/suppliers.md) |
 | Survey | [surveys.md](./docs/surveys.md) |
 | Tag | [tags.md](./docs/tags.md) |
+| Team | [teams.md](./docs/teams.md) |
+| Top Level | [top-levels.md](./docs/top-levels.md) |
+| Transcription | [transcription-store.md](./docs/transcription-store.md) |
 | Ticket | [tickets.md](./docs/tickets.md) |
 | Ticket Approval | [ticket-approvals.md](./docs/ticket-approvals.md) |
 | Ticket To-Do | [ticket-todos.md](./docs/ticket-todos.md) |

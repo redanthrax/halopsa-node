@@ -8,3 +8,4 @@ Predefined response snippets (`/api/CannedText`). Supports list, get by ID, crea
 - **Get by ID** — `GET /CannedText/{id}`
 - **Create** — `POST /CannedText` with JSON body fields
 - **Delete** — `DELETE /CannedText/{id}`
+- **Favourite** — `POST /CannedText/favourite` with a JSON array of `CannedTextFavourites` objects

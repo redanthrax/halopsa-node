@@ -138,3 +138,7 @@ Record that the record was viewed (`POST` …`/View`). Requires the entity ID an
 ## Create PDF
 
 Generate a PDF for an invoice (`POST /Invoice/PDF/{id}`). Requires **Invoice ID**.
+
+## Get Lines
+
+Returns invoice line data from `GET /Invoice/lines` (no parameters).

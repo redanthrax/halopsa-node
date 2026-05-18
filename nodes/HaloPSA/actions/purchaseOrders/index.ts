@@ -4,10 +4,12 @@ import * as getAll from './getAll';
 import * as getById from './getById';
 import * as update from './update';
 
+import * as confirmReceipt from './confirmReceipt';
 import * as recordView from './recordView';
 import { INodeProperties } from 'n8n-workflow';
 
 export {
+	confirmReceipt,
 	recordView, create, deletePurchaseOrder as delete, getAll, getById, update };
 
 export const description: INodeProperties[] = [
@@ -24,6 +26,7 @@ export const description: INodeProperties[] = [
 			{ name: 'Get Many', value: 'getAll', action: 'Get many purchase orders' },
 			{ name: 'Update', value: 'update', action: 'Update a purchase order' },
 			{ name: 'Record View', value: 'recordView', action: 'Record a purchase order view' },
+			{ name: 'Confirm Receipt', value: 'confirmReceipt', action: 'Confirm purchase order receipt' },
 		],
 		default: 'getAll',
 	},
@@ -33,4 +36,5 @@ export const description: INodeProperties[] = [
 	...update.description,
 	...recordView.description,
 	...deletePurchaseOrder.description,
+	...confirmReceipt.description,
 ];

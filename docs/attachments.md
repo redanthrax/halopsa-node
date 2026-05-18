@@ -29,3 +29,19 @@ Request an S3 presigned upload URL (`POST /Attachment/GetS3PresignedURL`). **Add
 ## Presigned Upload Complete
 
 Mark a presigned upload complete (`POST /Attachment/PresignedURLUploadComplete`). **Additional Fields** JSON is sent as a single-element array.
+
+## Get Image / Delete Image
+
+Get or delete an inline image by **Image ID** (UUID) via `/Attachment/image/{id}`.
+
+## Get Document / Delete Document / Create Document
+
+Get or delete a document attachment by **Document ID** (integer), or create via `POST /Attachment/document` using **Additional Fields** (object or array).
+
+## Create Image
+
+Upload an inline image via `POST /Attachment/image`. Pass HaloPSA query parameters as **Query Parameters** JSON (e.g. `ticket_id`, `atblob`, `atguid`).
+
+## Get Image by Token
+
+Download an image via `GET /Attachment/image` using **Token** and **Nonce** query parameters (anonymous/portal access pattern).

@@ -1,6 +1,9 @@
 import * as actions from './actions/actions';
 import * as agents from './actions/agents';
 import * as appointments from './actions/appointments';
+import * as approvalProcesses from './actions/approvalProcesses';
+import * as approvalProcessRules from './actions/approvalProcessRules';
+import * as categories from './actions/categories';
 import * as attachments from './actions/attachments';
 import * as ticketApprovals from './actions/ticketApprovals';
 import * as ticketTodos from './actions/ticketTodos';
@@ -10,18 +13,32 @@ import * as projects from './actions/projects';
 import * as quotations from './actions/quotations';
 import * as salesOrders from './actions/salesOrders';
 import * as recurringInvoices from './actions/recurringInvoices';
+import * as releases from './actions/releases';
 import * as automations from './actions/automations';
 import * as assets from './actions/assets';
 import * as sites from './actions/sites';
+import * as suppliers from './actions/suppliers';
 import * as client from './actions/client';
 import * as cannedText from './actions/cannedText';
+import * as contractRules from './actions/contractRules';
+import * as contractSchedulePlans from './actions/contractSchedulePlans';
+import * as contractSchedules from './actions/contractSchedules';
 import * as contracts from './actions/contracts';
+import * as secureSecretLinks from './actions/secureSecretLinks';
+import * as topLevels from './actions/topLevels';
 import * as customApi from './actions/customApi';
 import * as knowledgeBase from './actions/knowledgeBase';
 import * as notifications from './actions/notifications';
 import * as lookups from './actions/lookups';
 import * as opportunities from './actions/opportunities';
+import * as outcomes from './actions/outcomes';
+import * as productBranches from './actions/productBranches';
+import * as productComponents from './actions/productComponents';
 import * as purchaseOrders from './actions/purchaseOrders';
+import * as raynet from './actions/raynet';
+import * as raynetDetails from './actions/raynetDetails';
+import * as securityChecks from './actions/securityChecks';
+import * as releaseNoteGroups from './actions/releaseNoteGroups';
 import * as invoices from './actions/invoices';
 import * as items from './actions/items';
 import * as timesheet from './actions/timesheet';
@@ -38,6 +55,8 @@ import * as users from './actions/users';
 import * as reporting from './reporting';
 import * as surveys from './actions/surveys';
 import * as tags from './actions/tags';
+import * as teams from './actions/teams';
+import * as transcriptionStore from './actions/transcriptionStore';
 
 import {
 	IExecuteFunctions,
@@ -90,6 +109,14 @@ export class HaloPsa implements INodeType {
 					value: 'appointments',
 				},
 				{
+					name: 'Approval Process',
+					value: 'approvalProcesses',
+				},
+				{
+					name: 'Approval Process Rule',
+					value: 'approvalProcessRules',
+				},
+				{
 					name: 'Asset',
 					value: 'assets',
 				},
@@ -106,12 +133,28 @@ export class HaloPsa implements INodeType {
 					value: 'cannedText',
 				},
 				{
+					name: 'Category',
+					value: 'categories',
+				},
+				{
 					name: 'Client',
 					value: 'client',
 				},
 				{
 					name: 'Contract',
 					value: 'contracts',
+				},
+				{
+					name: 'Contract Rule',
+					value: 'contractRules',
+				},
+				{
+					name: 'Contract Schedule',
+					value: 'contractSchedules',
+				},
+				{
+					name: 'Contract Schedule Plan',
+					value: 'contractSchedulePlans',
 				},
 				{
 					name: 'Custom API Call',
@@ -158,6 +201,18 @@ export class HaloPsa implements INodeType {
 					value: 'opportunities',
 				},
 				{
+					name: 'Outcome',
+					value: 'outcomes',
+				},
+				{
+					name: 'Product Branch',
+					value: 'productBranches',
+				},
+				{
+					name: 'Product Component',
+					value: 'productComponents',
+				},
+				{
 					name: 'Project',
 					value: 'projects',
 				},
@@ -170,8 +225,24 @@ export class HaloPsa implements INodeType {
 					value: 'quotations',
 				},
 				{
+					name: 'Raynet',
+					value: 'raynet',
+				},
+				{
+					name: 'Raynet Details',
+					value: 'raynetDetails',
+				},
+				{
 					name: 'Recurring Invoice',
 					value: 'recurringInvoices',
+				},
+				{
+					name: 'Release',
+					value: 'releases',
+				},
+				{
+					name: 'Release Note Group',
+					value: 'releaseNoteGroups',
 				},
 				{
 					name: 'Reporting',
@@ -182,8 +253,20 @@ export class HaloPsa implements INodeType {
 					value: 'salesOrders',
 				},
 				{
+					name: 'Secure Secret Link',
+					value: 'secureSecretLinks',
+				},
+				{
+					name: 'Security Check',
+					value: 'securityChecks',
+				},
+				{
 					name: 'Site',
 					value: 'sites',
+				},
+				{
+					name: 'Supplier',
+					value: 'suppliers',
 				},
 				{
 					name: 'Survey',
@@ -192,6 +275,18 @@ export class HaloPsa implements INodeType {
 				{
 					name: 'Tag',
 					value: 'tags',
+				},
+				{
+					name: 'Team',
+					value: 'teams',
+				},
+				{
+					name: 'Top Level',
+					value: 'topLevels',
+				},
+				{
+					name: 'Transcription',
+					value: 'transcriptionStore',
 				},
 				{
 					name: 'Ticket',
@@ -239,12 +334,18 @@ export class HaloPsa implements INodeType {
 			...actions.description,
 			...agents.description,
 			...appointments.description,
+			...approvalProcesses.description,
+			...approvalProcessRules.description,
 			...attachments.description,
 			...automations.description,
 			...assets.description,
 			...cannedText.description,
+			...categories.description,
 			...client.description,
 			...contracts.description,
+			...contractRules.description,
+			...contractSchedules.description,
+			...contractSchedulePlans.description,
 			...customApi.description,
 			...feed.description,
 			...fieldInfo.description,
@@ -256,15 +357,28 @@ export class HaloPsa implements INodeType {
 			...knowledgeBase.description,
 			...lookups.description,
 			...opportunities.description,
+			...outcomes.description,
+			...productBranches.description,
+			...productComponents.description,
 			...projects.description,
 			...purchaseOrders.description,
 			...quotations.description,
+			...raynet.description,
+			...raynetDetails.description,
 			...recurringInvoices.description,
+			...releases.description,
+			...releaseNoteGroups.description,
 			...reporting.description,
 			...salesOrders.description,
+			...secureSecretLinks.description,
+			...securityChecks.description,
 			...sites.description,
+			...suppliers.description,
 			...surveys.description,
 			...tags.description,
+			...teams.description,
+			...topLevels.description,
+			...transcriptionStore.description,
 			...ticketApprovals.description,
 			...ticketTodos.description,
 			...todoGroups.description,

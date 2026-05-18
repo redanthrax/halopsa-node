@@ -1,12 +1,14 @@
+import * as approval from './approval';
 import * as create from './create';
 import * as deleteContract from './delete';
 import * as getAll from './getAll';
 import * as getById from './getById';
+import * as nextRef from './nextRef';
 import * as update from './update';
 
 import { INodeProperties } from 'n8n-workflow';
 
-export { create, deleteContract as delete, getAll, getById, update };
+export { approval, create, deleteContract as delete, getAll, getById, nextRef, update };
 
 export const description: INodeProperties[] = [
 	{
@@ -25,6 +27,8 @@ export const description: INodeProperties[] = [
 			{ name: 'Get by ID', value: 'getById', action: 'Get a client contract by ID' },
 			{ name: 'Get Many', value: 'getAll', action: 'Get many client contracts' },
 			{ name: 'Update', value: 'update', action: 'Update a client contract' },
+			{ name: 'Approval', value: 'approval', action: 'Submit contract approval' },
+			{ name: 'Next Reference', value: 'nextRef', action: 'Get next contract reference' },
 		],
 		default: 'getAll',
 	},
@@ -33,4 +37,6 @@ export const description: INodeProperties[] = [
 	...create.description,
 	...update.description,
 	...deleteContract.description,
+	...approval.description,
+	...nextRef.description,
 ];

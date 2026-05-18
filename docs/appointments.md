@@ -12,3 +12,11 @@ Manage HaloPSA appointments (`/api/Appointment`).
 ## Get by ID / Create / Update / Delete
 
 Use **Appointment ID** for get, update, and delete. **Create** and **Update** accept JSON for Appointment fields.
+
+## Get Booking / Create Booking
+
+`GET /Appointment/Booking` returns booking data. **Create Booking** posts an Appointment object via `POST /Appointment/Booking` (**Additional Fields**).
+
+## Generate
+
+Generate appointments from IDs via `POST /Appointment/Generate`. **Appointment IDs** must be a JSON array of integers.
