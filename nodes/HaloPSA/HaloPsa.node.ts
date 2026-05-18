@@ -6,6 +6,7 @@ import * as ticketApprovals from './actions/ticketApprovals';
 import * as tickets from './actions/tickets';
 import * as projects from './actions/projects';
 import * as quotations from './actions/quotations';
+import * as salesOrders from './actions/salesOrders';
 import * as recurringInvoices from './actions/recurringInvoices';
 import * as automations from './actions/automations';
 import * as assets from './actions/assets';
@@ -144,6 +145,10 @@ export class HaloPsa implements INodeType {
 					value: 'reporting',
 				},
 				{
+					name: 'Sales Order',
+					value: 'salesOrders',
+				},
+				{
 					name: 'Site',
 					value: 'sites',
 				},
@@ -209,6 +214,7 @@ export class HaloPsa implements INodeType {
 			...quotations.description,
 			...recurringInvoices.description,
 			...reporting.description,
+			...salesOrders.description,
 			...sites.description,
 			...surveys.description,
 			...ticketApprovals.description,

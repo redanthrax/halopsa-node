@@ -11,7 +11,7 @@ export * from './interfaces/sites';
 export * from './interfaces/projects';
 export * from './interfaces/webhooks';
 
-export type HaloPSAResource = 'actions' | 'agents' | 'appointments' | 'assets' | 'attachments' | 'automations' | 'client' | 'contracts' | 'customApi' | 'fieldInfo' | 'invoices' | 'knowledgeBase' | 'lookups' | 'opportunities' | 'purchaseOrders' | 'quotations' | 'recurringInvoices' | 'reporting' | 'sites' | 'surveys' | 'ticketApprovals' | 'tickets' | 
+export type HaloPSAResource = 'actions' | 'agents' | 'appointments' | 'assets' | 'attachments' | 'automations' | 'client' | 'contracts' | 'customApi' | 'fieldInfo' | 'invoices' | 'knowledgeBase' | 'lookups' | 'opportunities' | 'purchaseOrders' | 'quotations' | 'recurringInvoices' | 'reporting' | 'salesOrders' | 'sites' | 'surveys' | 'ticketApprovals' | 'tickets' | 
 	'ticketStatuses' | 'ticketTypes' | 'timesheet' | 'timesheetEvent' | 'projects' | 'users' | 'webhooks' | 'webhookEvents';
 export type HaloPSAActionsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSAClientOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
@@ -50,6 +50,7 @@ export type HaloPSAContractsOperation = 'getAll' | 'getById' | 'create' | 'updat
 export type HaloPSAQuotationsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSARecurringInvoicesOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSAPurchaseOrdersOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
+export type HaloPSASalesOrdersOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSACustomApiOperation = 'request';
 export type HaloPSAAutomationsOperation = 'getAll' | 'getById';
 export type HaloPSAKnowledgeBaseOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete' | 'vote';
