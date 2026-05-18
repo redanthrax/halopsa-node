@@ -22,6 +22,7 @@ import * as opportunities from './opportunities';
 import * as purchaseOrders from './purchaseOrders';
 import * as recurringInvoices from './recurringInvoices';
 import * as fieldInfo from './fieldInfo';
+import * as holidays from './holidays';
 import * as invoices from './invoices';
 import * as itemCatalog from './items';
 import * as projects from './projects';
@@ -106,6 +107,9 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 				break;
 			case 'fieldInfo':
 				responseData = await (fieldInfo as any)[haloPSA.operation].execute.call(this, i);
+				break;
+			case 'holidays':
+				responseData = await (holidays as any)[haloPSA.operation].execute.call(this, i);
 				break;
 			case 'invoices':
 				responseData = await (invoices as any)[haloPSA.operation].execute.call(this, i);

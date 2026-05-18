@@ -88,6 +88,7 @@ The trigger creates and manages webhooks in HaloPSA (subscription and cleanup).
 | Contract | [contracts.md](./docs/contracts.md) |
 | Custom API Call | [custom-api.md](./docs/custom-api.md) |
 | Field Info | [field-info.md](./docs/field-info.md) |
+| Holiday | [holidays.md](./docs/holidays.md) |
 | Invoice | [invoices.md](./docs/invoices.md) |
 | Item | [items.md](./docs/items.md) |
 | Notification | [notifications.md](./docs/notifications.md) |

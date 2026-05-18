@@ -29,6 +29,7 @@ import * as ticketTypes from './actions/ticketTypes';
 import * as webhooks from './actions/webhooks';
 import * as webhookEvents from './actions/webhookEvents';
 import * as fieldInfo from './actions/fieldInfo';
+import * as holidays from './actions/holidays';
 import * as users from './actions/users';
 import * as reporting from './reporting';
 import * as surveys from './actions/surveys';
@@ -114,6 +115,10 @@ export class HaloPsa implements INodeType {
 				{
 					name: 'Field Info',
 					value: 'fieldInfo',
+				},
+				{
+					name: 'Holiday',
+					value: 'holidays',
 				},
 				{
 					name: 'Invoice',
@@ -221,6 +226,7 @@ export class HaloPsa implements INodeType {
 			...contracts.description,
 			...customApi.description,
 			...fieldInfo.description,
+			...holidays.description,
 			...invoices.description,
 			...items.description,
 			...notifications.description,
