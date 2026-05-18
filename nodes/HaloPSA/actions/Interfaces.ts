@@ -11,8 +11,12 @@ export * from './interfaces/sites';
 export * from './interfaces/projects';
 export * from './interfaces/webhooks';
 
-export type HaloPSAResource = 'actions' | 'agents' | 'appointments' | 'approvalProcesses' | 'approvalProcessRules' | 'assets' | 'attachments' | 'automations' | 'categories' | 'cannedText' | 'contractRules' | 'contractSchedulePlans' | 'contractSchedules' | 'feed' | 'notifications' | 'client' | 'contracts' | 'customApi' | 'fieldInfo' | 'holidays' | 'invoicePayments' | 'invoices' | 'items' | 'knowledgeBase' | 'lookups' | 'opportunities' | 'outcomes' | 'productBranches' | 'productComponents' | 'purchaseOrders' | 'quotations' | 'raynet' | 'raynetDetails' | 'recurringInvoices' | 'releaseNoteGroups' | 'releases' | 'reporting' | 'salesOrders' | 'secureSecretLinks' | 'securityChecks' | 'sites' | 'suppliers' | 'surveys' | 'tags' | 'teams' | 'ticketApprovals' | 'ticketTodos' | 'todoGroups' | 'tickets' | 'topLevels' | 'transcriptionStore' |
+import type { GeneratedResourceName } from './generated/registry';
+
+export type HaloPSAManualResource = 'actions' | 'agents' | 'appointments' | 'approvalProcesses' | 'approvalProcessRules' | 'assets' | 'attachments' | 'automations' | 'categories' | 'cannedText' | 'contractRules' | 'contractSchedulePlans' | 'contractSchedules' | 'feed' | 'notifications' | 'client' | 'contracts' | 'customApi' | 'fieldInfo' | 'holidays' | 'invoicePayments' | 'invoices' | 'items' | 'knowledgeBase' | 'lookups' | 'opportunities' | 'outcomes' | 'productBranches' | 'productComponents' | 'purchaseOrders' | 'quotations' | 'raynet' | 'raynetDetails' | 'recurringInvoices' | 'releaseNoteGroups' | 'releases' | 'reporting' | 'salesOrders' | 'secureSecretLinks' | 'securityChecks' | 'sites' | 'suppliers' | 'surveys' | 'tags' | 'teams' | 'ticketApprovals' | 'ticketTodos' | 'todoGroups' | 'tickets' | 'topLevels' | 'transcriptionStore' |
 	'ticketStatuses' | 'ticketTypes' | 'timesheet' | 'timesheetEvent' | 'projects' | 'users' | 'webhooks' | 'webhookEvents';
+
+export type HaloPSAResource = HaloPSAManualResource | GeneratedResourceName;
 export type HaloPSAActionsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete' | 'reaction' | 'review';
 export type HaloPSAClientOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSATicketApprovalsOperation = 'getAll' | 'getById' | 'create';

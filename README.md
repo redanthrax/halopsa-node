@@ -137,6 +137,14 @@ The trigger creates and manages webhooks in HaloPSA (subscription and cleanup).
 | Webhook | [webhooks.md](./docs/webhooks.md) |
 | Webhook Event | [webhookEvents.md](./docs/webhookEvents.md) |
 
+### OpenAPI-generated resources (v4.0+)
+
+**337** additional resources are generated from [`swagger.json`](./swagger.json) (one per API root path). They appear in the node **Resource** dropdown alongside the hand-crafted resources above. Standard operations are **Get Many**, **Get by ID**, **Create**, **Update**, and **Delete** where the spec defines them; non-standard sub-paths (for example `/Control/ClearCache`) are exposed as named operations on that resource.
+
+- Manifest: [`nodes/HaloPSA/actions/generated/manifest.json`](./nodes/HaloPSA/actions/generated/manifest.json)
+- Regenerate after spec updates: `pnpm run generate:swagger` then `pnpm run build`
+- **Custom API Call** remains available for any path or payload not covered by a dedicated operation
+
 ## Resources
 
 - [HaloPSA API Documentation](https://haloitsm.com/api)

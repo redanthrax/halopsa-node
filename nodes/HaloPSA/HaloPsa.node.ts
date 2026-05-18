@@ -57,6 +57,8 @@ import * as surveys from './actions/surveys';
 import * as tags from './actions/tags';
 import * as teams from './actions/teams';
 import * as transcriptionStore from './actions/transcriptionStore';
+import { generatedDescriptions } from './actions/generated/descriptions';
+import { generatedResourceOptions } from './actions/generated/registry';
 
 import {
 	IExecuteFunctions,
@@ -328,6 +330,7 @@ export class HaloPsa implements INodeType {
 					name: 'Webhook Event',
 					value: 'webhookEvents',
 				},
+				...(generatedResourceOptions as unknown as INodePropertyOptions[]),
 				],
 				default: 'tickets',
 			},
@@ -390,6 +393,7 @@ export class HaloPsa implements INodeType {
 			...users.description,
 			...webhooks.description,
 			...webhookEvents.description,
+			...generatedDescriptions,
 		],
 	};
 

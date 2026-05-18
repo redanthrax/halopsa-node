@@ -64,6 +64,7 @@ import * as users from './users';
 import * as webhooks from './webhooks';
 import * as webhookEvents from './webhookEvents';
 import * as reporting from '../reporting';
+import { generatedResourceHandlers } from './generated/registry';
 
 export async function router(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 	const items = this.getInputData();
@@ -258,8 +259,13 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 			case 'reporting':
 				responseData = await (reporting as any)[haloPSA.operation].execute.call(this, i);
 				break;
-			default:
+			default: {
+				const generated = generatedResourceHandlers[haloPSA.resource];
+				if (generated?.[haloPSA.operation]?.execute) {
+					responseData = await generated[haloPSA.operation].execute.call(this, i);
+				}
 				break;
+			}
 			}
 
 			const executionData = this.helpers.returnJsonArray(responseData);
