@@ -9,6 +9,7 @@ import * as actions from './actions';
 import * as agents from './agents';
 import * as appointments from './appointments';
 import * as attachments from './attachments';
+import * as automations from './automations';
 import * as assets from './assets';
 import * as client from './client';
 import * as contracts from './contracts';
@@ -62,6 +63,9 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 				break;
 			case 'attachments':
 				responseData = await (attachments as any)[haloPSA.operation].execute.call(this, i);
+				break;
+			case 'automations':
+				responseData = await (automations as any)[haloPSA.operation].execute.call(this, i);
 				break;
 			case 'client':
 				responseData = await (client as any)[haloPSA.operation].execute.call(this, i);
