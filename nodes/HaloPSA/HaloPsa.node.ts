@@ -1,6 +1,7 @@
 import * as actions from './actions/actions';
 import * as agents from './actions/agents';
 import * as appointments from './actions/appointments';
+import * as attachments from './actions/attachments';
 import * as tickets from './actions/tickets';
 import * as projects from './actions/projects';
 import * as assets from './actions/assets';
@@ -75,6 +76,10 @@ export class HaloPsa implements INodeType {
 				{
 					name: 'Asset',
 					value: 'assets',
+				},
+				{
+					name: 'Attachment',
+					value: 'attachments',
 				},
 				{
 					name: 'Client',
@@ -158,6 +163,7 @@ export class HaloPsa implements INodeType {
 			...actions.description,
 			...agents.description,
 			...appointments.description,
+			...attachments.description,
 			...assets.description,
 			...client.description,
 			...contracts.description,
