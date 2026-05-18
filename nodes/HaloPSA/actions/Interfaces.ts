@@ -13,19 +13,19 @@ export * from './interfaces/webhooks';
 
 export type HaloPSAResource = 'actions' | 'agents' | 'appointments' | 'assets' | 'attachments' | 'automations' | 'cannedText' | 'notifications' | 'client' | 'contracts' | 'customApi' | 'fieldInfo' | 'holidays' | 'invoices' | 'items' | 'knowledgeBase' | 'lookups' | 'opportunities' | 'purchaseOrders' | 'quotations' | 'recurringInvoices' | 'reporting' | 'salesOrders' | 'sites' | 'surveys' | 'tags' | 'ticketApprovals' | 'tickets' | 
 	'ticketStatuses' | 'ticketTypes' | 'timesheet' | 'timesheetEvent' | 'projects' | 'users' | 'webhooks' | 'webhookEvents';
-export type HaloPSAActionsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
+export type HaloPSAActionsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete' | 'reaction' | 'review';
 export type HaloPSAClientOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSATicketApprovalsOperation = 'getAll' | 'getById' | 'create';
-export type HaloPSATicketsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete' | 'vote' | 'recordView' | 'processChildren';
+export type HaloPSATicketsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete' | 'vote' | 'recordView' | 'processChildren' | 'setBillableProject';
 export type HaloPSATicketTypesOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSATicketStatusesOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
-export type HaloPSAInvoicesOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete' | 'updateLines' | 'void';
+export type HaloPSAInvoicesOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete' | 'updateLines' | 'void' | 'recordView';
 export type HaloPSAAgentsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSAAssetsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSATimesheetOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSATimesheetEventOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSASitesOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
-export type HaloPSAProjectsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
+export type HaloPSAProjectsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete' | 'recordView';
 export type HaloPSAWebhooksOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSAWebhookEventsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSAFieldInfoOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
@@ -44,13 +44,13 @@ export type HaloPSAReportingOperation =
 	| 'run';
 export type HaloPSAAttachmentsOperation = 'getAll' | 'getById' | 'create' | 'delete';
 export type HaloPSAAppointmentsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
-export type HaloPSAOpportunitiesOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
+export type HaloPSAOpportunitiesOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete' | 'recordView';
 export type HaloPSASurveysOperation = 'getAll' | 'getById' | 'create' | 'delete';
 export type HaloPSAContractsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
-export type HaloPSAQuotationsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
+export type HaloPSAQuotationsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete' | 'recordView';
 export type HaloPSARecurringInvoicesOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
-export type HaloPSAPurchaseOrdersOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
-export type HaloPSASalesOrdersOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
+export type HaloPSAPurchaseOrdersOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete' | 'recordView';
+export type HaloPSASalesOrdersOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete' | 'recordView';
 export type HaloPSAItemsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSACustomApiOperation = 'request';
 export type HaloPSANotificationsOperation = 'getAll' | 'getById' | 'create' | 'delete';
@@ -63,7 +63,7 @@ export type HaloPSALookupsOperation = 'getAll' | 'getById' | 'create' | 'delete'
 export interface HaloPSA {
 	resource: HaloPSAResource;
 	operation: HaloPSAActionsOperation | HaloPSAAgentsOperation | HaloPSAAppointmentsOperation | HaloPSAAttachmentsOperation | HaloPSAAutomationsOperation | HaloPSANotificationsOperation | HaloPSACannedTextOperation | HaloPSAAssetsOperation | HaloPSAClientOperation |
-		HaloPSAContractsOperation | HaloPSACustomApiOperation | HaloPSAFieldInfoOperation | HaloPSAHolidaysOperation | HaloPSAInvoicesOperation | HaloPSAItemsOperation | HaloPSAKnowledgeBaseOperation | HaloPSALookupsOperation | HaloPSAOpportunitiesOperation | HaloPSAPurchaseOrdersOperation | HaloPSAQuotationsOperation | HaloPSARecurringInvoicesOperation | HaloPSAReportingOperation | HaloPSASalesOrdersOperation | HaloPSASitesOperation | HaloPSASurveysOperation | HaloPSATicketApprovalsOperation | HaloPSATicketsOperation |
+		HaloPSAContractsOperation | HaloPSACustomApiOperation | HaloPSAFieldInfoOperation | HaloPSAHolidaysOperation | HaloPSAInvoicesOperation | HaloPSAItemsOperation | HaloPSAKnowledgeBaseOperation | HaloPSALookupsOperation | HaloPSAOpportunitiesOperation | HaloPSAPurchaseOrdersOperation | HaloPSAQuotationsOperation | HaloPSARecurringInvoicesOperation | HaloPSAReportingOperation | HaloPSASalesOrdersOperation | HaloPSASitesOperation | HaloPSASurveysOperation | HaloPSATagsOperation | HaloPSATicketApprovalsOperation | HaloPSATicketsOperation |
 		HaloPSATicketStatusesOperation | HaloPSATicketTypesOperation | HaloPSATimesheetOperation |
 		HaloPSATimesheetEventOperation | HaloPSAProjectsOperation | HaloPSAUsersOperation | HaloPSAWebhooksOperation | HaloPSAWebhookEventsOperation;
 }

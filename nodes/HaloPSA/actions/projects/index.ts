@@ -4,9 +4,11 @@ import * as create from './create';
 import * as update from './update';
 import * as deleteProject from './delete';
 
+import * as recordView from './recordView';
 import { INodeProperties } from 'n8n-workflow';
 
-export { getAll, getById, create, update, deleteProject as delete };
+export {
+	recordView, getAll, getById, create, update, deleteProject as delete };
 
 export const description: INodeProperties[] = [
 	{
@@ -50,6 +52,12 @@ export const description: INodeProperties[] = [
 				description: 'Update a project',
 				action: 'Update a project',
 			},
+			{
+				name: 'Record View',
+				value: 'recordView',
+				description: 'Record that a project was viewed',
+				action: 'Record a project view',
+			},
 		],
 		default: 'getAll',
 	},
@@ -57,5 +65,6 @@ export const description: INodeProperties[] = [
 	...getById.description,
 	...create.description,
 	...update.description,
+	...recordView.description,
 	...deleteProject.description,
 ];

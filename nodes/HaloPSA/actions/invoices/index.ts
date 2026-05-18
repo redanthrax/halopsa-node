@@ -6,9 +6,11 @@ import * as deleteInvoice from './delete';
 import * as updateLines from './updateLines';
 import * as voidInvoice from './void';
 
+import * as recordView from './recordView';
 import { INodeProperties } from 'n8n-workflow';
 
-export { getAll, getById, create, update, deleteInvoice as delete, updateLines, voidInvoice as void };
+export {
+	recordView, getAll, getById, create, update, deleteInvoice as delete, updateLines, voidInvoice as void };
 
 export const description: INodeProperties[] = [
 	{
@@ -64,6 +66,12 @@ export const description: INodeProperties[] = [
 				description: 'Void an invoice',
 				action: 'Void an invoice',
 			},
+			{
+				name: 'Record View',
+				value: 'recordView',
+				description: 'Record that an invoice was viewed',
+				action: 'Record an invoice view',
+			},
 		],
 		default: 'getAll',
 	},
@@ -71,6 +79,7 @@ export const description: INodeProperties[] = [
 	...getById.description,
 	...create.description,
 	...update.description,
+	...recordView.description,
 	...deleteInvoice.description,
 	...updateLines.description,
 	...voidInvoice.description,

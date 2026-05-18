@@ -27,3 +27,7 @@ Update an existing project by ID.
 ## Delete
 
 Delete a project by ID.
+
+## Record View
+
+Record that the record was viewed (`POST` …`/View`). Requires the entity ID and optional **Additional Fields** JSON merged into the body.

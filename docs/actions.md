@@ -28,3 +28,11 @@ Update an action by ID. Supports **Outcome Name or ID** and other fields in the 
 ## Delete
 
 Delete an action by ID.
+
+## Reaction
+
+Submit an action reaction (`POST /Actions/reaction`). Body is ActionReaction JSON via **Additional Fields**.
+
+## Review
+
+Submit an action for review (`POST /Actions/Review`). Optional **Action ID** and **Additional Fields** JSON merged into the body.

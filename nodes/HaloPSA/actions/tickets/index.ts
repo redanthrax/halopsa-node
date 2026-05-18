@@ -6,6 +6,7 @@ import * as deleteTicket from './delete';
 import * as processChildren from './processChildren';
 import * as recordView from './recordView';
 import * as vote from './vote';
+import * as setBillableProject from './setBillableProject';
 
 import { INodeProperties } from 'n8n-workflow';
 
@@ -18,6 +19,7 @@ export {
 	processChildren,
 	recordView,
 	vote,
+	setBillableProject,
 };
 
 export const description: INodeProperties[] = [
@@ -80,6 +82,12 @@ export const description: INodeProperties[] = [
 			description: 'Process child tickets for a parent ticket',
 			action: 'Process child tickets',
 		},
+		{
+			name: 'Set Billable Project',
+			value: 'setBillableProject',
+			description: 'Set billable project on tickets',
+			action: 'Set billable project',
+		},
 	],
 		default: 'getAll',
 	},
@@ -91,4 +99,5 @@ export const description: INodeProperties[] = [
 	...vote.description,
 	...recordView.description,
 	...processChildren.description,
+	...setBillableProject.description,
 ];

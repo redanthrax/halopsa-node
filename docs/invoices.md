@@ -130,3 +130,7 @@ Returns a collection of invoices with pagination information and invoice details
 
 ### Get by ID Response
 Returns a single invoice object with full details including invoice lines when `includedetails` is true, containing comprehensive invoice information, client relationships, line item details, and financial calculations.
+
+## Record View
+
+Record that the record was viewed (`POST` …`/View`). Requires the entity ID and optional **Additional Fields** JSON merged into the body.

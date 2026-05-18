@@ -3,10 +3,12 @@ import * as getById from './getById';
 import * as create from './create';
 import * as update from './update';
 import * as deleteAction from './delete';
+import * as reaction from './reaction';
+import * as review from './review';
 
 import { INodeProperties } from 'n8n-workflow';
 
-export { getAll, getById, create, update, deleteAction as delete };
+export { getAll, getById, create, update, deleteAction as delete, reaction, review };
 
 export const description: INodeProperties[] = [
 	{
@@ -50,6 +52,18 @@ export const description: INodeProperties[] = [
 				description: 'Update an action',
 				action: 'Update an action',
 			},
+			{
+				name: 'Reaction',
+				value: 'reaction',
+				description: 'Submit an action reaction',
+				action: 'Submit an action reaction',
+			},
+			{
+				name: 'Review',
+				value: 'review',
+				description: 'Submit an action for review',
+				action: 'Review an action',
+			},
 		],
 		default: 'getAll',
 	},
@@ -58,4 +72,6 @@ export const description: INodeProperties[] = [
 	...create.description,
 	...update.description,
 	...deleteAction.description,
+	...reaction.description,
+	...review.description,
 ];

@@ -100,3 +100,6 @@ Process child tickets for a parent (`POST /Tickets/processchildren`).
 
 **Optional Parameters:**
 - **Additional Fields**: JSON body fields merged with the ticket ID
+## Set Billable Project
+
+Apply billable project settings (`POST /Tickets/SetBillableProject`). Optional **Additional Fields** JSON is sent as a single-element array body.
