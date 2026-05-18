@@ -50,6 +50,10 @@ List and get knowledge base articles.
 
 List and get client contracts (agreements).
 
+### [Custom API Call](./docs/custom-api.md)
+
+Call any HaloPSA REST endpoint by path and method (escape hatch for endpoints without a typed resource).
+
 ### Dynamic filters (expressions)
 
 Operations that support **Filters** also expose **Filters (JSON)** for runtime values (e.g. `{"client_id": {{ $json.client_id }}}`). JSON keys override the same keys from the UI Filters collection. Use **Filters (JSON)** when driving filters from webhooks, upstream nodes, or expressions; use **Add Filter** in the UI for static values.

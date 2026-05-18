@@ -6,6 +6,7 @@ import * as assets from './actions/assets';
 import * as sites from './actions/sites';
 import * as client from './actions/client';
 import * as contracts from './actions/contracts';
+import * as customApi from './actions/customApi';
 import * as knowledgeBase from './actions/knowledgeBase';
 import * as invoices from './actions/invoices';
 import * as timesheet from './actions/timesheet';
@@ -77,6 +78,10 @@ export class HaloPsa implements INodeType {
 					value: 'contracts',
 				},
 				{
+					name: 'Custom API Call',
+					value: 'customApi',
+				},
+				{
 					name: 'Field Info',
 					value: 'fieldInfo',
 				},
@@ -143,6 +148,7 @@ export class HaloPsa implements INodeType {
 			...sites.description,
 			...client.description,
 			...contracts.description,
+			...customApi.description,
 			...knowledgeBase.description,
 			...invoices.description,
 			...timesheet.description,
