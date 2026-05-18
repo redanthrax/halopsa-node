@@ -2,23 +2,7 @@ import { IExecuteFunctions, NodeOperationError } from 'n8n-workflow';
 import { IDataObject, INodeExecutionData } from 'n8n-workflow';
 import { apiRequest } from '../../transport';
 import { inspectSql } from '../../sqlGuard';
-
-function extractRows(response: unknown): IDataObject[] {
-	if (Array.isArray(response)) {
-		const first = response[0] as IDataObject | undefined;
-		if (first?.rows && Array.isArray(first.rows)) {
-			return first.rows as IDataObject[];
-		}
-		return response as IDataObject[];
-	}
-	if (response && typeof response === 'object') {
-		const obj = response as IDataObject;
-		if (Array.isArray(obj.rows)) {
-			return obj.rows as IDataObject[];
-		}
-	}
-	return [];
-}
+import { extractReportRows } from '../reportRows';
 
 export async function execute(
 	this: IExecuteFunctions,
@@ -35,7 +19,7 @@ export async function execute(
 	const body = [{ _loadreportonly: true, sql }];
 	const response = await apiRequest.call(this, 'POST', '/Report', body, {});
 
-	const rows = extractRows(response);
+	const rows = extractReportRows(response);
 	if (rows.length === 0) {
 		const meta: IDataObject = { row_count: 0 };
 		if (response !== undefined && response !== null) {

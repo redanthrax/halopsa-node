@@ -1,33 +1,17 @@
-import { IExecuteFunctions } from 'n8n-workflow';
-import { IDataObject, INodeExecutionData } from 'n8n-workflow';
+import { IExecuteFunctions, IDataObject, INodeExecutionData } from 'n8n-workflow';
 import { resolveFilters } from '../../../filterParameters';
-import { apiRequest } from '../../../transport';
-import { HaloInvoicesListResponse } from '../../Interfaces';
+import { runGetAllRequest } from '../../../getAllHelpers';
 
 export async function execute(
 	this: IExecuteFunctions,
 	index: number,
 ): Promise<INodeExecutionData[]> {
-	const returnAll = this.getNodeParameter('returnAll', index) as boolean;
 	const filters = resolveFilters.call(this, index);
-	
-	const qs = {} as IDataObject;
-	
-	if (filters) {
-		Object.assign(qs, filters);
-	}
+	const qs = { ...filters } as IDataObject;
 
-	if (!returnAll) {
-		const limit = this.getNodeParameter('limit', index, 50) as number;
-		qs.count = limit;
-	}
-
-	const requestMethod = 'GET';
-	const endpoint = '/Invoice';
-	const body = {} as IDataObject;
-
-	let responseData: HaloInvoicesListResponse;
-	responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
-
-	return this.helpers.returnJsonArray(responseData.invoices as any[] || []);
+	return runGetAllRequest.call(this, index, {
+		endpoint: '/Invoice',
+		resourceKey: 'invoices',
+		qs,
+	});
 }

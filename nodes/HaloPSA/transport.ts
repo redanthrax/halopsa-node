@@ -9,6 +9,13 @@ import {
 	ILoadOptionsFunctions,
 	NodeApiError,
 } from 'n8n-workflow';
+import { extractResourceList } from './resourceList';
+import {
+	clearCachedAccessToken,
+	getCachedAccessToken,
+	getTokenCacheKey,
+	setCachedAccessToken,
+} from './tokenCache';
 
 interface TokenResponse {
 	access_token: string;
@@ -16,20 +23,39 @@ interface TokenResponse {
 	expires_in: number;
 }
 
+type HaloRequestContext =
+	| IHookFunctions
+	| IExecuteFunctions
+	| ILoadOptionsFunctions
+	| IWebhookFunctions;
+
 export async function getAccessToken(
-	this: IHookFunctions | IExecuteFunctions | ILoadOptionsFunctions | IWebhookFunctions,
+	this: HaloRequestContext,
+	forceRefresh = false,
 ): Promise<string> {
 	const creds = await this.getCredentials('haloPSACompleteApiOAuth2OAuth2Api');
-	
+	const baseUrl = creds.baseUrl as string;
+	const clientId = creds.clientId as string;
+	const cacheKey = getTokenCacheKey(baseUrl, clientId);
+
+	if (!forceRefresh) {
+		const cached = getCachedAccessToken(cacheKey);
+		if (cached) {
+			return cached;
+		}
+	} else {
+		clearCachedAccessToken(cacheKey);
+	}
+
 	const formData = new URLSearchParams();
 	formData.append('grant_type', 'client_credentials');
-	formData.append('client_id', creds.clientId as string);
+	formData.append('client_id', clientId);
 	formData.append('client_secret', creds.clientSecret as string);
 	formData.append('scope', (creds.scope as string) || 'all');
 
 	const tokenOptions: IHttpRequestOptions = {
 		method: 'POST',
-		url: `${creds.baseUrl}/auth/token`,
+		url: `${baseUrl}/auth/token`,
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded',
 		},
@@ -45,6 +71,7 @@ export async function getAccessToken(
 		} else {
 			parsedResponse = tokenResponse as TokenResponse;
 		}
+		setCachedAccessToken(cacheKey, parsedResponse.access_token, parsedResponse.expires_in);
 		return parsedResponse.access_token;
 	} catch (error) {
 		throw new NodeApiError(this.getNode(), error, {
@@ -53,15 +80,15 @@ export async function getAccessToken(
 	}
 }
 
-export async function apiRequest(
-	this: IHookFunctions | IExecuteFunctions | ILoadOptionsFunctions | IWebhookFunctions,
+async function performApiRequest(
+	ctx: HaloRequestContext,
 	method: IHttpRequestMethods,
 	endpoint: string,
-	body: IDataObject | GenericValue | GenericValue[] = {},
-	qs: IDataObject = {},
-) {
-	const creds = await this.getCredentials('haloPSACompleteApiOAuth2OAuth2Api');
-	const accessToken = await getAccessToken.call(this);
+	body: IDataObject | GenericValue | GenericValue[],
+	qs: IDataObject,
+	accessToken: string,
+): Promise<any> {
+	const creds = await ctx.getCredentials('haloPSACompleteApiOAuth2OAuth2Api');
 
 	const options: IHttpRequestOptions = {
 		method,
@@ -75,50 +102,76 @@ export async function apiRequest(
 		json: true,
 	};
 
+	return ctx.helpers.httpRequest(options);
+}
 
+function getHttpStatusCode(error: unknown): number {
+	const err = error as {
+		status?: number;
+		statusCode?: number;
+		httpCode?: string;
+	};
+	return err?.status || err?.statusCode || parseInt(err?.httpCode as string, 10) || 0;
+}
+
+export async function apiRequest(
+	this: HaloRequestContext,
+	method: IHttpRequestMethods,
+	endpoint: string,
+	body: IDataObject | GenericValue | GenericValue[] = {},
+	qs: IDataObject = {},
+): Promise<any> {
+	let accessToken = await getAccessToken.call(this);
+	let retriedAfter401 = false;
 
 	try {
-		let response: any;
-		try {
-			response = await this.helpers.httpRequest(options);
-		} catch (httpError) {
-			// Capture the raw HTTP error before n8n wraps it
-			throw httpError;
-		}
-		return response;
+		return await performApiRequest(this, method, endpoint, body, qs, accessToken);
 	} catch (error) {
-		const statusCode = error?.status || error?.statusCode || parseInt(error?.httpCode as string, 10) || 0;
-		if (statusCode === 401) {
+		const statusCode = getHttpStatusCode(error);
+
+		if (statusCode === 401 && !retriedAfter401) {
+			retriedAfter401 = true;
+			accessToken = await getAccessToken.call(this, true);
+			try {
+				return await performApiRequest(this, method, endpoint, body, qs, accessToken);
+			} catch (retryError) {
+				error = retryError;
+			}
+		}
+
+		const finalStatus = getHttpStatusCode(error);
+		if (finalStatus === 401) {
 			throw new NodeApiError(this.getNode(), error, {
 				message: 'Authentication failed - check your client credentials',
 			});
 		}
-		if (statusCode === 400) {
+		if (finalStatus === 400) {
+			const err = error as {
+				response?: { data?: unknown; body?: unknown };
+				error?: unknown;
+			};
 			let errorText = '';
-			
-			// Check response.data first (this is where HaloPSA puts validation errors)
-			if (error.response?.data) {
-				if (typeof error.response.data === 'string') {
-					errorText = error.response.data.trim();
+
+			if (err.response?.data) {
+				if (typeof err.response.data === 'string') {
+					errorText = err.response.data.trim();
 				}
 			}
-			// Fallback: check error.error
-			if (!errorText && error.error) {
-				if (typeof error.error === 'string') {
-					errorText = error.error.trim();
-				} else if (typeof error.error === 'object') {
-					errorText = JSON.stringify(error.error);
+			if (!errorText && err.error) {
+				if (typeof err.error === 'string') {
+					errorText = err.error.trim();
+				} else if (typeof err.error === 'object') {
+					errorText = JSON.stringify(err.error);
 				}
 			}
-			// Fallback: check response.body
-			if (!errorText && error.response?.body) {
-				if (typeof error.response.body === 'string') {
-					errorText = error.response.body.trim();
+			if (!errorText && err.response?.body) {
+				if (typeof err.response.body === 'string') {
+					errorText = err.response.body.trim();
 				}
 			}
-			
+
 			const message = errorText ? `Bad request - ${errorText}` : 'Bad request - please check your parameters';
-			
+
 			throw new NodeApiError(this.getNode(), error, {
 				message,
 			});
@@ -151,15 +204,7 @@ export async function apiRequestAllItems(
 
 		const response = await apiRequest.call(this, method, endpoint, body, paginatedQs);
 		
-		// Extract items from response
-		let items: any[];
-		if (resourceKey === '' || !resourceKey) {
-			// API returns array directly
-			items = Array.isArray(response) ? response : [];
-		} else {
-			// API returns object with resource key
-			items = response[resourceKey] || [];
-		}
+		const items = extractResourceList(response, resourceKey);
 		allItems.push(...items);
 
 		// Check if there are more pages
