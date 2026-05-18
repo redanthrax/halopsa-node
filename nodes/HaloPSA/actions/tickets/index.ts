@@ -7,6 +7,7 @@ import * as processChildren from './processChildren';
 import * as recordView from './recordView';
 import * as vote from './vote';
 import * as setBillableProject from './setBillableProject';
+import * as getFaultViewLog from './getFaultViewLog';
 
 import { INodeProperties } from 'n8n-workflow';
 
@@ -20,6 +21,7 @@ export {
 	recordView,
 	vote,
 	setBillableProject,
+	getFaultViewLog,
 };
 
 export const description: INodeProperties[] = [
@@ -88,6 +90,12 @@ export const description: INodeProperties[] = [
 			description: 'Set billable project on tickets',
 			action: 'Set billable project',
 		},
+		{
+			name: 'Get Fault View Log',
+			value: 'getFaultViewLog',
+			description: 'Get ticket view log entries',
+			action: 'Get fault view log',
+		},
 	],
 		default: 'getAll',
 	},
@@ -100,4 +108,5 @@ export const description: INodeProperties[] = [
 	...recordView.description,
 	...processChildren.description,
 	...setBillableProject.description,
+	...getFaultViewLog.description,
 ];

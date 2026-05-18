@@ -134,3 +134,7 @@ Returns a single invoice object with full details including invoice lines when `
 ## Record View
 
 Record that the record was viewed (`POST` …`/View`). Requires the entity ID and optional **Additional Fields** JSON merged into the body.
+
+## Create PDF
+
+Generate a PDF for an invoice (`POST /Invoice/PDF/{id}`). Requires **Invoice ID**.
