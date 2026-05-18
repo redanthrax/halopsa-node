@@ -97,6 +97,7 @@ The trigger creates and manages webhooks in HaloPSA (subscription and cleanup).
 | Site | [sites.md](./docs/sites.md) |
 | Survey | [surveys.md](./docs/surveys.md) |
 | Ticket | [tickets.md](./docs/tickets.md) |
+| Ticket Approval | [ticket-approvals.md](./docs/ticket-approvals.md) |
 | Ticket Status | [ticket-statuses.md](./docs/ticket-statuses.md) |
 | Ticket Type | [ticket-types.md](./docs/ticket-types.md) |
 | Timesheet | [timesheet.md](./docs/timesheet.md) |
