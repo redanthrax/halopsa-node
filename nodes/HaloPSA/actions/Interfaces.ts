@@ -38,7 +38,7 @@ export type HaloPSAContractsOperation = 'getAll' | 'getById' | 'create' | 'updat
 export type HaloPSAQuotationsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSACustomApiOperation = 'request';
 export type HaloPSAAutomationsOperation = 'getAll' | 'getById';
-export type HaloPSAKnowledgeBaseOperation = 'getAll' | 'getById';
+export type HaloPSAKnowledgeBaseOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete' | 'vote';
 export type HaloPSALookupsOperation = 'getAll' | 'getById';
 export interface HaloPSA {
 	resource: HaloPSAResource;

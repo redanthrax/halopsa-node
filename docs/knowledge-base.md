@@ -1,6 +1,6 @@
 # Knowledge Base Operations
 
-List and retrieve HaloPSA knowledge base articles (`/api/KBArticle`). Requires `read:knowledge` (or equivalent) on your OAuth application.
+Manage HaloPSA knowledge base articles (`/api/KBArticle`). Requires appropriate KB permissions on your OAuth application.
 
 ## Get Many
 
@@ -10,5 +10,8 @@ List and retrieve HaloPSA knowledge base articles (`/api/KBArticle`). Requires `
 
 ## Get by ID
 
-**Parameters:**
-- **Article ID** — Knowledge base article ID
+**Article ID**
+
+## Create / Update / Delete / Vote
+
+**Create** and **Update** use JSON fields. **Vote** records useful/not useful via `POST /api/KBArticle/vote`.
