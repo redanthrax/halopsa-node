@@ -21,6 +21,7 @@ import * as timesheetEvent from './timesheetEvent';
 import * as users from './users';
 import * as webhooks from './webhooks';
 import * as webhookEvents from './webhookEvents';
+import * as reporting from '../reporting';
 
 export async function router(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 	const items = this.getInputData();
@@ -85,6 +86,9 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 				break;
 			case 'webhookEvents':
 				responseData = await (webhookEvents as any)[haloPSA.operation].execute.call(this, i);
+				break;
+			case 'reporting':
+				responseData = await (reporting as any)[haloPSA.operation].execute.call(this, i);
 				break;
 			default:
 				break;

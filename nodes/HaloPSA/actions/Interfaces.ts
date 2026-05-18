@@ -11,7 +11,7 @@ export * from './interfaces/sites';
 export * from './interfaces/projects';
 export * from './interfaces/webhooks';
 
-export type HaloPSAResource = 'actions' | 'agents' | 'assets' | 'client' | 'fieldInfo' | 'invoices' | 'sites' | 'tickets' | 
+export type HaloPSAResource = 'actions' | 'agents' | 'assets' | 'client' | 'fieldInfo' | 'invoices' | 'reporting' | 'sites' | 'tickets' | 
 	'ticketStatuses' | 'ticketTypes' | 'timesheet' | 'timesheetEvent' | 'projects' | 'users' | 'webhooks' | 'webhookEvents';
 export type HaloPSAActionsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSAClientOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
@@ -29,11 +29,11 @@ export type HaloPSAWebhooksOperation = 'getAll' | 'getById' | 'create' | 'update
 export type HaloPSAWebhookEventsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSAFieldInfoOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSAUsersOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
-
+export type HaloPSAReportingOperation = 'executeQuery' | 'getAll' | 'getById' | 'run';
 export interface HaloPSA {
 	resource: HaloPSAResource;
-	operation: HaloPSAActionsOperation | HaloPSAAgentsOperation | HaloPSAAssetsOperation | HaloPSAClientOperation | 
-		HaloPSAFieldInfoOperation | HaloPSAInvoicesOperation | HaloPSASitesOperation | HaloPSATicketsOperation |
+	operation: HaloPSAActionsOperation | HaloPSAAgentsOperation | HaloPSAAssetsOperation | HaloPSAClientOperation |
+		HaloPSAFieldInfoOperation | HaloPSAInvoicesOperation | HaloPSAReportingOperation | HaloPSASitesOperation | HaloPSATicketsOperation |
 		HaloPSATicketStatusesOperation | HaloPSATicketTypesOperation | HaloPSATimesheetOperation |
 		HaloPSATimesheetEventOperation | HaloPSAProjectsOperation | HaloPSAUsersOperation | HaloPSAWebhooksOperation | HaloPSAWebhookEventsOperation;
 }

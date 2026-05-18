@@ -38,6 +38,10 @@ npm install n8n-nodes-halopsacomplete
 5. Configure the appropriate scopes (recommend "all" for full access)
 6. Note down the Client ID and Client Secret for use in n8n
 
+### [Reporting](./docs/reporting.md)
+
+Execute read-only SQL against the HaloPSA reporting database, list saved reports, and run saved report definitions (aligned with halopsa-mcp `halopsa_query` / report tools).
+
 ### Dynamic filters (expressions)
 
 Operations that support **Filters** also expose **Filters (JSON)** for runtime values (e.g. `{"client_id": {{ $json.client_id }}}`). JSON keys override the same keys from the UI Filters collection. Use **Filters (JSON)** when driving filters from webhooks, upstream nodes, or expressions; use **Add Filter** in the UI for static values.

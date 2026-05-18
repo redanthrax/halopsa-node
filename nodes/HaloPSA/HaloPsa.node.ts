@@ -14,6 +14,7 @@ import * as webhooks from './actions/webhooks';
 import * as webhookEvents from './actions/webhookEvents';
 import * as fieldInfo from './actions/fieldInfo';
 import * as users from './actions/users';
+import * as reporting from './reporting';
 
 import {
 	IExecuteFunctions,
@@ -82,6 +83,10 @@ export class HaloPsa implements INodeType {
 					value: 'projects',
 				},
 				{
+					name: 'Reporting',
+					value: 'reporting',
+				},
+				{
 					name: 'Site',
 					value: 'sites',
 				},
@@ -136,6 +141,7 @@ export class HaloPsa implements INodeType {
 			...webhookEvents.description,
 			...fieldInfo.description,
 			...users.description,
+			...reporting.description,
 		],
 	};
 
@@ -502,6 +508,29 @@ export class HaloPsa implements INodeType {
 				}
 				return options.sort((a, b) => a.name.localeCompare(b.name));
 			} catch (error) {
+				return [];
+			}
+		},
+		getReports: async function(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+			const { apiRequest } = await import('./transport');
+			try {
+				const responseData = await apiRequest.call(this, 'GET', '/Report', {}, { count: 100 });
+				const reports = Array.isArray(responseData) ? responseData : [responseData];
+				const options: INodePropertyOptions[] = [];
+				for (const report of reports) {
+					if (report?.id) {
+						const name =
+							(report.name as string) ||
+							(report.reportname as string) ||
+							`Report ${report.id}`;
+						options.push({
+							name,
+							value: report.id.toString(),
+						});
+					}
+				}
+				return options.sort((a, b) => a.name.localeCompare(b.name));
+			} catch {
 				return [];
 			}
 		},
