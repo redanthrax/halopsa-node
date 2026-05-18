@@ -19,6 +19,7 @@ import * as lookups from './actions/lookups';
 import * as opportunities from './actions/opportunities';
 import * as purchaseOrders from './actions/purchaseOrders';
 import * as invoices from './actions/invoices';
+import * as items from './actions/items';
 import * as timesheet from './actions/timesheet';
 import * as timesheetEvent from './actions/timesheetEvent';
 import * as ticketStatuses from './actions/ticketStatuses';
@@ -111,6 +112,10 @@ export class HaloPsa implements INodeType {
 				{
 					name: 'Invoice',
 					value: 'invoices',
+				},
+				{
+					name: 'Item',
+					value: 'items',
 				},
 				{
 					name: 'Knowledge Base',
@@ -206,6 +211,7 @@ export class HaloPsa implements INodeType {
 			...customApi.description,
 			...fieldInfo.description,
 			...invoices.description,
+			...items.description,
 			...knowledgeBase.description,
 			...lookups.description,
 			...opportunities.description,

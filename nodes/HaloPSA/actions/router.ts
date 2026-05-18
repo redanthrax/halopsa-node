@@ -21,6 +21,7 @@ import * as purchaseOrders from './purchaseOrders';
 import * as recurringInvoices from './recurringInvoices';
 import * as fieldInfo from './fieldInfo';
 import * as invoices from './invoices';
+import * as itemCatalog from './items';
 import * as projects from './projects';
 import * as quotations from './quotations';
 import * as salesOrders from './salesOrders';
@@ -100,6 +101,9 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 				break;
 			case 'invoices':
 				responseData = await (invoices as any)[haloPSA.operation].execute.call(this, i);
+				break;
+			case 'items':
+				responseData = await (itemCatalog as any)[haloPSA.operation].execute.call(this, i);
 				break;
 			case 'projects':
 				responseData = await (projects as any)[haloPSA.operation].execute.call(this, i);
