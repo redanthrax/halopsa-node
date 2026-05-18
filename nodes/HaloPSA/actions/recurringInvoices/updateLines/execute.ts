@@ -1,0 +1,26 @@
+import { GenericValue, IExecuteFunctions, INodeExecutionData } from 'n8n-workflow';
+import { apiRequest } from '../../../transport';
+
+export async function execute(
+	this: IExecuteFunctions,
+	index: number,
+): Promise<INodeExecutionData[]> {
+	const invoiceLines = this.getNodeParameter('invoiceLines', index) as string;
+
+	let parsedLines: unknown;
+	try {
+		parsedLines = JSON.parse(invoiceLines);
+	} catch {
+		throw new Error('Invalid JSON format for invoice lines');
+	}
+
+	const responseData = await apiRequest.call(
+		this,
+		'POST',
+		'/RecurringInvoice/updatelines',
+		parsedLines as GenericValue[],
+		{},
+	);
+
+	return this.helpers.returnJsonArray(responseData);
+}
