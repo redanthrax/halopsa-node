@@ -1,4 +1,5 @@
 import { INodeProperties } from 'n8n-workflow';
+import { additionalFieldsJsonProperty } from '../../../filterParameters';
 
 export const createDescription: INodeProperties[] = [
 	{
@@ -204,6 +205,14 @@ export const createDescription: INodeProperties[] = [
 				name: 'userdef5',
 				type: 'string',
 				default: '',
+			},
+			{
+				displayName: 'Custom Fields',
+				name: 'customfields',
+				type: 'json',
+				default: [],
+				description:
+					'Array of HaloPSA custom field objects, e.g. [{ "name": "CFfirstName", "value": "Jane" }]',
 			},
 			{
 				displayName: 'Date Occurred',
@@ -423,4 +432,5 @@ export const createDescription: INodeProperties[] = [
 			},
 		],
 	},
+	additionalFieldsJsonProperty('tickets', 'create'),
 ];

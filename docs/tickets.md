@@ -44,11 +44,12 @@ Create a new ticket in HaloPSA.
   - Categories, Time estimation
   - Contact information
   - Impact and urgency levels
-  - Custom fields (1-5)
+  - Custom fields (1-5) and **Custom Fields** (`customfields` JSON array for ticket-type fields)
   - Financial details
   - Flags and settings
   - Time scheduling
   - Tags and labels
+- **Additional Fields (JSON)**: Overrides the collection from expressions (use for `customfields` arrays and other complex values), e.g. `{"customfields": {{ $json.customfields }}}`
 
 
 ## Update
@@ -59,7 +60,8 @@ Update an existing ticket.
 - **Ticket ID**: The ID of the ticket to update
 
 **Optional Parameters:**
-- **Update Fields**: Collection of fields to update including summary, details, status, priority, assignment, categories, etc.
+- **Update Fields**: Collection of fields to update including summary, details, status, priority, assignment, categories, **Custom Fields** (`customfields` JSON array), etc.
+- **Update Fields (JSON)**: Overrides the Update Fields collection from expressions
 
 ## Delete
 

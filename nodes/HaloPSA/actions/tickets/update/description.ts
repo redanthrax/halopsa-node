@@ -1,4 +1,5 @@
 import { INodeProperties } from 'n8n-workflow';
+import { updateFieldsJsonProperty } from '../../../filterParameters';
 
 export const updateDescription: INodeProperties[] = [
 	{
@@ -111,6 +112,15 @@ export const updateDescription: INodeProperties[] = [
 				default: 0,
 				description: 'The assigned team ID',
 			},
+			{
+				displayName: 'Custom Fields',
+				name: 'customfields',
+				type: 'json',
+				default: [],
+				description:
+					'Array of HaloPSA custom field objects, e.g. [{ "name": "CFfirstName", "value": "Jane" }]',
+			},
 		],
 	},
+	updateFieldsJsonProperty('tickets', 'update'),
 ];

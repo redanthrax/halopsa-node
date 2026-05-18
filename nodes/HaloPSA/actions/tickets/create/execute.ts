@@ -1,6 +1,11 @@
 import { IExecuteFunctions } from 'n8n-workflow';
 import { IDataObject, INodeExecutionData } from 'n8n-workflow';
 import { apiRequest } from '../../../transport';
+import {
+	applyFieldsToBody,
+	normalizeCustomfieldsField,
+	resolveAdditionalFields,
+} from '../../../filterParameters';
 import { HaloTicketCreate, HaloTicketDetailed } from '../../Interfaces';
 
 export async function execute(
@@ -27,8 +32,9 @@ export async function execute(
 		const parsed = typeof userIdParam === 'string' ? parseInt(userIdParam, 10) : (userIdParam as number);
 		userId = isNaN(parsed) ? undefined : parsed;
 	}
-	const additionalFields = this.getNodeParameter('additionalFields', index, {}) as IDataObject;
-	
+	const additionalFields = resolveAdditionalFields.call(this, index);
+	normalizeCustomfieldsField(additionalFields);
+
 	if (additionalFields.status_id) {
 		const statusIdValue = additionalFields.status_id;
 		const parsed = typeof statusIdValue === 'string' ? parseInt(statusIdValue, 10) : statusIdValue;
@@ -39,7 +45,7 @@ export async function execute(
 		const parsed = typeof ticketTypeIdValue === 'string' ? parseInt(ticketTypeIdValue, 10) : ticketTypeIdValue;
 		additionalFields.tickettype_id = isNaN(parsed as number) ? undefined : parsed;
 	}
-	
+
 	const ticketData: HaloTicketCreate = {
 		summary,
 	};
@@ -47,16 +53,12 @@ export async function execute(
 	if (clientId !== undefined) ticketData.client_id = clientId;
 	if (siteId !== undefined) ticketData.site_id = siteId;
 	if (userId !== undefined) ticketData.user_id = userId;
-	
-	Object.keys(additionalFields).forEach(key => {
-		if (additionalFields[key] !== undefined && additionalFields[key] !== '') {
-			(ticketData as IDataObject)[key] = additionalFields[key];
-		}
-	});
+
+	applyFieldsToBody(ticketData as IDataObject, additionalFields);
 
 	const requestMethod = 'POST';
 	const endpoint = '/Tickets';
-	
+
 	const body = [ticketData];
 
 	let responseData: HaloTicketDetailed[];

@@ -15,6 +15,17 @@ export function optionsJsonProperty(resource: string, operation: string): INodeP
 	return collectionJsonProperty('optionsJson', 'Options', resource, operation);
 }
 
+export function additionalFieldsJsonProperty(
+	resource: string,
+	operation: string,
+): INodeProperties {
+	return collectionJsonProperty('additionalFieldsJson', 'Additional Fields', resource, operation);
+}
+
+export function updateFieldsJsonProperty(resource: string, operation: string): INodeProperties {
+	return collectionJsonProperty('updateFieldsJson', 'Update Fields', resource, operation);
+}
+
 export function collectionJsonProperty(
 	jsonName: string,
 	collectionLabel: string,
@@ -98,6 +109,58 @@ export function resolveFilters(this: IExecuteFunctions, index: number): IDataObj
  */
 export function resolveOptions(this: IExecuteFunctions, index: number): IDataObject {
 	return resolveCollectionParams.call(this, index, 'options', 'optionsJson');
+}
+
+export function resolveAdditionalFields(
+	this: IExecuteFunctions,
+	index: number,
+	collectionName = 'additionalFields',
+	jsonName = 'additionalFieldsJson',
+): IDataObject {
+	return resolveCollectionParams.call(this, index, collectionName, jsonName);
+}
+
+export function resolveUpdateFields(
+	this: IExecuteFunctions,
+	index: number,
+): IDataObject {
+	return resolveCollectionParams.call(this, index, 'updateFields', 'updateFieldsJson');
+}
+
+/** Applies collection/JSON fields to a request body (keeps arrays and 0). */
+export function applyFieldsToBody(target: IDataObject, source: IDataObject): void {
+	for (const [key, value] of Object.entries(source)) {
+		if (value === undefined || value === '') {
+			continue;
+		}
+		target[key] = value;
+	}
+}
+
+function parseJsonValue(value: unknown): unknown {
+	if (typeof value !== 'string') {
+		return value;
+	}
+	const trimmed = value.trim();
+	if (!trimmed) {
+		return value;
+	}
+	try {
+		return JSON.parse(trimmed);
+	} catch {
+		return value;
+	}
+}
+
+/** Parses customfields when supplied as a JSON string in the UI or expressions. */
+export function normalizeCustomfieldsField(fields: IDataObject): void {
+	if (fields.customfields === undefined) {
+		return;
+	}
+	const parsed = parseJsonValue(fields.customfields);
+	if (parsed !== undefined) {
+		fields.customfields = parsed as IDataObject[keyof IDataObject];
+	}
 }
 
 /** Applies common HaloPSA query-string transforms (e.g. multi-select custom fields). */
