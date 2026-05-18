@@ -11,7 +11,7 @@ export * from './interfaces/sites';
 export * from './interfaces/projects';
 export * from './interfaces/webhooks';
 
-export type HaloPSAResource = 'actions' | 'agents' | 'appointments' | 'assets' | 'attachments' | 'automations' | 'cannedText' | 'notifications' | 'client' | 'contracts' | 'customApi' | 'fieldInfo' | 'holidays' | 'invoices' | 'items' | 'knowledgeBase' | 'lookups' | 'opportunities' | 'purchaseOrders' | 'quotations' | 'recurringInvoices' | 'reporting' | 'salesOrders' | 'sites' | 'surveys' | 'tags' | 'ticketApprovals' | 'ticketTodos' | 'tickets' | 
+export type HaloPSAResource = 'actions' | 'agents' | 'appointments' | 'assets' | 'attachments' | 'automations' | 'cannedText' | 'feed' | 'notifications' | 'client' | 'contracts' | 'customApi' | 'fieldInfo' | 'holidays' | 'invoicePayments' | 'invoices' | 'items' | 'knowledgeBase' | 'lookups' | 'opportunities' | 'purchaseOrders' | 'quotations' | 'recurringInvoices' | 'reporting' | 'salesOrders' | 'sites' | 'surveys' | 'tags' | 'ticketApprovals' | 'ticketTodos' | 'todoGroups' | 'tickets' | 
 	'ticketStatuses' | 'ticketTypes' | 'timesheet' | 'timesheetEvent' | 'projects' | 'users' | 'webhooks' | 'webhookEvents';
 export type HaloPSAActionsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete' | 'reaction' | 'review';
 export type HaloPSAClientOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
@@ -42,7 +42,7 @@ export type HaloPSAReportingOperation =
 	| 'listRepository'
 	| 'print'
 	| 'run';
-export type HaloPSAAttachmentsOperation = 'getAll' | 'getById' | 'create' | 'delete';
+export type HaloPSAAttachmentsOperation = 'getAll' | 'getById' | 'create' | 'delete' | 'getS3PresignedUrl' | 'presignedUploadComplete';
 export type HaloPSAAppointmentsOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete';
 export type HaloPSAOpportunitiesOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete' | 'recordView';
 export type HaloPSASurveysOperation = 'getAll' | 'getById' | 'create' | 'delete';
@@ -61,10 +61,13 @@ export type HaloPSAAutomationsOperation = 'getAll' | 'getById' | 'delete' | 'run
 export type HaloPSAKnowledgeBaseOperation = 'getAll' | 'getById' | 'create' | 'update' | 'delete' | 'vote';
 export type HaloPSALookupsOperation = 'getAll' | 'getById' | 'create' | 'delete' | 'clearCache';
 export type HaloPSATicketTodosOperation = 'getAll' | 'create';
+export type HaloPSAFeedOperation = 'getAll';
+export type HaloPSAInvoicePaymentsOperation = 'getAll' | 'getById' | 'create' | 'delete';
+export type HaloPSATodoGroupsOperation = 'getAll' | 'getById' | 'create' | 'delete';
 export interface HaloPSA {
 	resource: HaloPSAResource;
-	operation: HaloPSAActionsOperation | HaloPSAAgentsOperation | HaloPSAAppointmentsOperation | HaloPSAAttachmentsOperation | HaloPSAAutomationsOperation | HaloPSANotificationsOperation | HaloPSACannedTextOperation | HaloPSAAssetsOperation | HaloPSAClientOperation |
-		HaloPSAContractsOperation | HaloPSACustomApiOperation | HaloPSAFieldInfoOperation | HaloPSAHolidaysOperation | HaloPSAInvoicesOperation | HaloPSAItemsOperation | HaloPSAKnowledgeBaseOperation | HaloPSALookupsOperation | HaloPSAOpportunitiesOperation | HaloPSAPurchaseOrdersOperation | HaloPSAQuotationsOperation | HaloPSARecurringInvoicesOperation | HaloPSAReportingOperation | HaloPSASalesOrdersOperation | HaloPSASitesOperation | HaloPSASurveysOperation | HaloPSATagsOperation | HaloPSATicketApprovalsOperation | HaloPSATicketTodosOperation | HaloPSATicketsOperation |
+	operation: HaloPSAActionsOperation | HaloPSAAgentsOperation | HaloPSAAppointmentsOperation | HaloPSAAttachmentsOperation | HaloPSAAutomationsOperation | HaloPSANotificationsOperation | HaloPSACannedTextOperation | HaloPSAFeedOperation | HaloPSAAssetsOperation | HaloPSAClientOperation |
+		HaloPSAContractsOperation | HaloPSACustomApiOperation | HaloPSAFieldInfoOperation | HaloPSAHolidaysOperation | HaloPSAInvoicePaymentsOperation | HaloPSAInvoicesOperation | HaloPSAItemsOperation | HaloPSAKnowledgeBaseOperation | HaloPSALookupsOperation | HaloPSAOpportunitiesOperation | HaloPSAPurchaseOrdersOperation | HaloPSAQuotationsOperation | HaloPSARecurringInvoicesOperation | HaloPSAReportingOperation | HaloPSASalesOrdersOperation | HaloPSASitesOperation | HaloPSASurveysOperation | HaloPSATagsOperation | HaloPSATicketApprovalsOperation | HaloPSATicketTodosOperation | HaloPSATodoGroupsOperation | HaloPSATicketsOperation |
 		HaloPSATicketStatusesOperation | HaloPSATicketTypesOperation | HaloPSATimesheetOperation |
 		HaloPSATimesheetEventOperation | HaloPSAProjectsOperation | HaloPSAUsersOperation | HaloPSAWebhooksOperation | HaloPSAWebhookEventsOperation;
 }

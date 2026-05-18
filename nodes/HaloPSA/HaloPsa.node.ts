@@ -4,6 +4,7 @@ import * as appointments from './actions/appointments';
 import * as attachments from './actions/attachments';
 import * as ticketApprovals from './actions/ticketApprovals';
 import * as ticketTodos from './actions/ticketTodos';
+import * as todoGroups from './actions/todoGroups';
 import * as tickets from './actions/tickets';
 import * as projects from './actions/projects';
 import * as quotations from './actions/quotations';
@@ -29,8 +30,10 @@ import * as ticketStatuses from './actions/ticketStatuses';
 import * as ticketTypes from './actions/ticketTypes';
 import * as webhooks from './actions/webhooks';
 import * as webhookEvents from './actions/webhookEvents';
+import * as feed from './actions/feed';
 import * as fieldInfo from './actions/fieldInfo';
 import * as holidays from './actions/holidays';
+import * as invoicePayments from './actions/invoicePayments';
 import * as users from './actions/users';
 import * as reporting from './reporting';
 import * as surveys from './actions/surveys';
@@ -115,6 +118,10 @@ export class HaloPsa implements INodeType {
 					value: 'customApi',
 				},
 				{
+					name: 'Feed',
+					value: 'feed',
+				},
+				{
 					name: 'Field Info',
 					value: 'fieldInfo',
 				},
@@ -125,6 +132,10 @@ export class HaloPsa implements INodeType {
 				{
 					name: 'Invoice',
 					value: 'invoices',
+				},
+				{
+					name: 'Invoice Payment',
+					value: 'invoicePayments',
 				},
 				{
 					name: 'Item',
@@ -235,8 +246,10 @@ export class HaloPsa implements INodeType {
 			...client.description,
 			...contracts.description,
 			...customApi.description,
+			...feed.description,
 			...fieldInfo.description,
 			...holidays.description,
+			...invoicePayments.description,
 			...invoices.description,
 			...items.description,
 			...notifications.description,
@@ -254,6 +267,7 @@ export class HaloPsa implements INodeType {
 			...tags.description,
 			...ticketApprovals.description,
 			...ticketTodos.description,
+			...todoGroups.description,
 			...ticketStatuses.description,
 			...ticketTypes.description,
 			...tickets.description,

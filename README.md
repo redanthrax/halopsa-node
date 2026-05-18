@@ -87,9 +87,11 @@ The trigger creates and manages webhooks in HaloPSA (subscription and cleanup).
 | Client | [clients.md](./docs/clients.md) |
 | Contract | [contracts.md](./docs/contracts.md) |
 | Custom API Call | [custom-api.md](./docs/custom-api.md) |
+| Feed | [feed.md](./docs/feed.md) |
 | Field Info | [field-info.md](./docs/field-info.md) |
 | Holiday | [holidays.md](./docs/holidays.md) |
 | Invoice | [invoices.md](./docs/invoices.md) |
+| Invoice Payment | [invoice-payments.md](./docs/invoice-payments.md) |
 | Item | [items.md](./docs/items.md) |
 | Notification | [notifications.md](./docs/notifications.md) |
 | Knowledge Base | [knowledge-base.md](./docs/knowledge-base.md) |
@@ -107,6 +109,7 @@ The trigger creates and manages webhooks in HaloPSA (subscription and cleanup).
 | Ticket | [tickets.md](./docs/tickets.md) |
 | Ticket Approval | [ticket-approvals.md](./docs/ticket-approvals.md) |
 | Ticket To-Do | [ticket-todos.md](./docs/ticket-todos.md) |
+| To-Do Group | [todo-groups.md](./docs/todo-groups.md) |
 | Ticket Status | [ticket-statuses.md](./docs/ticket-statuses.md) |
 | Ticket Type | [ticket-types.md](./docs/ticket-types.md) |
 | Timesheet | [timesheet.md](./docs/timesheet.md) |

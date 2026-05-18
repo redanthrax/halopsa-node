@@ -21,8 +21,10 @@ import * as lookups from './lookups';
 import * as opportunities from './opportunities';
 import * as purchaseOrders from './purchaseOrders';
 import * as recurringInvoices from './recurringInvoices';
+import * as feed from './feed';
 import * as fieldInfo from './fieldInfo';
 import * as holidays from './holidays';
+import * as invoicePayments from './invoicePayments';
 import * as invoices from './invoices';
 import * as itemCatalog from './items';
 import * as projects from './projects';
@@ -35,6 +37,7 @@ import * as ticketStatuses from './ticketStatuses';
 import * as ticketTypes from './ticketTypes';
 import * as ticketApprovals from './ticketApprovals';
 import * as ticketTodos from './ticketTodos';
+import * as todoGroups from './todoGroups';
 import * as tickets from './tickets';
 import * as timesheet from './timesheet';
 import * as timesheetEvent from './timesheetEvent';
@@ -107,11 +110,17 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 			case 'recurringInvoices':
 				responseData = await (recurringInvoices as any)[haloPSA.operation].execute.call(this, i);
 				break;
+			case 'feed':
+				responseData = await (feed as any)[haloPSA.operation].execute.call(this, i);
+				break;
 			case 'fieldInfo':
 				responseData = await (fieldInfo as any)[haloPSA.operation].execute.call(this, i);
 				break;
 			case 'holidays':
 				responseData = await (holidays as any)[haloPSA.operation].execute.call(this, i);
+				break;
+			case 'invoicePayments':
+				responseData = await (invoicePayments as any)[haloPSA.operation].execute.call(this, i);
 				break;
 			case 'invoices':
 				responseData = await (invoices as any)[haloPSA.operation].execute.call(this, i);
@@ -142,6 +151,9 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 				break;
 			case 'ticketTodos':
 				responseData = await (ticketTodos as any)[haloPSA.operation].execute.call(this, i);
+				break;
+			case 'todoGroups':
+				responseData = await (todoGroups as any)[haloPSA.operation].execute.call(this, i);
 				break;
 			case 'tickets':
 				responseData = await (tickets as any)[haloPSA.operation].execute.call(this, i);
