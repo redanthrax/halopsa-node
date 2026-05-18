@@ -34,6 +34,7 @@ import * as tagResource from './tags';
 import * as ticketStatuses from './ticketStatuses';
 import * as ticketTypes from './ticketTypes';
 import * as ticketApprovals from './ticketApprovals';
+import * as ticketTodos from './ticketTodos';
 import * as tickets from './tickets';
 import * as timesheet from './timesheet';
 import * as timesheetEvent from './timesheetEvent';
@@ -138,6 +139,9 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 				break;
 			case 'ticketApprovals':
 				responseData = await (ticketApprovals as any)[haloPSA.operation].execute.call(this, i);
+				break;
+			case 'ticketTodos':
+				responseData = await (ticketTodos as any)[haloPSA.operation].execute.call(this, i);
 				break;
 			case 'tickets':
 				responseData = await (tickets as any)[haloPSA.operation].execute.call(this, i);

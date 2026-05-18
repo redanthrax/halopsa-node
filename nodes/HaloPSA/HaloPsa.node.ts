@@ -3,6 +3,7 @@ import * as agents from './actions/agents';
 import * as appointments from './actions/appointments';
 import * as attachments from './actions/attachments';
 import * as ticketApprovals from './actions/ticketApprovals';
+import * as ticketTodos from './actions/ticketTodos';
 import * as tickets from './actions/tickets';
 import * as projects from './actions/projects';
 import * as quotations from './actions/quotations';
@@ -190,6 +191,10 @@ export class HaloPsa implements INodeType {
 					value: 'ticketApprovals',
 				},
 				{
+					name: 'Ticket To-Do',
+					value: 'ticketTodos',
+				},
+				{
 					name: 'Ticket Status',
 					value: 'ticketStatuses',
 				},
@@ -248,6 +253,7 @@ export class HaloPsa implements INodeType {
 			...surveys.description,
 			...tags.description,
 			...ticketApprovals.description,
+			...ticketTodos.description,
 			...ticketStatuses.description,
 			...ticketTypes.description,
 			...tickets.description,
