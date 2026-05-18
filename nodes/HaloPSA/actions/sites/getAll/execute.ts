@@ -1,6 +1,7 @@
 import { IExecuteFunctions } from 'n8n-workflow';
 import { IDataObject, INodeExecutionData } from 'n8n-workflow';
-import { apiRequest } from '../../../transport';
+import { applyFiltersToQueryString, resolveFilters } from '../../../filterParameters';
+import { apiRequest, apiRequestAllItems } from '../../../transport';
 import { HaloSiteListResponse } from '../../Interfaces';
 
 export async function execute(
@@ -8,17 +9,9 @@ export async function execute(
 	index: number,
 ): Promise<INodeExecutionData[]> {
 	const returnAll = this.getNodeParameter('returnAll', index) as boolean;
-	const filters = this.getNodeParameter('filters', index, {}) as IDataObject;
-	
-	const qs = {} as IDataObject;
-	
-	if (filters) {
-		Object.assign(qs, filters);
-		
-		if (filters.include_custom_fields && Array.isArray(filters.include_custom_fields)) {
-			qs.include_custom_fields = filters.include_custom_fields.join(',');
-		}
-	}
+	const filters = resolveFilters.call(this, index);
+
+	const qs = applyFiltersToQueryString(filters);
 
 	if (!returnAll) {
 		const limit = this.getNodeParameter('limit', index, 50) as number;
@@ -29,8 +22,11 @@ export async function execute(
 	const endpoint = '/Site';
 	const body = {} as IDataObject;
 
-	let responseData: HaloSiteListResponse;
-	responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
+	if (returnAll) {
+		const all = await apiRequestAllItems.call(this, requestMethod, endpoint, 'sites', body, qs);
+		return this.helpers.returnJsonArray(all);
+	}
 
-	return this.helpers.returnJsonArray(responseData.sites as any[] || []);
+	const responseData: HaloSiteListResponse = await apiRequest.call(this, requestMethod, endpoint, body, qs);
+	return this.helpers.returnJsonArray(responseData.sites as IDataObject[] || []);
 }

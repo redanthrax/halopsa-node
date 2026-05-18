@@ -1,10 +1,11 @@
 import { IExecuteFunctions } from 'n8n-workflow';
 import { IDataObject } from 'n8n-workflow';
+import { resolveFilters } from '../../../filterParameters';
 import { apiRequest } from '../../../transport';
 
 export async function execute(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
 	const returnAll = this.getNodeParameter('returnAll', index, false) as boolean;
-	const filters = this.getNodeParameter('filters', index, {}) as IDataObject;
+	const filters = resolveFilters.call(this, index);
 	
 	let limit = 50;
 	if (!returnAll) {

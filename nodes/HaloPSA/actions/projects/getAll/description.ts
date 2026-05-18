@@ -1,4 +1,5 @@
 import { INodeProperties } from 'n8n-workflow';
+import { filtersJsonProperty } from '../../../filterParameters';
 
 export const description: INodeProperties[] = [
 	{
@@ -250,4 +251,5 @@ export const description: INodeProperties[] = [
 			},
 		],
 	},
+	filtersJsonProperty('projects'),
 ];

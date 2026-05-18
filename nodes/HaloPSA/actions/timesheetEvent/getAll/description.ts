@@ -1,4 +1,5 @@
 import { INodeProperties } from 'n8n-workflow';
+import { filtersJsonProperty } from '../../../filterParameters';
 
 export const getALLDescription: INodeProperties[] = [
 	{
@@ -81,4 +82,5 @@ export const getALLDescription: INodeProperties[] = [
 			},
 		],
 	},
+	filtersJsonProperty('timesheetEvent'),
 ];

@@ -1,5 +1,6 @@
 import { IExecuteFunctions } from 'n8n-workflow';
 import { IDataObject, INodeExecutionData } from 'n8n-workflow';
+import { applyFiltersToQueryString, resolveFilters } from '../../../filterParameters';
 import { apiRequest, apiRequestAllItems } from '../../../transport';
 import { HaloTicketsListResponse } from '../../Interfaces';
 
@@ -8,23 +9,9 @@ export async function execute(
 	index: number,
 ): Promise<INodeExecutionData[]> {
 	const returnAll = this.getNodeParameter('returnAll', index) as boolean;
-	const filters = this.getNodeParameter('filters', index, {}) as IDataObject;
+	const filters = resolveFilters.call(this, index);
 	
-	const qs = {} as IDataObject;
-	
-	if (filters) {
-		Object.assign(qs, filters);
-		
-		if (filters.include_custom_fields && Array.isArray(filters.include_custom_fields)) {
-			qs.include_custom_fields = filters.include_custom_fields.join(',');
-		}
-		if (filters.requesttype && Array.isArray(filters.requesttype)) {
-			qs.requesttype = filters.requesttype.join(',');
-		}
-		if (filters.status && Array.isArray(filters.status)) {
-			qs.status = filters.status.join(',');
-		}
-	}
+	const qs = applyFiltersToQueryString(filters);
 
 	if (!returnAll) {
 		const limit = this.getNodeParameter('limit', index, 50) as number;

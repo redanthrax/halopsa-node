@@ -1,5 +1,6 @@
 import { IExecuteFunctions } from 'n8n-workflow';
-import { IDataObject, INodeExecutionData } from 'n8n-workflow';
+import { INodeExecutionData } from 'n8n-workflow';
+import { resolveOptions } from '../../../filterParameters';
 import { apiRequest } from '../../../transport';
 
 export async function execute(
@@ -7,16 +8,10 @@ export async function execute(
 	index: number,
 ): Promise<INodeExecutionData[]> {
 	const id = this.getNodeParameter('id', index) as number;
-	const filters = this.getNodeParameter('filters', index, {}) as IDataObject;
-
-	const qs: IDataObject = {};
-
-	if (filters) {
-		Object.assign(qs, filters);
-	}
+	const options = resolveOptions.call(this, index);
 
 	try {
-		const response = await apiRequest.call(this, 'GET', `/Users/${id}`, {}, qs);
+		const response = await apiRequest.call(this, 'GET', `/Users/${id}`, {}, options);
 
 		return [{
 			json: response,

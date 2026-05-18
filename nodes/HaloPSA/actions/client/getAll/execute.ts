@@ -1,11 +1,12 @@
 import { IExecuteFunctions } from 'n8n-workflow';
 import { IDataObject } from 'n8n-workflow';
+import { applyFiltersToQueryString, resolveFilters } from '../../../filterParameters';
 import { apiRequest, apiRequestAllItems } from '../../../transport';
 import { ClientListResponse } from '../../interfaces/client';
 
 export async function execute(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
 	const returnAll = this.getNodeParameter('returnAll', index, false) as boolean;
-	const filters = this.getNodeParameter('filters', index, {}) as IDataObject;
+	const filters = resolveFilters.call(this, index);
 	
 	let limit = 50;
 	if (!returnAll) {
@@ -16,15 +17,7 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 	const endpoint = '/Client';
 	const body = {};
 	
-	const qs: IDataObject = {};
-	
-	if (filters) {
-		Object.assign(qs, filters);
-		
-		if (filters.include_custom_fields && Array.isArray(filters.include_custom_fields)) {
-			qs.include_custom_fields = filters.include_custom_fields.join(',');
-		}
-	}
+	const qs = applyFiltersToQueryString(filters);
 	
 	if (!returnAll && limit) {
 		qs.count = limit;

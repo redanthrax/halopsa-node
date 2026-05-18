@@ -1,4 +1,5 @@
 import { INodeProperties } from 'n8n-workflow';
+import { filtersJsonProperty } from '../../../filterParameters';
 
 export const getAssetTypesDescription: INodeProperties[] = [
 	{
@@ -81,4 +82,5 @@ export const getAssetTypesDescription: INodeProperties[] = [
 			},
 		],
 	},
+	filtersJsonProperty('assets', 'getAssetTypes'),
 ];

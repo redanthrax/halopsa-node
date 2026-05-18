@@ -1,40 +1,44 @@
 import { IExecuteFunctions } from 'n8n-workflow';
 import { IDataObject, INodeExecutionData } from 'n8n-workflow';
-import { apiRequest } from '../../../transport';
+import { applyFiltersToQueryString, resolveFilters } from '../../../filterParameters';
+import { apiRequest, apiRequestAllItems } from '../../../transport';
 
 export async function execute(
 	this: IExecuteFunctions,
 	index: number,
 ): Promise<INodeExecutionData[]> {
 	const returnAll = this.getNodeParameter('returnAll', index) as boolean;
-	const filters = this.getNodeParameter('filters', index, {}) as IDataObject;
+	const filters = resolveFilters.call(this, index);
 
-	const qs: IDataObject = {};
-
-	if (filters) {
-		Object.assign(qs, filters);
-
-		if (filters.include_custom_fields && Array.isArray(filters.include_custom_fields)) {
-			qs.include_custom_fields = filters.include_custom_fields.join(',');
-		}
-	}
+	const qs = applyFiltersToQueryString(filters);
 
 	if (!returnAll) {
 		const limit = this.getNodeParameter('limit', index) as number;
 		qs.count = limit;
 	}
 
-	try {
-		const response = await apiRequest.call(this, 'GET', '/Users', {}, qs);
+	const requestMethod = 'GET';
+	const endpoint = '/Users';
+	const body = {};
 
-		let users = [];
-		if (response && response.users) {
-			users = Array.isArray(response.users) ? response.users : [response.users];
-		} else if (Array.isArray(response)) {
-			users = response;
+	try {
+		let users: IDataObject[];
+
+		if (returnAll) {
+			users = await apiRequestAllItems.call(this, requestMethod, endpoint, 'users', body, qs);
+		} else {
+			const response = await apiRequest.call(this, requestMethod, endpoint, body, qs);
+
+			if (response && response.users) {
+				users = Array.isArray(response.users) ? response.users : [response.users];
+			} else if (Array.isArray(response)) {
+				users = response;
+			} else {
+				users = [];
+			}
 		}
 
-		return users.map((user: any) => ({
+		return users.map((user) => ({
 			json: user,
 			pairedItem: { item: index },
 		}));

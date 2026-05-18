@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-halopsacomplete",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "An n8n node to connect to HaloPSA API",
   "keywords": [
     "n8n-community-node-package"
@@ -15,18 +15,33 @@
     "type": "git",
     "url": "git+https://github.com/redanthrax/halopsa-node.git"
   },
-  "packageManager": "pnpm@9.0.0",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "packageManager": "pnpm@10.19.0",
   "engines": {
     "node": ">=20.15"
   },
   "main": "index.js",
   "scripts": {
+    "audit:supply-chain": "node scripts/check-supply-chain.mjs",
     "build": "pnpm exec rimraf dist && pnpm exec tsc && pnpm exec gulp build:icons",
     "dev": "pnpm exec tsc --watch",
     "format": "pnpm exec prettier nodes credentials --write",
     "lint": "pnpm exec eslint nodes credentials package.json",
     "lintfix": "pnpm exec eslint nodes credentials package.json --fix",
-    "prepublishOnly": "pnpm run build && pnpm exec eslint -c .eslintrc.prepublish.js nodes credentials package.json"
+    "prepublishOnly": "pnpm run audit:supply-chain && pnpm run build && pnpm exec eslint -c .eslintrc.prepublish.js nodes credentials package.json"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "isolated-vm"
+    ],
+    "ignoredBuiltDependencies": [
+      "eslint-plugin-n8n-nodes-base"
+    ],
+    "minimumReleaseAge": 1440,
+    "blockExoticSubdeps": true
   },
   "files": [
     "dist",

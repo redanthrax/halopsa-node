@@ -1,0 +1,54 @@
+name: Supply chain security
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  schedule:
+    # Daily check for lockfile drift and known compromised versions
+    - cron: '0 12 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.19.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: pnpm
+
+      - name: Install dependencies (frozen lockfile, no lifecycle scripts except allowlist)
+        run: pnpm install --frozen-lockfile
+
+      - name: Check for known compromised packages (Mini Shai-Hulud blocklist)
+        run: pnpm run audit:supply-chain
+
+      - name: pnpm audit (high severity and above)
+        run: pnpm audit --audit-level=high
+        continue-on-error: true
+
+      - name: OSV vulnerability scan (lockfile)
+        uses: google/osv-scanner-action/osv-scanner-action@v2.3.3
+        with:
+          scan-args: |-
+            --lockfile=pnpm-lock.yaml
+            --format=json
+        continue-on-error: true
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Lint
+        run: pnpm run lint

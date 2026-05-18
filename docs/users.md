@@ -7,7 +7,9 @@ Retrieve multiple users from HaloPSA with extensive filtering options.
 **Parameters:**
 - **Return All**: Whether to return all results or limit
 - **Limit**: Maximum number of users to return (if Return All is false)
-- **Filters**: Comprehensive filtering options including:
+- **Filters**: Comprehensive filtering options (use **Filters (JSON)** for dynamic expressions, e.g. `{"client_id": 70}`)
+- **Return All**: When enabled, all pages are fetched automatically
+- **Filter fields** include:
   - Activity status (Active Inactive, Include Activity, Include Details)
   - Client and site filtering (Client ID, Site ID, Sites)
   - Search and identification (Search by name/email, Advanced Search, UserName, Login)
@@ -24,7 +26,8 @@ Retrieve a specific user by their ID with additional detail options.
 
 **Parameters:**
 - **User ID**: The ID of the user to retrieve
-- **Additional Options**: Optional settings including:
+- **Options**: Optional query parameters (use **Options (JSON)** for dynamic expressions)
+- **Option fields** include:
   - **Client ID**: Filter by client ID for access control
   - **Domain**: Specify domain context (reqs, prjs, opps)
   - **Include Activity**: Whether to include activity information

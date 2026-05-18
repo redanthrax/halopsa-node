@@ -2,6 +2,17 @@
 
 An n8n community node for integrating with HaloPSA API.
 
+## Development
+
+This repo uses **pnpm** with a committed lockfile and supply-chain controls (see [SECURITY.md](SECURITY.md)). After clone:
+
+```bash
+corepack enable && corepack prepare pnpm@10.19.0 --activate
+pnpm install --frozen-lockfile
+pnpm run audit:supply-chain
+pnpm run build
+```
+
 ## Installation
 
 Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
@@ -26,6 +37,10 @@ npm install n8n-nodes-halopsacomplete
 4. Set the Grant Type to "Client Credentials"
 5. Configure the appropriate scopes (recommend "all" for full access)
 6. Note down the Client ID and Client Secret for use in n8n
+
+### Dynamic filters (expressions)
+
+Operations that support **Filters** also expose **Filters (JSON)** for runtime values (e.g. `{"client_id": {{ $json.client_id }}}`). JSON keys override the same keys from the UI Filters collection. Use **Filters (JSON)** when driving filters from webhooks, upstream nodes, or expressions; use **Add Filter** in the UI for static values.
 
 ### Configuring Credentials in n8n
 
