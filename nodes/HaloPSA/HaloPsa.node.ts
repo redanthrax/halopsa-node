@@ -57,8 +57,6 @@ import * as surveys from './actions/surveys';
 import * as tags from './actions/tags';
 import * as teams from './actions/teams';
 import * as transcriptionStore from './actions/transcriptionStore';
-import { generatedDescriptions } from './actions/generated/descriptions';
-import { generatedResourceOptions } from './actions/generated/registry';
 
 import {
 	IExecuteFunctions,
@@ -187,16 +185,16 @@ export class HaloPsa implements INodeType {
 					value: 'items',
 				},
 				{
-					name: 'Notification',
-					value: 'notifications',
-				},
-				{
 					name: 'Knowledge Base',
 					value: 'knowledgeBase',
 				},
 				{
 					name: 'Lookup',
 					value: 'lookups',
+				},
+				{
+					name: 'Notification',
+					value: 'notifications',
 				},
 				{
 					name: 'Opportunity',
@@ -231,7 +229,7 @@ export class HaloPsa implements INodeType {
 					value: 'raynet',
 				},
 				{
-					name: 'Raynet Details',
+					name: 'Raynet Detail',
 					value: 'raynetDetails',
 				},
 				{
@@ -283,14 +281,6 @@ export class HaloPsa implements INodeType {
 					value: 'teams',
 				},
 				{
-					name: 'Top Level',
-					value: 'topLevels',
-				},
-				{
-					name: 'Transcription',
-					value: 'transcriptionStore',
-				},
-				{
 					name: 'Ticket',
 					value: 'tickets',
 				},
@@ -299,12 +289,12 @@ export class HaloPsa implements INodeType {
 					value: 'ticketApprovals',
 				},
 				{
-					name: 'Ticket To-Do',
-					value: 'ticketTodos',
-				},
-				{
 					name: 'Ticket Status',
 					value: 'ticketStatuses',
+				},
+				{
+					name: 'Ticket To-Do',
+					value: 'ticketTodos',
 				},
 				{
 					name: 'Ticket Type',
@@ -319,6 +309,14 @@ export class HaloPsa implements INodeType {
 					value: 'timesheetEvent',
 				},
 				{
+					name: 'Top Level',
+					value: 'topLevels',
+				},
+				{
+					name: 'Transcription',
+					value: 'transcriptionStore',
+				},
+				{
 					name: 'User',
 					value: 'users',
 				},
@@ -330,8 +328,7 @@ export class HaloPsa implements INodeType {
 					name: 'Webhook Event',
 					value: 'webhookEvents',
 				},
-				...(generatedResourceOptions as unknown as INodePropertyOptions[]),
-				],
+			],
 				default: 'tickets',
 			},
 			...actions.description,
@@ -393,7 +390,6 @@ export class HaloPsa implements INodeType {
 			...users.description,
 			...webhooks.description,
 			...webhookEvents.description,
-			...generatedDescriptions,
 		],
 	};
 

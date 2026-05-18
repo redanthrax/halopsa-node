@@ -39,10 +39,22 @@ export const description: INodeProperties[] = [
 		},
 		options: [
 			{
+				name: 'Bookmark Report',
+				value: 'bookmark',
+				description: 'Bookmark a saved report',
+				action: 'Bookmark a report',
+			},
+			{
 				name: 'Contract Utilisation',
 				value: 'contractUtilisation',
 				description: 'Agreement hours charged vs entitlement for a UTC period',
 				action: 'Get contract utilisation',
+			},
+			{
+				name: 'Create PDF',
+				value: 'createPdf',
+				description: 'Generate a PDF from a saved report',
+				action: 'Create a report PDF',
 			},
 			{
 				name: 'Execute SQL Query',
@@ -61,18 +73,6 @@ export const description: INodeProperties[] = [
 				value: 'getAll',
 				description: 'List saved report definitions',
 				action: 'Get many reports',
-			},
-			{
-				name: 'Bookmark Report',
-				value: 'bookmark',
-				description: 'Bookmark a saved report',
-				action: 'Bookmark a report',
-			},
-			{
-				name: 'Create PDF',
-				value: 'createPdf',
-				description: 'Generate a PDF from a saved report',
-				action: 'Create a report PDF',
 			},
 			{
 				name: 'Get Published Report Data',

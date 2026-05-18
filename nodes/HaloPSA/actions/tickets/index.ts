@@ -36,67 +36,67 @@ export const description: INodeProperties[] = [
 			},
 		},
 	options: [
-		{
+			{
 			name: 'Create',
 			value: 'create',
 			description: 'Create a new ticket',
 			action: 'Create a ticket',
 		},
-		{
+			{
 			name: 'Delete',
 			value: 'delete',
 			description: 'Delete a ticket',
 			action: 'Delete a ticket',
 		},
-		{
+			{
 			name: 'Get by ID',
 			value: 'getById',
 			description: 'Get a ticket by ID',
 			action: 'Get a ticket by ID',
 		},
-		{
-			name: 'Get Many',
-			value: 'getAll',
-			description: 'Get many tickets',
-			action: 'Get many tickets',
-		},
-		{
-			name: 'Update',
-			value: 'update',
-			description: 'Update a ticket',
-			action: 'Update a ticket',
-		},
-		{
-			name: 'Vote',
-			value: 'vote',
-			description: 'Submit a vote on a ticket',
-			action: 'Vote on a ticket',
-		},
-		{
-			name: 'Record View',
-			value: 'recordView',
-			description: 'Record that a ticket was viewed',
-			action: 'Record a ticket view',
-		},
-		{
-			name: 'Process Children',
-			value: 'processChildren',
-			description: 'Process child tickets for a parent ticket',
-			action: 'Process child tickets',
-		},
-		{
-			name: 'Set Billable Project',
-			value: 'setBillableProject',
-			description: 'Set billable project on tickets',
-			action: 'Set billable project',
-		},
-		{
+			{
 			name: 'Get Fault View Log',
 			value: 'getFaultViewLog',
 			description: 'Get ticket view log entries',
 			action: 'Get fault view log',
 		},
-	],
+			{
+			name: 'Get Many',
+			value: 'getAll',
+			description: 'Get many tickets',
+			action: 'Get many tickets',
+		},
+			{
+			name: 'Process Children',
+			value: 'processChildren',
+			description: 'Process child tickets for a parent ticket',
+			action: 'Process child tickets',
+		},
+			{
+			name: 'Record View',
+			value: 'recordView',
+			description: 'Record that a ticket was viewed',
+			action: 'Record a ticket view',
+		},
+			{
+			name: 'Set Billable Project',
+			value: 'setBillableProject',
+			description: 'Set billable project on tickets',
+			action: 'Set billable project',
+		},
+			{
+			name: 'Update',
+			value: 'update',
+			description: 'Update a ticket',
+			action: 'Update a ticket',
+		},
+			{
+			name: 'Vote',
+			value: 'vote',
+			description: 'Submit a vote on a ticket',
+			action: 'Vote on a ticket',
+		},
+		],
 		default: 'getAll',
 	},
 	...getAll.description,

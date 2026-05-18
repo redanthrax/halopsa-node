@@ -47,16 +47,16 @@ export const description: INodeProperties[] = [
 				action: 'Get many projects',
 			},
 			{
-				name: 'Update',
-				value: 'update',
-				description: 'Update a project',
-				action: 'Update a project',
-			},
-			{
 				name: 'Record View',
 				value: 'recordView',
 				description: 'Record that a project was viewed',
 				action: 'Record a project view',
+			},
+			{
+				name: 'Update',
+				value: 'update',
+				description: 'Update a project',
+				action: 'Update a project',
 			},
 		],
 		default: 'getAll',

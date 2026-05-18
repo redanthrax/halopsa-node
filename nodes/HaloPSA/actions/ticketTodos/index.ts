@@ -13,8 +13,8 @@ export const description: INodeProperties[] = [
 		noDataExpression: true,
 		displayOptions: { show: { resource: ['ticketTodos'] } },
 		options: [
-			{ name: 'Create', value: 'create', action: 'Create a ticket to-do item' },
-			{ name: 'Get Many', value: 'getAll', action: 'Get many ticket to-do items' },
+			{ name: 'Create', value: 'create', action: 'Create a ticket to do item' },
+			{ name: 'Get Many', value: 'getAll', action: 'Get many ticket to do items' },
 		],
 		default: 'getAll',
 	},

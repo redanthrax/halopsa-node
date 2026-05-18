@@ -40,7 +40,7 @@ export const getAllDescription: INodeProperties[] = [
 		type: 'boolean',
 		displayOptions: { show: { resource: ['notifications'], operation: ['getAll'] } },
 		default: false,
-		description: 'Include all notifications',
+		description: 'Whether to include all notifications',
 	},
 	{
 		displayName: 'Type',

@@ -7,7 +7,7 @@ export const reviewDescription: INodeProperties[] = [
 		type: 'number',
 		displayOptions: { show: { resource: ['actions'], operation: ['review'] } },
 		default: 0,
-		description: 'Action ID to review (merged into body as id when greater than 0)',
+		description: 'The ID of the action to review (merged into body as ID when greater than 0)',
 	},
 	{
 		displayName: 'Additional Fields',

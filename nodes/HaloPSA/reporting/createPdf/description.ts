@@ -5,6 +5,7 @@ export const createPdfDescription: INodeProperties[] = [
 		displayName: 'Report Name or ID',
 		name: 'reportId',
 		type: 'options',
+		description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
 		typeOptions: { loadOptionsMethod: 'getReports' },
 		required: true,
 		displayOptions: { show: { resource: ['reporting'], operation: ['createPdf'] } },

@@ -31,6 +31,6 @@ export const runDescription: INodeProperties[] = [
 		},
 		default: {},
 		description:
-			'Optional JSON object merged into GET /Report/{id} query string (e.g. client_id, ticket_id, reportingperiod) with loadreport=true',
+			'Optional JSON object merged into GET /Report/{ID} query string (e.g. client_id, ticket_id, reportingperiod) with loadreport=true',
 	},
 ];

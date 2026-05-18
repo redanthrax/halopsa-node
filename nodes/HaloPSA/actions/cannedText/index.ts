@@ -18,9 +18,9 @@ export const description: INodeProperties[] = [
 		options: [
 			{ name: 'Create', value: 'create', action: 'Create a canned text' },
 			{ name: 'Delete', value: 'delete', action: 'Delete a canned text' },
+			{ name: 'Favourite', value: 'favourite', action: 'Update canned text favourites' },
 			{ name: 'Get by ID', value: 'getById', action: 'Get a canned text by ID' },
 			{ name: 'Get Many', value: 'getAll', action: 'Get many canned texts' },
-			{ name: 'Favourite', value: 'favourite', action: 'Update canned text favourites' },
 		],
 		default: 'getAll',
 	},

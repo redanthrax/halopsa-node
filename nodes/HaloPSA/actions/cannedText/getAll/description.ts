@@ -56,7 +56,7 @@ export const getAllDescription: INodeProperties[] = [
 		type: 'boolean',
 		displayOptions: { show: { resource: ['cannedText'], operation: ['getAll'] } },
 		default: false,
-		description: 'Include all canned text entries',
+		description: 'Whether to include all canned text entries',
 	},
 	{
 		displayName: 'Ticket Only',
@@ -64,6 +64,6 @@ export const getAllDescription: INodeProperties[] = [
 		type: 'boolean',
 		displayOptions: { show: { resource: ['cannedText'], operation: ['getAll'] } },
 		default: false,
-		description: 'Return ticket-only canned text',
+		description: 'Whether to return ticket-only canned text',
 	},
 ];

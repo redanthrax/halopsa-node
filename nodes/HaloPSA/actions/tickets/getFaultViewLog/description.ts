@@ -7,6 +7,6 @@ export const getFaultViewLogDescription: INodeProperties[] = [
 		type: 'notice',
 		displayOptions: { show: { resource: ['tickets'], operation: ['getFaultViewLog'] } },
 		default: '',
-		description: 'Returns ticket view log data from GET /FaultViewLog (no query parameters in OpenAPI).',
+		description: 'Returns ticket view log data from GET /FaultViewLog (no query parameters in OpenAPI)',
 	},
 ];

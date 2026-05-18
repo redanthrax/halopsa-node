@@ -47,12 +47,6 @@ export const description: INodeProperties[] = [
 				action: 'Get many actions',
 			},
 			{
-				name: 'Update',
-				value: 'update',
-				description: 'Update an action',
-				action: 'Update an action',
-			},
-			{
 				name: 'Reaction',
 				value: 'reaction',
 				description: 'Submit an action reaction',
@@ -63,6 +57,12 @@ export const description: INodeProperties[] = [
 				value: 'review',
 				description: 'Submit an action for review',
 				action: 'Review an action',
+			},
+			{
+				name: 'Update',
+				value: 'update',
+				description: 'Update an action',
+				action: 'Update an action',
 			},
 		],
 		default: 'getAll',

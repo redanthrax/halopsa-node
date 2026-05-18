@@ -43,6 +43,12 @@ export const description: INodeProperties[] = [
 				action: 'Create an invoice',
 			},
 			{
+				name: 'Create PDF',
+				value: 'createPdf',
+				description: 'Generate a PDF for an invoice',
+				action: 'Create invoice PDF',
+			},
+			{
 				name: 'Delete',
 				value: 'delete',
 				description: 'Delete an invoice',
@@ -55,10 +61,22 @@ export const description: INodeProperties[] = [
 				action: 'Get an invoice by ID',
 			},
 			{
+				name: 'Get Lines',
+				value: 'getLines',
+				description: 'Get invoice line data',
+				action: 'Get invoice lines',
+			},
+			{
 				name: 'Get Many',
 				value: 'getAll',
 				description: 'Get many invoices',
 				action: 'Get many invoices',
+			},
+			{
+				name: 'Record View',
+				value: 'recordView',
+				description: 'Record that an invoice was viewed',
+				action: 'Record an invoice view',
 			},
 			{
 				name: 'Update',
@@ -77,24 +95,6 @@ export const description: INodeProperties[] = [
 				value: 'void',
 				description: 'Void an invoice',
 				action: 'Void an invoice',
-			},
-			{
-				name: 'Record View',
-				value: 'recordView',
-				description: 'Record that an invoice was viewed',
-				action: 'Record an invoice view',
-			},
-			{
-				name: 'Create PDF',
-				value: 'createPdf',
-				description: 'Generate a PDF for an invoice',
-				action: 'Create invoice PDF',
-			},
-			{
-				name: 'Get Lines',
-				value: 'getLines',
-				description: 'Get invoice line data',
-				action: 'Get invoice lines',
 			},
 		],
 		default: 'getAll',

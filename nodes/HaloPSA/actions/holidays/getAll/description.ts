@@ -32,7 +32,7 @@ export const getAllDescription: INodeProperties[] = [
 		type: 'boolean',
 		displayOptions: { show: { resource: ['holidays'], operation: ['getAll'] } },
 		default: false,
-		description: 'Return approved holidays only',
+		description: 'Whether to return approved holidays only',
 	},
 	{
 		displayName: 'Start Date',
