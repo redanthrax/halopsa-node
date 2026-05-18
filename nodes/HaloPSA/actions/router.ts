@@ -17,6 +17,7 @@ import * as customApi from './customApi';
 import * as knowledgeBase from './knowledgeBase';
 import * as lookups from './lookups';
 import * as opportunities from './opportunities';
+import * as recurringInvoices from './recurringInvoices';
 import * as fieldInfo from './fieldInfo';
 import * as invoices from './invoices';
 import * as projects from './projects';
@@ -85,6 +86,9 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 				break;
 			case 'opportunities':
 				responseData = await (opportunities as any)[haloPSA.operation].execute.call(this, i);
+				break;
+			case 'recurringInvoices':
+				responseData = await (recurringInvoices as any)[haloPSA.operation].execute.call(this, i);
 				break;
 			case 'fieldInfo':
 				responseData = await (fieldInfo as any)[haloPSA.operation].execute.call(this, i);
