@@ -18,6 +18,7 @@ import * as opportunities from './opportunities';
 import * as fieldInfo from './fieldInfo';
 import * as invoices from './invoices';
 import * as projects from './projects';
+import * as quotations from './quotations';
 import * as sites from './sites';
 import * as surveys from './surveys';
 import * as ticketStatuses from './ticketStatuses';
@@ -84,6 +85,9 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 				break;
 			case 'projects':
 				responseData = await (projects as any)[haloPSA.operation].execute.call(this, i);
+				break;
+			case 'quotations':
+				responseData = await (quotations as any)[haloPSA.operation].execute.call(this, i);
 				break;
 			case 'sites':
 				responseData = await (sites as any)[haloPSA.operation].execute.call(this, i);

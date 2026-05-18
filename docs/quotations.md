@@ -1,0 +1,11 @@
+# Quotation Operations
+
+Sales quotes (`/api/Quotation`). List responses use the `quotes` array.
+
+## Get Many
+
+**Return All**, **Limit**, **Client ID**, **Search**, **Open Only**
+
+## Get by ID / Create / Update / Delete
+
+Use **Quotation ID** for get, update, and delete. **Create** and **Update** accept JSON **Additional Fields** / **Update Fields** for `QuotationHeader` properties.

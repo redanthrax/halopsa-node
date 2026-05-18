@@ -90,6 +90,7 @@ The trigger creates and manages webhooks in HaloPSA (subscription and cleanup).
 | Knowledge Base | [knowledge-base.md](./docs/knowledge-base.md) |
 | Opportunity | [opportunities.md](./docs/opportunities.md) |
 | Project | [projects.md](./docs/projects.md) |
+| Quotation | [quotations.md](./docs/quotations.md) |
 | Reporting | [reporting.md](./docs/reporting.md) |
 | Site | [sites.md](./docs/sites.md) |
 | Survey | [surveys.md](./docs/surveys.md) |

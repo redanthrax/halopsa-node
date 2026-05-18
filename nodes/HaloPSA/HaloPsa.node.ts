@@ -4,6 +4,7 @@ import * as appointments from './actions/appointments';
 import * as attachments from './actions/attachments';
 import * as tickets from './actions/tickets';
 import * as projects from './actions/projects';
+import * as quotations from './actions/quotations';
 import * as assets from './actions/assets';
 import * as sites from './actions/sites';
 import * as client from './actions/client';
@@ -114,6 +115,10 @@ export class HaloPsa implements INodeType {
 					value: 'projects',
 				},
 				{
+					name: 'Quotation',
+					value: 'quotations',
+				},
+				{
 					name: 'Reporting',
 					value: 'reporting',
 				},
@@ -173,6 +178,7 @@ export class HaloPsa implements INodeType {
 			...knowledgeBase.description,
 			...opportunities.description,
 			...projects.description,
+			...quotations.description,
 			...reporting.description,
 			...sites.description,
 			...surveys.description,
