@@ -47,15 +47,33 @@ export async function getAccessToken(
 		clearCachedAccessToken(cacheKey);
 	}
 
+	return requestAccessToken(this, cacheKey, {
+		baseUrl: creds.baseUrl as string,
+		clientId: creds.clientId as string,
+		clientSecret: creds.clientSecret as string,
+		scope: (creds.scope as string) || 'all',
+	});
+}
+
+async function requestAccessToken(
+	ctx: HaloRequestContext,
+	cacheKey: string,
+	creds: {
+		baseUrl: string;
+		clientId: string;
+		clientSecret: string;
+		scope: string;
+	},
+): Promise<string> {
 	const formData = new URLSearchParams();
 	formData.append('grant_type', 'client_credentials');
-	formData.append('client_id', clientId);
-	formData.append('client_secret', creds.clientSecret as string);
-	formData.append('scope', (creds.scope as string) || 'all');
+	formData.append('client_id', creds.clientId);
+	formData.append('client_secret', creds.clientSecret);
+	formData.append('scope', creds.scope);
 
 	const tokenOptions: IHttpRequestOptions = {
 		method: 'POST',
-		url: `${baseUrl}/auth/token`,
+		url: `${creds.baseUrl}/auth/token`,
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded',
 		},
@@ -64,7 +82,7 @@ export async function getAccessToken(
 	};
 
 	try {
-		const tokenResponse = await this.helpers.httpRequest(tokenOptions);
+		const tokenResponse = await ctx.helpers.httpRequest(tokenOptions);
 		let parsedResponse: TokenResponse;
 		if (typeof tokenResponse === 'string') {
 			parsedResponse = JSON.parse(tokenResponse);
@@ -74,7 +92,7 @@ export async function getAccessToken(
 		setCachedAccessToken(cacheKey, parsedResponse.access_token, parsedResponse.expires_in);
 		return parsedResponse.access_token;
 	} catch (error) {
-		throw new NodeApiError(this.getNode(), error, {
+		throw new NodeApiError(ctx.getNode(), error, {
 			message: 'Failed to obtain access token from HaloPSA',
 		});
 	}

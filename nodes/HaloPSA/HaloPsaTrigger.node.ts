@@ -11,6 +11,7 @@ import {
 } from 'n8n-workflow';
 
 import { apiRequest } from './transport';
+import { toNodeApiError } from './errors';
 
 const EVENT_TYPES: Record<number, string> = {
 	3: 'New Ticket Logged',
@@ -327,7 +328,7 @@ export class HaloPsaTrigger implements INodeType {
 
 					return false;
 				} catch (error) {
-					throw error;
+					throw toNodeApiError(this, error);
 				}
 			},
 

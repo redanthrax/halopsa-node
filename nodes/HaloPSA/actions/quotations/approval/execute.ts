@@ -1,5 +1,6 @@
 import { GenericValue, IExecuteFunctions, INodeExecutionData } from 'n8n-workflow';
 import { apiRequest } from '../../../transport';
+import { nodeApiError } from '../../../errors';
 
 export async function execute(
 	this: IExecuteFunctions,
@@ -11,7 +12,7 @@ export async function execute(
 	try {
 		parsed = JSON.parse(approvals);
 	} catch {
-		throw new Error('Invalid JSON format for approvals');
+		throw nodeApiError(this, 'Invalid JSON format for approvals');
 	}
 
 	const response = await apiRequest.call(this, 'POST', '/Quotation/Approval', parsed as GenericValue[], {});

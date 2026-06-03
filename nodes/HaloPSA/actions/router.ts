@@ -5,6 +5,7 @@ import {
 } from 'n8n-workflow';
 
 import { HaloPSA } from './Interfaces';
+import { toNodeApiError } from '../errors';
 import * as actions from './actions';
 import * as agents from './agents';
 import * as appointments from './appointments';
@@ -268,8 +269,7 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 			if (this.continueOnFail()) {
 				operationResult.push({ json: this.getInputData(i)[0].json, error: err });
 			} else {
-				if (err.context) err.context.itemIndex = i;
-				throw err;
+				throw toNodeApiError(this, err, { itemIndex: i });
 			}
 		}
 	}

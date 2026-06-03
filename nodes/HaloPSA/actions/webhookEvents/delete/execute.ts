@@ -1,6 +1,7 @@
 import { IExecuteFunctions } from 'n8n-workflow';
 import { INodeExecutionData } from 'n8n-workflow';
 import { apiRequest } from '../../../transport';
+import { toNodeApiError } from '../../../errors';
 
 export async function execute(
 	this: IExecuteFunctions,
@@ -16,6 +17,6 @@ export async function execute(
 			pairedItem: { item: index },
 		}];
 	} catch (error) {
-		throw error;
+		throw toNodeApiError(this, error);
 	}
 }

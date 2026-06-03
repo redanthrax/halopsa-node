@@ -2,6 +2,7 @@ import { IExecuteFunctions } from 'n8n-workflow';
 import { IDataObject, INodeExecutionData } from 'n8n-workflow';
 import { applyFiltersToQueryString, resolveFilters } from '../../../filterParameters';
 import { apiRequest, apiRequestAllItems } from '../../../transport';
+import { toNodeApiError } from '../../../errors';
 
 export async function execute(
 	this: IExecuteFunctions,
@@ -43,6 +44,6 @@ export async function execute(
 			pairedItem: { item: index },
 		}));
 	} catch (error) {
-		throw error;
+		throw toNodeApiError(this, error);
 	}
 }

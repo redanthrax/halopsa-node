@@ -1,6 +1,7 @@
 import { IExecuteFunctions } from 'n8n-workflow';
 import { INodeExecutionData } from 'n8n-workflow';
 import { apiRequest } from '../../../transport';
+import { nodeApiError } from '../../../errors';
 
 export async function execute(
 	this: IExecuteFunctions,
@@ -12,7 +13,7 @@ export async function execute(
 	try {
 		parsedLines = JSON.parse(invoiceLines);
 	} catch (error) {
-		throw new Error('Invalid JSON format for invoice lines');
+		throw nodeApiError(this, 'Invalid JSON format for invoice lines');
 	}
 
 	const requestMethod = 'POST';

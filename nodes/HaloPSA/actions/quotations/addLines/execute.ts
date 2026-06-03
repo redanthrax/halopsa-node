@@ -1,5 +1,6 @@
 import { GenericValue, IExecuteFunctions, INodeExecutionData } from 'n8n-workflow';
 import { apiRequest } from '../../../transport';
+import { nodeApiError } from '../../../errors';
 
 export async function execute(
 	this: IExecuteFunctions,
@@ -11,7 +12,7 @@ export async function execute(
 	try {
 		parsedLines = JSON.parse(quotationLines);
 	} catch {
-		throw new Error('Invalid JSON format for quotation lines');
+		throw nodeApiError(this, 'Invalid JSON format for quotation lines');
 	}
 
 	const responseData = await apiRequest.call(

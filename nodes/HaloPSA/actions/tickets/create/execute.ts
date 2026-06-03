@@ -6,6 +6,7 @@ import {
 	normalizeCustomfieldsField,
 	resolveAdditionalFields,
 } from '../../../filterParameters';
+import { toNodeApiError } from '../../../errors';
 import { HaloTicketCreate, HaloTicketDetailed } from '../../Interfaces';
 
 export async function execute(
@@ -65,7 +66,7 @@ export async function execute(
 	try {
 		responseData = await apiRequest.call(this, requestMethod, endpoint, body, {});
 	} catch (error) {
-		throw error;
+		throw toNodeApiError(this, error);
 	}
 
 	return this.helpers.returnJsonArray(responseData);

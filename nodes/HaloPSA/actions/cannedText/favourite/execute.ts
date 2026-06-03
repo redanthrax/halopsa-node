@@ -1,5 +1,6 @@
 import { GenericValue, IExecuteFunctions, INodeExecutionData } from 'n8n-workflow';
 import { apiRequest } from '../../../transport';
+import { nodeApiError } from '../../../errors';
 
 export async function execute(
 	this: IExecuteFunctions,
@@ -10,7 +11,7 @@ export async function execute(
 	try {
 		parsed = JSON.parse(favourites);
 	} catch {
-		throw new Error('Invalid JSON format for favourites');
+		throw nodeApiError(this, 'Invalid JSON format for favourites');
 	}
 	const response = await apiRequest.call(this, 'POST', '/CannedText/favourite', parsed as GenericValue[], {});
 	return this.helpers.returnJsonArray(response);

@@ -4,7 +4,7 @@ An n8n community node for integrating with HaloPSA API.
 
 ## Development
 
-This repo uses **pnpm** with a committed lockfile and supply-chain controls (see [SECURITY.md](SECURITY.md)). Development requires **Node.js 22+** (transitive `isolated-vm` from `n8n-workflow`). After clone:
+This repo uses **pnpm** with a committed lockfile and supply-chain controls in [`pnpm-workspace.yaml`](pnpm-workspace.yaml) (see [SECURITY.md](SECURITY.md)). Development requires **Node.js 22.22.3+** (CI and dependency engines). After clone:
 
 ```bash
 corepack enable && corepack prepare pnpm@10.19.0 --activate
@@ -12,6 +12,16 @@ pnpm install --frozen-lockfile
 pnpm run audit:supply-chain
 pnpm run build
 ```
+
+Use **pnpm only** for installs in this repo. With Corepack enabled, `npm install` and `yarn install` are rejected. Do not commit `package-lock.json` or `yarn.lock` (see [SECURITY.md](SECURITY.md)).
+
+### Live preview with `n8n-node dev`
+
+```bash
+n8n-node dev
+```
+
+Requires **Node.js 22.22.3+**.
 
 ## Installation
 

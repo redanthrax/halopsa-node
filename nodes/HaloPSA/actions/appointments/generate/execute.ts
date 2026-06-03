@@ -1,5 +1,6 @@
 import { GenericValue, IExecuteFunctions, INodeExecutionData } from 'n8n-workflow';
 import { apiRequest } from '../../../transport';
+import { nodeApiError } from '../../../errors';
 
 export async function execute(
 	this: IExecuteFunctions,
@@ -10,7 +11,7 @@ export async function execute(
 	try {
 		parsed = JSON.parse(appointmentIds);
 	} catch {
-		throw new Error('Invalid JSON format for appointment IDs');
+		throw nodeApiError(this, 'Invalid JSON format for appointment IDs');
 	}
 	const response = await apiRequest.call(this, 'POST', '/Appointment/Generate', parsed as GenericValue[], {});
 	return this.helpers.returnJsonArray(response);

@@ -78,6 +78,7 @@ export class HaloPsa implements INodeType {
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description: 'Get data from the HaloPSA API',
 		documentationUrl: 'https://github.com/redanthrax/halopsa-node',
+		usableAsTool: true,
 		defaults: {
 			name: 'HaloPSA Complete',
 		},
@@ -841,7 +842,15 @@ export class HaloPsa implements INodeType {
 	};
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
-		const { router } = await import('./actions/router');
-		return await router.call(this);
+		try {
+			const { router } = await import('./actions/router');
+			return await router.call(this);
+		} catch (error) {
+			if (this.continueOnFail()) {
+				return [this.helpers.returnJsonArray({ error: (error as Error).message })];
+			}
+			const { toNodeApiError } = await import('./errors');
+			throw toNodeApiError(this, error);
+		}
 	}
 }

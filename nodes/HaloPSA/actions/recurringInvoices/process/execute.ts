@@ -1,5 +1,6 @@
 import { GenericValue, IExecuteFunctions, INodeExecutionData } from 'n8n-workflow';
 import { apiRequest } from '../../../transport';
+import { nodeApiError } from '../../../errors';
 
 export async function execute(
 	this: IExecuteFunctions,
@@ -11,11 +12,11 @@ export async function execute(
 	try {
 		ids = JSON.parse(recurringInvoiceIds);
 	} catch {
-		throw new Error('Invalid JSON format for recurring invoice IDs');
+		throw nodeApiError(this, 'Invalid JSON format for recurring invoice IDs');
 	}
 
 	if (!Array.isArray(ids)) {
-		throw new Error('Recurring invoice IDs must be a JSON array of integers');
+		throw nodeApiError(this, 'Recurring invoice IDs must be a JSON array of integers');
 	}
 
 	const responseData = await apiRequest.call(
