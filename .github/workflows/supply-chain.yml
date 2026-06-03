@@ -26,13 +26,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '22.22.3'
           cache: pnpm
 
       - name: Install dependencies (frozen lockfile, no lifecycle scripts except allowlist)
         run: pnpm install --frozen-lockfile
 
-      - name: Check for known compromised packages (Mini Shai-Hulud blocklist)
+      - name: Supply chain check (blocklist + pnpm config)
         run: pnpm run audit:supply-chain
 
       - name: pnpm audit (high severity and above)

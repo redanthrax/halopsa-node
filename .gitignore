@@ -1,6 +1,13 @@
 # Node.js dependencies
 /node_modules
 
+# Other package managers (this repo uses pnpm only — see SECURITY.md)
+package-lock.json
+yarn.lock
+npm-shrinkwrap.json
+bun.lock
+bun.lockb
+
 # Build output
 /dist
 /build

@@ -6,11 +6,30 @@ This repository uses defenses against npm supply-chain worms such as **Mini Shai
 
 ### Consumer protections (this repo)
 
+- **pnpm only** — `packageManager`, `engines.pnpm`, and `pnpm-lock.yaml` enforce a single package manager. Enable Corepack so `npm install` / `yarn install` are rejected in this repo (see below). We do **not** use a `preinstall` script: that would run when end users install the published node via npm in n8n.
 - **Frozen lockfile** — `pnpm-lock.yaml` is committed; CI uses `pnpm install --frozen-lockfile`.
-- **Blocked install scripts** — only packages listed in `package.json` → `pnpm.onlyBuiltDependencies` may run `preinstall`/`postinstall` (currently `isolated-vm` for dev tooling).
-- **Blocklist scan** — `pnpm run audit:supply-chain` checks the lockfile against `security/compromised-packages.json`.
-- **Delayed updates** — `minimumReleaseAge` (24h) reduces exposure to freshly published malicious versions.
+- **pnpm workspace config** — supply-chain settings live in `pnpm-workspace.yaml` (pnpm 10+ ignores `package.json` → `pnpm`).
+- **Blocked install scripts** — only packages in `pnpm-workspace.yaml` → `onlyBuiltDependencies` may run lifecycle scripts (currently `isolated-vm` for dev tooling). `strictDepBuilds: true` fails on unreviewed scripts.
+- **Blocklist scan** — `pnpm run audit:supply-chain` checks the lockfile against `security/compromised-packages.json` and validates pnpm config.
+- **Delayed updates** — `minimumReleaseAge` (24h, strict) reduces exposure to freshly published malicious versions.
 - **No exotic transitive deps** — `blockExoticSubdeps` blocks git/tarball transitive resolutions.
+- **Version overrides** — known CVEs are mitigated via `overrides` in `pnpm-workspace.yaml` (e.g. `lodash`, `uuid`).
+
+### Enforcing pnpm for contributors
+
+1. **Corepack (recommended)** — blocks other package managers when `packageManager` is set:
+
+   ```bash
+   corepack enable
+   corepack prepare pnpm@10.19.0 --activate
+   pnpm install --frozen-lockfile
+   ```
+
+   With Corepack enabled, running `npm install` or `yarn install` in this repo should fail with a package-manager mismatch error.
+
+2. **CI / audit** — `pnpm run audit:supply-chain` fails if alternate lockfiles (`package-lock.json`, `yarn.lock`, etc.) are present or if `packageManager` / `engines.pnpm` are missing.
+
+3. **No `preinstall` hook** — n8n community node packages must not ship lifecycle install scripts (supply-chain risk, and it would break users who install the node from npm into n8n).
 
 ### If you may have installed a compromised package
 
@@ -30,7 +49,7 @@ Check for persistence artifacts: `.claude/router_runtime.js`, malicious `.vscode
 - Releases use [`.github/workflows/release.yml`](.github/workflows/release.yml): frozen lockfile → blocklist scan → **pnpm audit** (high+) → **OSV-Scanner** → build → `npm publish --provenance` via OIDC.
 - Never use `pull_request_target` with write permissions + checkout of untrusted PR code.
 - Run `pnpm run audit:supply-chain` before release; `prepublishOnly` runs the same check locally.
-- CI **fails** on high+ `pnpm audit` findings and OSV lockfile hits (see `supply-chain.yml`). Transitive issues may be mitigated with `pnpm.overrides` in `package.json` (e.g. `lodash`).
+- CI **fails** on high+ `pnpm audit` findings and OSV lockfile hits (see `supply-chain.yml`). Transitive issues may be mitigated with `overrides` in `pnpm-workspace.yaml` (e.g. `lodash`, `uuid`).
 - **Branch protection (recommended):** require the **Supply chain security** check on `master` before merge; do not auto-merge Dependabot PRs without green CI.
 - Review Dependabot PRs; weekly dev-dependency groups still must pass supply-chain + audit + build.
 

@@ -1,0 +1,33 @@
+packages:
+  - '.'
+
+# Supply-chain hardening (see SECURITY.md). Configured here — pnpm 10+ ignores package.json "pnpm".
+overrides:
+  lodash: '>=4.18.0'
+  uuid: '11.1.1'
+  # npm dist-tag stable; block 2.23+ beta-channel releases
+  n8n-workflow: '2.22.3'
+
+# Only these packages may run install/build lifecycle scripts (Mini Shai-Hulud defense).
+onlyBuiltDependencies:
+  - isolated-vm
+
+ignoredBuiltDependencies: []
+
+# Wait 24h before installing newly published versions.
+minimumReleaseAge: 1440
+minimumReleaseAgeStrict: true
+
+# Block git/tarball resolutions in transitive dependencies.
+blockExoticSubdeps: true
+
+# Fail install when a dependency has unreviewed postinstall scripts (default true; explicit for clarity).
+strictDepBuilds: true
+
+# Enforce package.json engines when resolving deps.
+engineStrict: true
+# Simulate Node 22.22.3 for dependency engines checks (matches CI and README).
+nodeVersion: 22.22.3
+
+# Require the pnpm version declared in package.json "packageManager" (pnpm 10: managePackageManagerVersions).
+managePackageManagerVersions: true
