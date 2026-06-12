@@ -2,7 +2,6 @@ import { IExecuteFunctions } from 'n8n-workflow';
 import { IDataObject, INodeExecutionData } from 'n8n-workflow';
 import { applyFiltersToQueryString, resolveFilters } from '../../../filterParameters';
 import { apiRequest, apiRequestAllItems } from '../../../transport';
-import { HaloTicketsListResponse } from '../../Interfaces';
 
 export async function execute(
 	this: IExecuteFunctions,
@@ -10,7 +9,7 @@ export async function execute(
 ): Promise<INodeExecutionData[]> {
 	const returnAll = this.getNodeParameter('returnAll', index) as boolean;
 	const filters = resolveFilters.call(this, index);
-	
+
 	const qs = applyFiltersToQueryString(filters);
 
 	if (!returnAll) {
@@ -22,12 +21,13 @@ export async function execute(
 	const endpoint = '/Tickets';
 	const body = {} as IDataObject;
 
-if (returnAll) {
-	const all = await apiRequestAllItems.call(this, requestMethod, endpoint, 'tickets', body, qs);
-	return this.helpers.returnJsonArray(all);
-}
+	if (returnAll) {
+		const all = await apiRequestAllItems.call(this, requestMethod, endpoint, 'tickets', body, qs);
+		return this.helpers.returnJsonArray(all);
+	}
 
-let responseData: HaloTicketsListResponse;
-responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
-return this.helpers.returnJsonArray(responseData.tickets || []);
+	let responseData: any;
+	responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
+
+	return this.helpers.returnJsonArray(responseData.tickets || responseData || []);
 }

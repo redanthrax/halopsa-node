@@ -23,6 +23,15 @@ describe('extractResourceList', () => {
 		const items = extractResourceList({ faults: [{ id: 99 }] }, 'tickets');
 		assert.deepEqual(items, [{ id: 99 }]);
 	});
+
+	it('reads a bare ticket array response', () => {
+		const items = extractResourceList([{ id: 1 }, { id: 2 }], 'tickets');
+		assert.equal(items.length, 2);
+	});
+
+	it('returns empty when wrapped list key is missing', () => {
+		assert.deepEqual(extractResourceList({ record_count: 5, tickets: null }, 'tickets'), []);
+	});
 });
 
 describe('getRecordCount', () => {

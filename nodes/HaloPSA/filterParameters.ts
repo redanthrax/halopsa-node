@@ -165,8 +165,7 @@ export function normalizeCustomfieldsField(fields: IDataObject): void {
 
 /**
  * Whether a filter value should be sent to the HaloPSA API.
- * Omits UI defaults (0, '', empty arrays) that would over-constrain results.
- * Booleans are kept when explicitly set, including false.
+ * Omits UI defaults (0, '', empty arrays, false booleans) that would over-constrain results.
  */
 export function isMeaningfulFilterValue(value: unknown): boolean {
 	if (value === undefined || value === null || value === '') {
@@ -175,10 +174,30 @@ export function isMeaningfulFilterValue(value: unknown): boolean {
 	if (typeof value === 'number' && value === 0) {
 		return false;
 	}
+	if (typeof value === 'boolean' && value === false) {
+		return false;
+	}
 	if (Array.isArray(value) && value.length === 0) {
 		return false;
 	}
 	return true;
+}
+
+/**
+ * HaloPSA silently ignores page_size/page_no unless pageinate=true (OpenAPI typo).
+ * @see swagger.json GET /Tickets parameters page_size, page_no, pageinate
+ */
+export function applyHaloPaginationRules(qs: IDataObject): IDataObject {
+	const result = { ...qs };
+	const pageSize = result.page_size;
+	const pageNo = result.page_no;
+	if (
+		(typeof pageSize === 'number' && pageSize > 0) ||
+		(typeof pageNo === 'number' && pageNo > 0)
+	) {
+		result.pageinate = true;
+	}
+	return result;
 }
 
 /** Applies common HaloPSA query-string transforms (e.g. multi-select custom fields). */
@@ -201,5 +220,5 @@ export function applyFiltersToQueryString(filters: IDataObject): IDataObject {
 		}
 	}
 
-	return qs;
+	return applyHaloPaginationRules(qs);
 }

@@ -11,6 +11,12 @@ import {
 } from 'n8n-workflow';
 import { extractResourceList, assertValidResourceListResponse, getRecordCount } from './resourceList';
 import {
+	continuationPageNo,
+	NON_PAGINATED_MAX_COUNT,
+	resolvePageSize,
+	shouldFetchMorePages,
+} from './pagination';
+import {
 	clearCachedAccessToken,
 	getCachedAccessToken,
 	getTokenCacheKey,
@@ -198,12 +204,6 @@ export async function apiRequest(
 	}
 }
 
-/** Max records per non-paginated HaloPSA list request (matches common API usage). */
-const NON_PAGINATED_MAX_COUNT = 1000;
-
-/** HaloPSA paginated responses use page_size (max 100), not count. */
-const PAGINATED_PAGE_SIZE = 100;
-
 function omitManagedPaginationKeys(qs: IDataObject): IDataObject {
 	const cleaned = { ...qs };
 	delete cleaned.pageinate;
@@ -225,10 +225,7 @@ async function fetchPaginatedPages(
 	const allItems: IDataObject[] = [];
 	let page = startPage;
 	let hasMorePages = true;
-	const pageSize =
-		typeof baseQs.page_size === 'number' && baseQs.page_size > 0
-			? Math.min(baseQs.page_size as number, PAGINATED_PAGE_SIZE)
-			: PAGINATED_PAGE_SIZE;
+	const pageSize = resolvePageSize(baseQs.page_size);
 
 	while (hasMorePages) {
 		const paginatedQs: IDataObject = {
@@ -271,16 +268,11 @@ export async function apiRequestAllItems(
 	const items = extractResourceList(response, resourceKey);
 	assertValidResourceListResponse(this.getNode(), response, items, resourceKey);
 
-	if (items.length < NON_PAGINATED_MAX_COUNT) {
-		return items;
-	}
-
 	const recordCount = getRecordCount(response);
-	if (recordCount !== undefined && recordCount <= NON_PAGINATED_MAX_COUNT) {
+	if (!shouldFetchMorePages(items.length, recordCount)) {
 		return items;
 	}
 
-	const startPage = Math.floor(NON_PAGINATED_MAX_COUNT / PAGINATED_PAGE_SIZE) + 1;
 	const additionalItems = await fetchPaginatedPages(
 		this,
 		method,
@@ -288,7 +280,7 @@ export async function apiRequestAllItems(
 		resourceKey,
 		body,
 		baseQs,
-		startPage,
+		continuationPageNo(),
 	);
 
 	return [...items, ...additionalItems];
