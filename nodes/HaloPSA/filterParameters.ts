@@ -163,18 +163,42 @@ export function normalizeCustomfieldsField(fields: IDataObject): void {
 	}
 }
 
+/**
+ * Whether a filter value should be sent to the HaloPSA API.
+ * Omits UI defaults (0, '', empty arrays) that would over-constrain results.
+ * Booleans are kept when explicitly set, including false.
+ */
+export function isMeaningfulFilterValue(value: unknown): boolean {
+	if (value === undefined || value === null || value === '') {
+		return false;
+	}
+	if (typeof value === 'number' && value === 0) {
+		return false;
+	}
+	if (Array.isArray(value) && value.length === 0) {
+		return false;
+	}
+	return true;
+}
+
 /** Applies common HaloPSA query-string transforms (e.g. multi-select custom fields). */
 export function applyFiltersToQueryString(filters: IDataObject): IDataObject {
-	const qs: IDataObject = { ...filters };
+	const qs: IDataObject = {};
 
-	if (filters.include_custom_fields && Array.isArray(filters.include_custom_fields)) {
-		qs.include_custom_fields = filters.include_custom_fields.join(',');
-	}
-	if (filters.requesttype && Array.isArray(filters.requesttype)) {
-		qs.requesttype = filters.requesttype.join(',');
-	}
-	if (filters.status && Array.isArray(filters.status)) {
-		qs.status = filters.status.join(',');
+	for (const [key, value] of Object.entries(filters)) {
+		if (!isMeaningfulFilterValue(value)) {
+			continue;
+		}
+
+		if (key === 'include_custom_fields' && Array.isArray(value)) {
+			qs.include_custom_fields = value.join(',');
+		} else if (key === 'requesttype' && Array.isArray(value)) {
+			qs.requesttype = value.join(',');
+		} else if (key === 'status' && Array.isArray(value)) {
+			qs.status = value.join(',');
+		} else {
+			qs[key] = value;
+		}
 	}
 
 	return qs;

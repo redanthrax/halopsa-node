@@ -9,7 +9,7 @@ import {
 	ILoadOptionsFunctions,
 	NodeApiError,
 } from 'n8n-workflow';
-import { extractResourceList } from './resourceList';
+import { extractResourceList, assertValidResourceListResponse, getRecordCount } from './resourceList';
 import {
 	clearCachedAccessToken,
 	getCachedAccessToken,
@@ -198,6 +198,58 @@ export async function apiRequest(
 	}
 }
 
+/** Max records per non-paginated HaloPSA list request (matches common API usage). */
+const NON_PAGINATED_MAX_COUNT = 1000;
+
+/** HaloPSA paginated responses use page_size (max 100), not count. */
+const PAGINATED_PAGE_SIZE = 100;
+
+function omitManagedPaginationKeys(qs: IDataObject): IDataObject {
+	const cleaned = { ...qs };
+	delete cleaned.pageinate;
+	delete cleaned.page_no;
+	delete cleaned.page_size;
+	delete cleaned.count;
+	return cleaned;
+}
+
+async function fetchPaginatedPages(
+	ctx: IHookFunctions | IExecuteFunctions | ILoadOptionsFunctions | IWebhookFunctions,
+	method: IHttpRequestMethods,
+	endpoint: string,
+	resourceKey: string,
+	body: IDataObject | GenericValue | GenericValue[],
+	baseQs: IDataObject,
+	startPage: number,
+): Promise<IDataObject[]> {
+	const allItems: IDataObject[] = [];
+	let page = startPage;
+	let hasMorePages = true;
+	const pageSize =
+		typeof baseQs.page_size === 'number' && baseQs.page_size > 0
+			? Math.min(baseQs.page_size as number, PAGINATED_PAGE_SIZE)
+			: PAGINATED_PAGE_SIZE;
+
+	while (hasMorePages) {
+		const paginatedQs: IDataObject = {
+			...baseQs,
+			pageinate: true,
+			page_size: pageSize,
+			page_no: page,
+		};
+		delete paginatedQs.count;
+
+		const response = await apiRequest.call(ctx, method, endpoint, body, paginatedQs);
+		const items = extractResourceList(response, resourceKey);
+		assertValidResourceListResponse(ctx.getNode(), response, items, resourceKey);
+		allItems.push(...items);
+		hasMorePages = items.length === pageSize;
+		page++;
+	}
+
+	return allItems;
+}
+
 export async function apiRequestAllItems(
 	this: IHookFunctions | IExecuteFunctions | ILoadOptionsFunctions | IWebhookFunctions,
 	method: IHttpRequestMethods,
@@ -206,31 +258,38 @@ export async function apiRequestAllItems(
 	body: IDataObject | GenericValue | GenericValue[] = {},
 	qs: IDataObject = {},
 ): Promise<any[]> {
-	const allItems: any[] = [];
-	const pageSize = 1000; // Maximum page size for HaloPSA
-	let page = 1;
-	let hasMorePages = true;
-
-	while (hasMorePages) {
-		// Set pagination parameters
-		const paginatedQs = {
-			...qs,
-			count: pageSize,
-			pageinate: true,
-			page_no: page,
-		};
-
-		const response = await apiRequest.call(this, method, endpoint, body, paginatedQs);
-		
-		const items = extractResourceList(response, resourceKey);
-		allItems.push(...items);
-
-		// Check if there are more pages
-		// If we got fewer items than the page size, we've reached the end
-		hasMorePages = items.length === pageSize;
-		page++;
-
+	if (qs.pageinate === true) {
+		return fetchPaginatedPages(this, method, endpoint, resourceKey, body, qs, 1);
 	}
 
-	return allItems;
+	const baseQs = omitManagedPaginationKeys(qs);
+
+	const response = await apiRequest.call(this, method, endpoint, body, {
+		...baseQs,
+		count: NON_PAGINATED_MAX_COUNT,
+	});
+	const items = extractResourceList(response, resourceKey);
+	assertValidResourceListResponse(this.getNode(), response, items, resourceKey);
+
+	if (items.length < NON_PAGINATED_MAX_COUNT) {
+		return items;
+	}
+
+	const recordCount = getRecordCount(response);
+	if (recordCount !== undefined && recordCount <= NON_PAGINATED_MAX_COUNT) {
+		return items;
+	}
+
+	const startPage = Math.floor(NON_PAGINATED_MAX_COUNT / PAGINATED_PAGE_SIZE) + 1;
+	const additionalItems = await fetchPaginatedPages(
+		this,
+		method,
+		endpoint,
+		resourceKey,
+		body,
+		baseQs,
+		startPage,
+	);
+
+	return [...items, ...additionalItems];
 }

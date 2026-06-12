@@ -31,6 +31,7 @@
     "format": "pnpm exec prettier nodes credentials --write",
     "lint": "pnpm exec eslint nodes credentials package.json",
     "lintfix": "pnpm exec eslint nodes credentials package.json --fix",
+    "test": "pnpm exec tsc && node --test dist/test/*.test.js",
     "prepublishOnly": "pnpm run audit:supply-chain && pnpm run build && pnpm exec eslint -c eslint.config.prepublish.mjs nodes credentials package.json"
   },
   "files": [

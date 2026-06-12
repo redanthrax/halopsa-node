@@ -22,5 +22,5 @@ export async function getAll(
 
 	const responseData: HaloTicketStatusesListResponse = await apiRequest.call(this, requestMethod, endpoint, body, qs);
 
-	return this.helpers.returnJsonArray(responseData || []);
+	return this.helpers.returnJsonArray(Array.isArray(responseData) ? responseData : []);
 }
