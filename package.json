@@ -27,11 +27,14 @@
   "scripts": {
     "audit:supply-chain": "node scripts/check-supply-chain.mjs",
     "build": "pnpm exec rimraf dist && pnpm exec tsc && pnpm exec gulp build:icons",
-    "dev": "pnpm exec tsc --watch",
+    "dev": "node scripts/n8n-dev.mjs",
+    "dev:external": "N8N_DEV_RELOAD=true N8N_SECURE_COOKIE=false node scripts/n8n-dev.mjs --external-n8n",
+    "watch": "pnpm exec tsc --watch",
     "format": "pnpm exec prettier nodes credentials --write",
     "lint": "pnpm exec eslint nodes credentials package.json",
     "lintfix": "pnpm exec eslint nodes credentials package.json --fix",
     "test": "pnpm exec tsc && node --test dist/test/*.test.js",
+    "test:smoke": "node --env-file=.env scripts/smoke-tickets-getall.mjs",
     "prepublishOnly": "pnpm run audit:supply-chain && pnpm run build && pnpm exec eslint -c eslint.config.prepublish.mjs nodes credentials package.json"
   },
   "files": [
@@ -51,6 +54,7 @@
   },
   "devDependencies": {
     "@n8n/eslint-plugin-community-nodes": "0.18.0",
+    "@n8n/node-cli": "0.34.0",
     "@types/node": "25.9.2",
     "@typescript-eslint/parser": "8.60.1",
     "eslint": "10.4.1",

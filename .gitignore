@@ -1,5 +1,6 @@
 # Node.js dependencies
 /node_modules
+.pnpm-store
 
 # Other package managers (this repo uses pnpm only — see SECURITY.md)
 package-lock.json
@@ -13,7 +14,7 @@ bun.lockb
 /build
 /lib
 
-# Logs and temporary files
+# Logs, local env, and temporary files
 *.log
 .DS_Store
 .env

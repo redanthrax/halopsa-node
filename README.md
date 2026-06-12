@@ -15,13 +15,66 @@ pnpm run build
 
 Use **pnpm only** for installs in this repo. With Corepack enabled, `npm install` and `yarn install` are rejected. Do not commit `package-lock.json` or `yarn.lock` (see [SECURITY.md](SECURITY.md)).
 
-### Live preview with `n8n-node dev`
+### Testing locally
+
+**Unit tests** (no HaloPSA credentials required):
 
 ```bash
-n8n-node dev
+pnpm test
 ```
 
-Requires **Node.js 22.22.3+**.
+**Live n8n preview** — runs n8n at http://localhost:5678 with this node linked for hot reload:
+
+```bash
+pnpm run dev
+```
+
+Use **Node.js 22 LTS** (`nvm use` reads `.nvmrc`). Node 23+ is not supported by n8n’s native dependencies.
+
+**First run takes several minutes.** `n8n-node dev` downloads n8n via `npx` into `~/.n8n-node-cli`. You will see many `npm warn` lines about peer dependencies — that is normal. Wait until the n8n panel shows:
+
+```
+Editor is now accessible via: http://localhost:5678
+```
+
+Do not stop the process during the install. If you see `Shutting down gracefully` with exit code 1, you likely interrupted it with Ctrl+C before n8n finished starting.
+
+Prefer **`pnpm run dev`** over a globally installed `n8n-node` so the CLI version matches this repo.
+
+Configure HaloPSA OAuth credentials in the n8n UI, then test **Tickets → Get Many** with filters and **Return All** enabled.
+
+Open **http://localhost:5678** (not `127.0.0.1` or a LAN IP). `pnpm run dev` sets `N8N_SECURE_COOKIE=false` for local HTTP so Safari and other browsers can sign in. To keep secure cookies enabled, set `N8N_SECURE_COOKIE=true` yourself and use HTTPS.
+
+If the node does not appear after changes:
+
+```bash
+rm -rf ~/.n8n-node-cli/.n8n/custom
+pnpm run dev
+```
+
+**Already running n8n elsewhere** (Docker, etc.):
+
+```bash
+pnpm run build
+pnpm run dev:external
+```
+
+Set `N8N_DEV_RELOAD=true` and point your n8n instance’s custom extensions folder at `~/.n8n-node-cli/.n8n/custom` (or symlink this repo into your instance’s custom nodes directory).
+
+Use `pnpm run watch` for TypeScript watch mode only (no n8n).
+
+**Smoke test against a live HaloPSA instance** (validates the tickets getAll filter + bulk-fetch query shape):
+
+```bash
+cp .env.example .env   # fill in HALO_BASE_URL, HALO_CLIENT_ID, HALO_CLIENT_SECRET
+pnpm test:smoke
+```
+
+Optional: `HALO_REQUESTTYPE_ID`, `HALO_OPEN_ONLY` (see `.env.example`).
+
+### Live preview with `n8n-node dev`
+
+Same as `pnpm run dev` above. Requires **Node.js 22.22.3+** (22.x LTS recommended).
 
 ## Installation
 
@@ -63,7 +116,7 @@ Operations that support **Filters** also expose **Filters (JSON)** for runtime v
 
 Use the JSON fields when driving values from webhooks, upstream nodes, or expressions; use the UI collections for static values.
 
-**Return All** on list operations paginates through the HaloPSA API automatically (1000 rows per page).
+**Return All** on list operations fetches up to 1000 rows in a single request, then continues with paginated requests (100 per page) when more records exist.
 
 ## Supported Operations
 
