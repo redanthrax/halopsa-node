@@ -55,6 +55,36 @@ function verifyPnpmOnlyRepository() {
 	return errors;
 }
 
+function verifyExactOverridePins() {
+	const errors = [];
+
+	if (!existsSync(workspacePath)) {
+		return errors;
+	}
+
+	const workspace = readFileSync(workspacePath, 'utf8');
+	const overridesBlock = workspace.match(/^overrides:\n([\s\S]*?)(?:\n\S|\n*$)/m);
+	if (!overridesBlock) {
+		return errors;
+	}
+
+	for (const line of overridesBlock[1].split('\n')) {
+		const match = line.match(/^\s+([a-zA-Z0-9@/_-]+):\s*['"]?([^'"\n#]+)['"]?\s*$/);
+		if (!match) {
+			continue;
+		}
+		const [, name, value] = match;
+		const trimmed = value.trim();
+		if (/^[<>=~^*]/.test(trimmed) || trimmed.includes(' ')) {
+			errors.push(
+				`pnpm-workspace.yaml override ${name} must be an exact version pin, not a range (${trimmed})`,
+			);
+		}
+	}
+
+	return errors;
+}
+
 function verifyPnpmWorkspaceConfig() {
 	const errors = [];
 
@@ -69,6 +99,8 @@ function verifyPnpmWorkspaceConfig() {
 			errors.push(`pnpm-workspace.yaml missing required setting: ${setting.replace(':', '')}`);
 		}
 	}
+
+	errors.push(...verifyExactOverridePins());
 
 	if (existsSync(packageJsonPath)) {
 		const pkg = JSON.parse(readFileSync(packageJsonPath, 'utf8'));
@@ -116,8 +148,8 @@ function verifyActivePnpmConfig() {
 			}
 		}
 
-		if (!config.includes('lodash=') || !config.includes('uuid=')) {
-			errors.push('pnpm overrides for lodash/uuid are not active — check pnpm-workspace.yaml');
+		if (!config.includes('lodash=') || !config.includes('uuid=') || !config.includes('minimatch=')) {
+			errors.push('pnpm overrides for lodash/uuid/minimatch are not active — check pnpm-workspace.yaml');
 		}
 	} catch (error) {
 		errors.push(`unable to read pnpm config: ${error.message}`);

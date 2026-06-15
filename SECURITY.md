@@ -13,7 +13,7 @@ This repository uses defenses against npm supply-chain worms such as **Mini Shai
 - **Blocklist scan** — `pnpm run audit:supply-chain` checks the lockfile against `security/compromised-packages.json` and validates pnpm config.
 - **Delayed updates** — `minimumReleaseAge` (24h, strict) reduces exposure to freshly published malicious versions.
 - **No exotic transitive deps** — `blockExoticSubdeps` blocks git/tarball transitive resolutions.
-- **Version overrides** — known CVEs are mitigated via `overrides` in `pnpm-workspace.yaml` (e.g. `lodash`, `uuid`, `minimatch`).
+- **Version overrides** — CVE mitigations use **exact pins** in `pnpm-workspace.yaml` (e.g. `lodash`, `uuid`, `minimatch`). Do not use `>=`/`^`/`~` ranges in overrides; bump versions deliberately with an updated lockfile and passing audit.
 
 ### Enforcing pnpm for contributors
 
