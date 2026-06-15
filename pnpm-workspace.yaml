@@ -12,7 +12,10 @@ overrides:
 onlyBuiltDependencies:
   - isolated-vm
 
-ignoredBuiltDependencies: []
+# Dev-only transitive packages with install scripts we intentionally skip (prebuilt or optional native).
+ignoredBuiltDependencies:
+  - eslint-plugin-n8n-nodes-base
+  - unrs-resolver
 
 # Wait 24h before installing newly published versions.
 minimumReleaseAge: 1440
