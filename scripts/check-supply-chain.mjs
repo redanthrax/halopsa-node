@@ -148,8 +148,15 @@ function verifyActivePnpmConfig() {
 			}
 		}
 
-		if (!config.includes('lodash=') || !config.includes('uuid=') || !config.includes('minimatch=')) {
-			errors.push('pnpm overrides for lodash/uuid/minimatch are not active — check pnpm-workspace.yaml');
+		if (
+			!config.includes('lodash=') ||
+			!config.includes('uuid=') ||
+			!config.includes('minimatch=') ||
+			!config.includes('form-data=')
+		) {
+			errors.push(
+				'pnpm overrides for lodash/uuid/minimatch/form-data are not active — check pnpm-workspace.yaml',
+			);
 		}
 	} catch (error) {
 		errors.push(`unable to read pnpm config: ${error.message}`);
