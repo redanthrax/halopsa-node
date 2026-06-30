@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-halopsacomplete",
-  "version": "5.4.1",
+  "version": "5.4.2",
   "description": "An n8n node to connect to HaloPSA API",
   "keywords": [
     "n8n-community-node-package"
