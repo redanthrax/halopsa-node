@@ -70,6 +70,13 @@ export const updateDescription: INodeProperties[] = [
 			description: 'Invoice reference',
 		},
 		{
+			displayName: 'Payment reference',
+			name: 'payment_ref',
+			type: 'string',
+			default: '',
+			description: 'Invoice payment reference',
+		},
+		{
 			displayName: 'Site Number',
 			name: 'sitenumber',
 			type: 'number',
