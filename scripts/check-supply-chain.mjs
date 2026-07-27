@@ -152,10 +152,11 @@ function verifyActivePnpmConfig() {
 			!config.includes('lodash=') ||
 			!config.includes('uuid=') ||
 			!config.includes('minimatch=') ||
-			!config.includes('form-data=')
+			!config.includes('form-data=') ||
+			!config.includes('axios=')
 		) {
 			errors.push(
-				'pnpm overrides for lodash/uuid/minimatch/form-data are not active — check pnpm-workspace.yaml',
+				'pnpm overrides for lodash/uuid/minimatch/form-data/axios are not active — check pnpm-workspace.yaml',
 			);
 		}
 	} catch (error) {

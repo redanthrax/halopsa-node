@@ -8,6 +8,7 @@ overrides:
   uuid: '11.1.1'
   minimatch: '10.2.5'
   form-data: '4.0.6'
+  axios: '1.18.0'
   # npm dist-tag stable; block 2.23+ beta-channel releases
   n8n-workflow: '2.22.3'
 
