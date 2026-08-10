@@ -19,6 +19,7 @@
 		"declaration": true,
 		"sourceMap": true,
 		"skipLibCheck": true,
+		"rootDir": ".",
 		"outDir": "./dist/",
 	},
 	"include": [
