@@ -72,7 +72,10 @@ export class HaloPsa implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'HaloPSA Complete',
 		name: 'haloPsa',
-		icon: 'file:halopsa.svg',
+		icon: {
+			light: 'file:halopsa.svg',
+			dark: 'file:halopsa.dark.svg',
+		},
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',

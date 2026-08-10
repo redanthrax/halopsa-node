@@ -32,7 +32,10 @@ export class HaloPsaTrigger implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'HaloPSA Trigger',
 		name: 'haloPsaTrigger',
-		icon: 'file:halopsa.svg',
+		icon: {
+			light: 'file:halopsa.svg',
+			dark: 'file:halopsa.dark.svg',
+		},
 		group: ['trigger'],
 		version: 1,
 		subtitle: '={{$parameter["event"]}}',
@@ -227,6 +230,7 @@ export class HaloPsaTrigger implements INodeType {
 
 					return false;
 				} catch (error) {
+					console.error('Failed to check existing HaloPSA webhook', error);
 					return false;
 				}
 			},
@@ -320,6 +324,7 @@ export class HaloPsaTrigger implements INodeType {
 									{}
 								);
 							} catch (error) {
+								console.error('Failed to create HaloPSA notification for webhook', error);
 							}
 						}
 
@@ -354,6 +359,7 @@ export class HaloPsaTrigger implements INodeType {
 
 					return true;
 				} catch (error) {
+					console.error('Failed to delete HaloPSA webhook', error);
 					return false;
 				}
 			},
