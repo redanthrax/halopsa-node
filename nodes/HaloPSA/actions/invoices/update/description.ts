@@ -29,6 +29,13 @@ export const updateDescription: INodeProperties[] = [
 		},
 	options: [
 		{
+			displayName: 'Amount Due',
+			name: 'amountdue',
+			type: 'number',
+			default: 0,
+			description: 'The amount due for the invoice',
+		},
+		{
 			displayName: 'Client ID',
 			name: 'client_id',
 			type: 'number',
@@ -56,6 +63,13 @@ export const updateDescription: INodeProperties[] = [
 			description: 'Additional notes for the invoice',
 		},
 		{
+			displayName: 'Paid Date',
+			name: 'datepaid',
+			type: 'dateTime',
+			default: '',
+			description: 'The date the invoice was paid',
+		},
+		{
 			displayName: 'Posted',
 			name: 'posted',
 			type: 'boolean',
@@ -75,6 +89,13 @@ export const updateDescription: INodeProperties[] = [
 			type: 'string',
 			default: '',
 			description: 'Invoice payment reference',
+		},
+		{
+			displayName: 'Payment status',
+			name: 'paymentstatus',
+			type: 'number',
+			default: 0,
+			description: 'Invoice payment status',
 		},
 		{
 			displayName: 'Site Number',
