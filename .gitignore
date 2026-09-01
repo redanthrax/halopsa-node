@@ -27,6 +27,9 @@ bun.lockb
 *.sublime-project
 *.sublime-workspace
 
+# Windows Zone.Identifier alternate data stream artifacts
+*:Zone.Identifier
+
 # n8n specific files (if applicable)
 # For example, if you have local test data or configuration that should not be committed
 # /test-data
