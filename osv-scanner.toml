@@ -1,0 +1,16 @@
+# OSV-Scanner configuration (used by .github/workflows/supply-chain.yml and release.yml).
+#
+# Only dev-only, unshipped transitive findings may be ignored here, and every entry
+# needs a reason and an expiry. Runtime dependencies are fixed with exact-pin
+# overrides in pnpm-workspace.yaml instead (see SECURITY.md).
+
+[[IgnoredVulns]]
+id = "GHSA-528h-pc64-c93x"
+ignoreUntil = 2026-12-31
+reason = """
+stream-json 1.9.1 (quadratic path-filter DoS). Dev-only transitive of
+@n8n/node-cli via @n8n/backend-common; never shipped, since package.json
+"files" is dist/docs/README only. Not overridable: the fix (stream-json 3.5.0)
+is pure ESM ("type": "module") and would break n8n's CommonJS dev runtime.
+Drop this entry once @n8n/backend-common bumps the dependency.
+"""

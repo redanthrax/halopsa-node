@@ -50,6 +50,7 @@ Check for persistence artifacts: `.claude/router_runtime.js`, malicious `.vscode
 - Never use `pull_request_target` with write permissions + checkout of untrusted PR code.
 - Run `pnpm run audit:supply-chain` before release; `prepublishOnly` runs the same check locally.
 - CI **fails** on high+ `pnpm audit` findings and OSV lockfile hits (see `supply-chain.yml`). Transitive issues may be mitigated with `overrides` in `pnpm-workspace.yaml` (e.g. `lodash`, `uuid`).
+- **OSV exceptions** — `osv-scanner.toml` may suppress a finding only when it is a **dev-only transitive that is never shipped** (`package.json` → `files` is `dist`/`docs`/`README.md`) **and** no safe override exists. Every entry needs a `reason` and an `ignoreUntil` expiry, and is removed as soon as upstream ships a compatible fix. Anything reachable by published code is fixed with an exact-pin override instead.
 - **Branch protection (recommended):** require the **Supply chain security** check on `master` before merge; do not auto-merge Dependabot PRs without green CI.
 - Review Dependabot PRs; weekly dev-dependency groups still must pass supply-chain + audit + build.
 
