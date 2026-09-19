@@ -12,6 +12,7 @@ overrides:
   nanoid: 3.3.18
   form-data: 4.0.6
   axios: 1.18.0
+  qs: 6.16.0
   n8n-workflow: 2.22.3
 
 importers:
@@ -2385,8 +2386,8 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
 
-  qs@6.15.2:
-    resolution: {integrity: sha512-Rzq0KEyX/w/tEybncDgdkZrJgVUsUMk3xjh3t5bv3S1HTAtg+uOYt72+ZfwiQwKdysThkTBdL/rTi6HDmX9Ddw==}
+  qs@6.16.0:
+    resolution: {integrity: sha512-h6fhOIaRrID2CbEY2fqs+7t+UXZo+MLAnU5gRIq85uFtdiUPCdsApMlHhXogKVM4HM2DVbIjGNTTYH2OcmP1vA==}
     engines: {node: '>=0.6'}
 
   querystringify@2.2.0:
@@ -3494,7 +3495,7 @@ snapshots:
       iconv-lite: 0.6.3
       n8n-workflow: 2.22.3(zod@3.25.76)
       proxy-from-env: 1.1.0
-      qs: 6.15.2
+      qs: 6.16.0
       reflect-metadata: 0.2.2
       undici: 7.29.0
       zod: 3.25.76
@@ -5449,8 +5450,9 @@ snapshots:
 
   punycode@2.3.1: {}
 
-  qs@6.15.2:
+  qs@6.16.0:
     dependencies:
+      es-define-property: 1.0.1
       side-channel: 1.1.1
 
   querystringify@2.2.0: {}
