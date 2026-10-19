@@ -5,12 +5,13 @@
 # overrides in pnpm-workspace.yaml instead (see SECURITY.md).
 
 [[IgnoredVulns]]
-id = "GHSA-528h-pc64-c93x"
+id = "GHSA-vfj7-8cjw-p6xm"
 ignoreUntil = 2026-12-31
 reason = """
-stream-json 1.9.1 (quadratic path-filter DoS). Dev-only transitive of
-@n8n/node-cli via @n8n/backend-common; never shipped, since package.json
-"files" is dist/docs/README only. Not overridable: the fix (stream-json 3.5.0)
-is pure ESM ("type": "module") and would break n8n's CommonJS dev runtime.
-Drop this entry once @n8n/backend-common bumps the dependency.
+braces <=3.0.3 (stack-exhaustion DoS via deeply nested patterns). Dev-only
+transitive of @n8n/node-cli (fast-glob > micromatch) and gulp; never shipped,
+since package.json "files" is dist/docs/README only, and it only ever sees our
+own build glob patterns. Not overridable: no patched braces release exists.
+Also ignored for pnpm audit via auditConfig.ignoreGhsas in pnpm-workspace.yaml.
+Drop both entries once braces publishes a fix.
 """
