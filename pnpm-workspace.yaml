@@ -13,10 +13,19 @@ overrides:
   axios: '1.20.0'
   # GHSA-4mjr-xmp4-gh2g, GHSA-x5fp-wj9c-mxmx (DoS) — dev-only transitive via @n8n/node-cli
   qs: '6.16.0'
-  # GHSA-528h-pc64-c93x (prototype pollution) — dev-only transitive via @n8n/node-cli
-  stream-json: '3.5.0'
+  # GHSA-p8wg-vrv2-v86f, GHSA-8r5x-fm3f-whwj (JavaScript injection) — dev-only transitive via @n8n/node-cli
+  handlebars: '4.7.10'
+  # GHSA-528h-pc64-c93x + 3.5.0 advisories (prototype pollution, JSONC re-scan) — dev-only transitive via @n8n/node-cli
+  stream-json: '3.6.0'
   # npm dist-tag stable; block 2.23+ beta-channel releases
   n8n-workflow: '2.22.3'
+
+# pnpm audit exceptions — same policy as osv-scanner.toml: dev-only, unshipped, no fix available.
+auditConfig:
+  ignoreGhsas:
+    # braces <=3.0.3 stack-exhaustion DoS; no patched release exists. Dev-only via
+    # @n8n/node-cli and gulp, only fed our own glob patterns. Remove once braces ships a fix.
+    - GHSA-vfj7-8cjw-p6xm
 
 # Only these packages may run install/build lifecycle scripts (Mini Shai-Hulud defense).
 onlyBuiltDependencies:
