@@ -5,18 +5,6 @@
 # overrides in pnpm-workspace.yaml instead (see SECURITY.md).
 
 [[IgnoredVulns]]
-id = "GHSA-vfj7-8cjw-p6xm"
-ignoreUntil = 2026-12-31
-reason = """
-braces <=3.0.3 (stack-exhaustion DoS via deeply nested patterns). Dev-only
-transitive of @n8n/node-cli (fast-glob > micromatch) and gulp; never shipped,
-since package.json "files" is dist/docs/README only, and it only ever sees our
-own build glob patterns. Not overridable: no patched braces release exists.
-Also ignored for pnpm audit via auditConfig.ignoreGhsas in pnpm-workspace.yaml.
-Drop both entries once braces publishes a fix.
-"""
-
-[[IgnoredVulns]]
 id = "GHSA-mrhx-c7xc-m3w5"
 ignoreUntil = 2027-01-24
 reason = """
@@ -25,4 +13,16 @@ dev-only peer of n8n-workflow, never shipped (package.json "files" excludes it),
 n8n-workflow still requires zod 3, for which no patched release exists.
 Also ignored for pnpm audit via auditConfig.ignoreGhsas in pnpm-workspace.yaml.
 Drop both entries once n8n-workflow moves to zod >=4.6.6.
+"""
+
+[[IgnoredVulns]]
+id = "GHSA-gcqx-w48m-w2h4"
+ignoreUntil = 2027-02-12
+reason = """
+deepmerge <=4.3.1 (prototype poisoning in mergeObject()). 4.3.1 is the latest
+release on npm and the advisory has no patched version. Dev-only transitive of
+@n8n/node-cli (@langchain/community > @browserbasehq/stagehand); never shipped,
+since package.json "files" is dist/docs/README only. Not overridable: there is
+no fixed release to pin. Also ignored for pnpm audit via auditConfig.ignoreGhsas
+in pnpm-workspace.yaml. Drop both entries once deepmerge publishes a fix.
 """
